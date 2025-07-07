@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MOVIEPUFF</title>
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=add" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
@@ -15,7 +14,7 @@
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=BenchNine:wght@300;400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../public/css/home.css">
+    <link rel="stylesheet" href="../public/css/userhome.css">
 </head>
 
 <body>
@@ -25,28 +24,34 @@
             <span id="searchfield">
                 <input type="text" placeholder="Search for movies" name="q">
                 <button class="clicker">
-                    <img src="../public/images/search.svg" alt="search">
+                    <img src="../public/assets/search.svg" alt="search">
                 </button>
             </span>
             <span id="locationfield">
-                <img src="../public/images/map.svg" alt="location">
+                <img src="../public/assets/map.svg" alt="location">
                 <span>Location</span>
-                <img id="select" src="../public/images/downarrow.svg">
+                <img id="select" src="../public/assets/downarrow.svg">
             </span>
             <button class="clicker">
-                <img src="../public/images/profile.svg" id="profile">
+                <img src="../public/assets/profile.svg" id="profile">
             </button>
         </section>
         <section id="banner">
-            <img
+            <button id="leftscroll"><span class="material-symbols-outlined">
+                    chevron_left
+                </span></button>
+            <img id="showimage"
                 src="https://img.freepik.com/premium-vector/realistic-popcorn-cinema-movie-watching-concept-online-filmshow-entertainment-3d-cinematic-objects-two-tickets-snack-drink-promotion-flyer-vector-horizontal-isolated-poster_176411-4140.jpg">
+                <button id="rightscroll"><span class="material-symbols-outlined">
+                    chevron_right
+                </span></button>
         </section>
         <div id="maincontent">
             <section id="filter">
                 <div id="browsebycinema">BROWSE BY CINEMA</div>
                 <div class="titleclass">
                     <h3 class="filtertitle">Genre</h3>
-                    <img src="../public/images/downarrow.svg">
+                    <img src="../public/assets/downarrow.svg">
                 </div>
                 <ul class="specificfilter">
                     <li><span class="text">Action</span><span class="material-symbols-outlined">
@@ -91,7 +96,7 @@
                 </ul>
                 <div class="titleclass">
                     <h3 class="filtertitle">Language</h3>
-                    <img src="../public/images/downarrow.svg">
+                    <img src="../public/assets/downarrow.svg">
                 </div>
                 <ul class="specificfilter">
                     <li><span class="text">Hindi</span><span class="material-symbols-outlined">
@@ -181,54 +186,54 @@
                 </section>
                 <h2 class="subtitles second">UPCOMING MOVIES</h2>
                 <section id="upcomingmovies">
-                <div class="card">
-                    <img
-                        src="https://img.freepik.com/premium-vector/realistic-popcorn-cinema-movie-watching-concept-online-filmshow-entertainment-3d-cinematic-objects-two-tickets-snack-drink-promotion-flyer-vector-horizontal-isolated-poster_176411-4140.jpg">
-                    <div class="info">
-                        <p>Movie Title</p>
-                        <p> Age | Genre</p>
+                    <div class="card">
+                        <img
+                            src="https://img.freepik.com/premium-vector/realistic-popcorn-cinema-movie-watching-concept-online-filmshow-entertainment-3d-cinematic-objects-two-tickets-snack-drink-promotion-flyer-vector-horizontal-isolated-poster_176411-4140.jpg">
+                        <div class="info">
+                            <p>Movie Title</p>
+                            <p> Age | Genre</p>
+                        </div>
                     </div>
-                </div>
-                <div class="card">
-                    <img
-                        src="https://img.freepik.com/premium-vector/realistic-popcorn-cinema-movie-watching-concept-online-filmshow-entertainment-3d-cinematic-objects-two-tickets-snack-drink-promotion-flyer-vector-horizontal-isolated-poster_176411-4140.jpg">
-                    <div class="info">
-                        <p>Movie Title</p>
-                        <p> Age | Genre</p>
+                    <div class="card">
+                        <img
+                            src="https://img.freepik.com/premium-vector/realistic-popcorn-cinema-movie-watching-concept-online-filmshow-entertainment-3d-cinematic-objects-two-tickets-snack-drink-promotion-flyer-vector-horizontal-isolated-poster_176411-4140.jpg">
+                        <div class="info">
+                            <p>Movie Title</p>
+                            <p> Age | Genre</p>
+                        </div>
                     </div>
-                </div>
-                <div class="card">
-                    <img
-                        src="https://img.freepik.com/premium-vector/realistic-popcorn-cinema-movie-watching-concept-online-filmshow-entertainment-3d-cinematic-objects-two-tickets-snack-drink-promotion-flyer-vector-horizontal-isolated-poster_176411-4140.jpg">
-                    <div class="info">
-                        <p>Movie Title</p>
-                        <p> Age | Genre</p>
+                    <div class="card">
+                        <img
+                            src="https://img.freepik.com/premium-vector/realistic-popcorn-cinema-movie-watching-concept-online-filmshow-entertainment-3d-cinematic-objects-two-tickets-snack-drink-promotion-flyer-vector-horizontal-isolated-poster_176411-4140.jpg">
+                        <div class="info">
+                            <p>Movie Title</p>
+                            <p> Age | Genre</p>
+                        </div>
                     </div>
-                </div>
-                <div class="card">
-                    <img
-                        src="https://img.freepik.com/premium-vector/realistic-popcorn-cinema-movie-watching-concept-online-filmshow-entertainment-3d-cinematic-objects-two-tickets-snack-drink-promotion-flyer-vector-horizontal-isolated-poster_176411-4140.jpg">
-                    <div class="info">
-                        <p>Movie Title</p>
-                        <p> Age | Genre</p>
+                    <div class="card">
+                        <img
+                            src="https://img.freepik.com/premium-vector/realistic-popcorn-cinema-movie-watching-concept-online-filmshow-entertainment-3d-cinematic-objects-two-tickets-snack-drink-promotion-flyer-vector-horizontal-isolated-poster_176411-4140.jpg">
+                        <div class="info">
+                            <p>Movie Title</p>
+                            <p> Age | Genre</p>
+                        </div>
                     </div>
-                </div>
-                <div class="card">
-                    <img
-                        src="https://img.freepik.com/premium-vector/realistic-popcorn-cinema-movie-watching-concept-online-filmshow-entertainment-3d-cinematic-objects-two-tickets-snack-drink-promotion-flyer-vector-horizontal-isolated-poster_176411-4140.jpg">
-                    <div class="info">
-                        <p>Movie Title</p>
-                        <p> Age | Genre</p>
+                    <div class="card">
+                        <img
+                            src="https://img.freepik.com/premium-vector/realistic-popcorn-cinema-movie-watching-concept-online-filmshow-entertainment-3d-cinematic-objects-two-tickets-snack-drink-promotion-flyer-vector-horizontal-isolated-poster_176411-4140.jpg">
+                        <div class="info">
+                            <p>Movie Title</p>
+                            <p> Age | Genre</p>
+                        </div>
                     </div>
-                </div>
-                <div class="card">
-                    <img
-                        src="https://img.freepik.com/premium-vector/realistic-popcorn-cinema-movie-watching-concept-online-filmshow-entertainment-3d-cinematic-objects-two-tickets-snack-drink-promotion-flyer-vector-horizontal-isolated-poster_176411-4140.jpg">
-                    <div class="info">
-                        <p>Movie Title</p>
-                        <p> Age | Genre</p>
+                    <div class="card">
+                        <img
+                            src="https://img.freepik.com/premium-vector/realistic-popcorn-cinema-movie-watching-concept-online-filmshow-entertainment-3d-cinematic-objects-two-tickets-snack-drink-promotion-flyer-vector-horizontal-isolated-poster_176411-4140.jpg">
+                        <div class="info">
+                            <p>Movie Title</p>
+                            <p> Age | Genre</p>
+                        </div>
                     </div>
-                </div>
                 </section>
             </div>
         </div>
@@ -236,6 +241,7 @@
     <footer id="footer">
 
     </footer>
+    <script src="../public/js/userhome.js"></script>
 </body>
 
 </html>
