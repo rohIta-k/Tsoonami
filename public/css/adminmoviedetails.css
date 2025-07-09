@@ -1,0 +1,408 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#navbar {
+    background-color: #FF5B5C;
+    border-radius: 200px;
+    margin: 15px 5px 25px 5px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    padding: 0px 25px;
+    justify-content: space-between;
+}
+
+#title {
+    color: white;
+    font-family: "Fredoka", sans-serif;
+    font-weight: 700;
+    font-size: 36px;
+    display: inline-block;
+}
+
+#searchfield {
+    display: flex;
+    background-color: white;
+    flex-basis: 600px;
+    border-radius: 90px;
+    height: 45px;
+    box-sizing: border-box;
+    align-items: center;
+    flex-shrink: 3;
+    margin-left: 20px;
+}
+
+#searchfield input {
+    border: none;
+    border-radius: 90px;
+    font-size: 18px;
+    flex: 1;
+    height: 35px;
+    margin-right: 0;
+    justify-content: center;
+    padding-left: 15px;
+    font-family: "Be Vietnam Pro", sans-serif;
+}
+
+#searchfield .clicker {
+    border: none;
+    background-color: yellow;
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+}
+
+#searchfield img {
+    background-color: yellow;
+    object-fit: contain;
+}
+
+.clicker {
+    background-color: #DEDDDD;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: none;
+    flex-shrink: 1;
+    margin-left: 10px;
+}
+
+#description {
+    width: 98%;
+    display: flex;
+    margin: 0px auto;
+    position: relative;
+    margin-bottom: 25px;
+}
+
+#bg-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 2vw;
+    filter: brightness(50%);
+    position: absolute;
+    top: 0;
+    left: 0;
+
+}
+
+#mainstart {
+    display: flex;
+    position: relative;
+    padding: 50px 16px 50px 30px;
+}
+
+#imagedetails {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 24px;
+}
+
+#imagedetails img {
+    width: 30vw;
+    height: 500px;
+    border-radius: 1vw;
+    margin-bottom: 30px;
+}
+
+#imagedetails button {
+    height: 50px;
+    background-color: yellow;
+    width: 20vw;
+    border: none;
+    border-radius: 0.5vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 22px;
+}
+
+#content {
+    display: flex;
+    flex-direction: column;
+}
+
+#line-one {
+    display: flex;
+}
+
+#movietitle {
+    font-size: 30px;
+    font-family: "Josefin Sans", sans-serif;
+    margin-bottom: 20px;
+    flex-grow: 1;
+    color: white;
+}
+
+#genres {
+    display: flex;
+}
+
+#genres button {
+    margin-right: 8px;
+    height: 20px;
+    background-color: #FFEAEA;
+    border-radius: 0.5vw;
+    border: none;
+    font-family: "Michroma", sans-serif;
+    padding: 0px 12px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#specifics {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.colored {
+    border-radius: 0.5vw;
+    font-family: 'Be Vietnem Pro', sans-serif;
+    margin-right: 8px;
+    height: 14px;
+    padding: 4px 4px;
+    font-size: 10px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+#imdb {
+    background-color: yellow;
+}
+
+#age {
+    background-color: #2DD39A;
+}
+
+#duration {
+    background-color: #A278F4;
+}
+
+.spec-info {
+    font-family: "Inter", sans-serif;
+    margin-right: 12px;
+    font-size: 12px;
+    color: white;
+}
+
+#language {
+    display: flex;
+    font-family: "Instrument Sans", sans-serif;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+#lang-text {
+    margin-right: 12px;
+    color: white;
+}
+
+#language button {
+    font-family: "Instrument Sans", sans-serif;
+    padding: 4px 6px;
+    background-color: #B6E2E0;
+    border-radius: 0.5vw;
+    border: none;
+    margin-right: 12px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+}
+
+#spec-lang {
+    display: flex;
+    flex-grow: 1;
+}
+
+#sub-container {
+    display: flex;
+    align-items: center;
+}
+
+#left {
+    display: flex;
+    flex-direction: column;
+    flex: 2.2;
+}
+
+#plot {
+    font-size: 16px;
+    font-family: "Instrument Sans", sans-serif;
+    line-height: 1.5em;
+    margin-bottom: 28px;
+    margin-right: 20px;
+    color: white;
+}
+
+#vr {
+    width: 3px;
+    color: white;
+    background-color: white;
+    height: 100%;
+}
+
+.people-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.people-sub {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 15vw;
+    margin-bottom: 42px;
+}
+
+.writers {
+    margin-bottom: 0px;
+}
+
+.cast-sub {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+#cast {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#cast img {
+    height: 3.5vw;
+    width: 3.5vw;
+    border-radius: 50%;
+}
+
+.cast-spec {
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.7);
+    height: 3.5vw;
+    border-radius: 1.8vw;
+    margin: 0px 8px 8px 0px;
+}
+
+.cast-names {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: "Instrument Sans", sans-serif;
+    align-items: center;
+    padding: 0px 10px 0px 6px;
+}
+
+.cast-names span {
+    font-size: 12px;
+    color: #DEDDDD;
+}
+
+h3 {
+    font-family: "Bebas Neue", sans-serif;
+    color: white;
+    font-size: 30px;
+}
+
+.director {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.director ul {
+    list-style-type: none;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    color: white;
+}
+
+.director ul li {
+    margin-bottom: 18px;
+}
+
+#background {
+    height: 24px;
+    background-color: yellow;
+    border: none;
+    border-radius: 0.5vw;
+    padding: 4px 8px;
+    font-family: "Instrument Sans", sans-serif;
+    font-weight: 400;
+}
+
+#second-nav {
+    width: 95%;
+    display: flex;
+    border-radius: 0.5vw;
+    height: 75px;
+    margin: 0px auto;
+    background-color: rgba(253, 217, 217, 0.8);
+    padding: 8px 16px;
+}
+
+#date {
+    display: flex;
+    align-items: center;
+    margin-right: 30px;
+}
+
+.date-card {
+    background-color: #B7C7D3;
+    flex: 1;
+    margin-right: 12px;
+    border-radius: 1vw;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    padding: 4px 8px;
+    align-items: center;
+}
+
+.month {
+    font-family: "BenchNine", sans-serif;
+    font-size: 16px;
+}
+
+.datee {
+    font-family: "Be Vietnam Pro", sans-serif;
+    font-size: 22px;
+}
+
+.day {
+    font-family: "Be Vietnam Pro", sans-serif;
+    font-size: 14px;
+}
+
+#select-options {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: center;
+}
+
+.format {
+    padding: 10px 16px;
+    border: none;
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 16px;
+    border-radius: 1vw;
+    outline: none;
+    margin-right: 20px;
+    flex-grow: 1;
+}
