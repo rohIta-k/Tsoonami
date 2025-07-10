@@ -91,7 +91,7 @@
 #mainstart {
     display: flex;
     position: relative;
-    padding: 50px 16px 50px 30px;
+    padding: 50px 16px 30px 30px;
 }
 
 #imagedetails {
@@ -102,7 +102,7 @@
 }
 
 #imagedetails img {
-    width: 30vw;
+    width: 25vw;
     height: 500px;
     border-radius: 1vw;
     margin-bottom: 30px;
@@ -120,6 +120,7 @@
     color: black;
     font-family: 'Be Vietnam Pro', sans-serif;
     font-size: 22px;
+    margin-bottom: 20px;
 }
 
 #content {
@@ -134,7 +135,7 @@
 #movietitle {
     font-size: 30px;
     font-family: "Josefin Sans", sans-serif;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     flex-grow: 1;
     color: white;
 }
@@ -155,13 +156,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 #specifics {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .colored {
@@ -198,7 +199,7 @@
 #language {
     display: flex;
     font-family: "Instrument Sans", sans-serif;
-    margin-bottom: 30px;
+    margin-bottom: 35px;
     flex-wrap: wrap;
 }
 
@@ -239,7 +240,7 @@
     font-size: 16px;
     font-family: "Instrument Sans", sans-serif;
     line-height: 1.5em;
-    margin-bottom: 28px;
+    margin-bottom: 35px;
     margin-right: 20px;
     color: white;
 }
@@ -354,6 +355,7 @@ h3 {
     margin: 0px auto;
     background-color: rgba(253, 217, 217, 0.8);
     padding: 8px 16px;
+    margin-bottom: 30px;
 }
 
 #date {
@@ -389,20 +391,154 @@ h3 {
     font-size: 14px;
 }
 
-#select-options {
+#formats {
     display: flex;
     align-items: center;
     flex: 1;
     justify-content: center;
 }
 
-.format {
-    padding: 10px 16px;
+.formats-sub {
+    display: flex;
+    flex-grow: 1;
+    background-color: white;
+    padding: 10px 20px;
+    border-radius: 0.5vw;
+    margin-right: 16px;
+    justify-content: flex-start;
+}
+
+.formats-sub button {
+    text-align: left;
+    flex-grow: 1;
+    background-color: white;
     border: none;
     font-family: 'Instrument Sans', sans-serif;
     font-size: 16px;
+    margin-right: 8px;
+}
+
+#addbar {
+    display: flex;
+    width: 95%;
+    margin: 0px auto;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+#theatres {
+    width: 50vw;
+    background-color: rgba(255, 91, 92, 0.7);
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 24px;
+    padding: 10px;
     border-radius: 1vw;
-    outline: none;
     margin-right: 20px;
+    display: flex;
+}
+
+#theatres span {
     flex-grow: 1;
+}
+
+#addshow-time {
+    background-color: rgba(255, 91, 92, 0.7);
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 24px;
+    padding: 10px 20px;
+    border-radius: 1vw;
+    margin-right: 20px;
+    display: flex;
+}
+
+#about-theatres {
+    background-color: #FCF8F8;
+    width: 95%;
+    margin: 0px auto;
+    display: flex;
+    flex-direction: column;
+    padding: 0px 16px;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.about-one {
+    display: flex;
+    margin-bottom: 8px;
+    justify-content: space-evenly;
+    height: 90px;
+}
+
+.name-info {
+    justify-content: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-right: 24px;
+    padding-top: 24px;
+    margin-left: 20px;
+}
+
+.movie-title {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.more-info {
+    padding: 4px 4px;
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 91, 92, 0.7);
+    border-radius: 0.7vw;
+    width: 16%;
+    font-size: 12px;
+
+}
+
+.manage-showtime {
+    display: flex;
+    flex: 1.8;
+    align-items: center;
+
+}
+
+.each-showtime {
+    display: flex;
+    padding: 10px;
+    border: none;
+    border-left: 4px solid rgba(229, 26, 90, 0.35);
+    background-color: white;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    margin-right: 12px;
+    align-items: enter;
+}
+
+.all-showtimes {
+    display: flex;
+    margin-right: 20px;
+    align-items: center;
+    flex-wrap:wrap;
+}
+
+.plus {
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 91, 92, 0.7);
+    font-size: 24px;
+}
+
+.subtract {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: rgba(255, 91, 92, 0.7);
+    font-weight: 300;
+    margin-left: 10px;
+    font-size: 30px;
 }
