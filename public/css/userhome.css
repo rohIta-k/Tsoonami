@@ -1,4 +1,4 @@
-.container {
+.container{
     display: flexbox;
     flex-wrap: wrap;
     justify-content: center; 
@@ -6,40 +6,46 @@
     padding-left: 26px;
     padding-top: 6px;
 }
+
 .Imgbox{
     height: 160px;
     width: 220px;
     gap: 20px;
 }
+
 .Imgbox img{
     height: 100%;
     width: 100%;
     object-fit: cover;
     display: block;
 }
-.Namebox{
-    position: fixed;
-    
-    width: 215px;
-    height:26px;
-    background-color: rgba(255, 253, 127, 0.6);
 
+.Namebox{
+    margin-left: 9px;
+    margin-top:3px
+    position: fixed;
+    width: 195px;
+    height:25px;
+    background-color: rgba(255, 253, 127, 0.5);
 }
+
 .FullPopup {
+    border-radius: 5px;
    position:fixed;
    margin-left:260px;
    margin-top: 25px;
     width: 725px;
     height: 450px;
     background-color:rgb(254, 246, 246);
-
 }
+
 .chooselocation{
     font-family: Josefin sans;
     font-size: 26px;
     margin-left: 26px;
-    margin-top:10px;
+    margin-top:17px;
 }
+
 .Citysearch{
     padding-left: 5px;
     position: relative;
@@ -49,12 +55,15 @@
     margin-bottom: 10px;
     height: 32px;
 }
+
 .Imgname{
     font-size: 15px;
     font-family: Josefin sans;
     margin-top: 6px;
-
+    margin-left: 8px;
+    text-align: left;
 }
+
 * {
     margin: 0;
     padding: 0;
