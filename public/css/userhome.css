@@ -1,3 +1,60 @@
+.container {
+    display: flexbox;
+    flex-wrap: wrap;
+    justify-content: center; 
+    gap: 20px;
+    padding-left: 26px;
+    padding-top: 6px;
+}
+.Imgbox{
+    height: 160px;
+    width: 220px;
+    gap: 20px;
+}
+.Imgbox img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+}
+.Namebox{
+    position: fixed;
+    
+    width: 215px;
+    height:26px;
+    background-color: rgba(255, 253, 127, 0.6);
+
+}
+.FullPopup {
+   position:fixed;
+   margin-left:260px;
+   margin-top: 15px;
+    width: 725px;
+    height: 475px;
+    background-color:rgb(254, 246, 246);
+
+}
+.chooselocation{
+    font-family: Josefin sans;
+    font-size: 26px;
+    margin-left: 26px;
+    margin-top:10px;
+}
+.Citysearch{
+    padding-left: 5px;
+    position: relative;
+    width: 390px;
+    left:26px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 32px;
+}
+.Imgname{
+    font-size: 15px;
+    font-family: Josefin sans;
+    margin-top: 6px;
+
+}
 * {
     margin: 0;
     padding: 0;
