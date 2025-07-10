@@ -28,9 +28,9 @@
 .FullPopup {
    position:fixed;
    margin-left:260px;
-   margin-top: 15px;
+   margin-top: 25px;
     width: 725px;
-    height: 465px;
+    height: 450px;
     background-color:rgb(254, 246, 246);
 
 }
