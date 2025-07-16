@@ -1,0 +1,388 @@
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'josefin sans';
+            background-color: #f5f0f3; 
+            color: #333;
+            min-height: 100vh; 
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            padding: 15px;
+            overflow-x: hidden; 
+           
+        }
+
+        header {
+            background-color: #ff535f; 
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 9px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content:space-between;
+            align-items:stretch;
+            width: 100%;
+             max-width: 1330px;
+            margin-bottom: 25px;
+            flex-wrap: wrap; 
+            gap: 10px;
+        }
+
+        header h1 {
+            font-size: 1.8em;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin: 0;
+            font-family: 'kirang haerang';
+        }
+
+        .confirmation-message {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            background-color: #c6ffd3; 
+            padding: 10px 20px;
+            border-radius: 0px;
+            box-shadow: 0 5px 15px rgba(0, 128, 0, 0.25);
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .confirmation-message .checkmark {
+            font-size: 3em;
+            color: #28a745; 
+            line-height: 1; 
+        }
+
+        .confirmation-message h2 {
+            font-size: 2.5em;
+            color: #28a745; 
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .ticket-card {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-wrap: wrap; 
+            width: 100%;
+            max-width: 900px;
+            overflow: hidden; 
+        }
+
+        .ticket-left-section {
+            flex: 2; 
+            padding: 30px;
+            display: flex;
+            gap: 25px;
+            align-items: flex-start;
+            border-right: 1px dashed #e0e0e0; 
+        }
+
+        .movie-poster {
+            width: 120px;
+            height: 180px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            object-fit: cover; 
+            background-color: #ccc;  
+            display: block; 
+        }
+
+        .movie-info {
+            flex: 1;
+              border-bottom: 1px dashed #e0e0e0;
+        }
+
+        .movie-info h3 {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .movie-info p {
+            font-size: 0.95em;
+            color: #666;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+
+        .movie-info .time-date {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #e91e63;
+            margin-top: 15px;
+            margin-bottom: 20px;
+            border-top: 1px dashed #e0e0e0;
+            padding-top: 15px;
+        }
+
+        .ticket-middle-section {
+            flex: 1; 
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 15px;
+            border-right: 1px dashed #e0e0e0;
+        }
+
+        .seat-type, .seat-numbers, .screen-number {
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            padding: 12px 15px;
+            font-size: 0.95em;
+            font-weight: 600;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .seat-type svg {
+            color: #e91e63; 
+            font-size: 1.2em;
+        }
+
+        .ticket-right-section {
+            flex: 1; 
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 20px;
+        }
+
+        .qr-code {
+            width: 130px;
+            height: 130px;
+            background-color: #eee;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            color: #888;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .booking-id-display {
+            font-size: 1em;
+            font-weight: 500;
+            color: #333;
+            letter-spacing: 1px;
+        }
+        #booking-id-code{
+            font-size: 1.6em;
+            font-weight: 550;
+        }
+
+        .download-button {
+            background-color: #00ec23; 
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 3px 10px rgba(0, 123, 255, 0.2);
+        }
+
+        .download-button:hover {
+            background-color: #09b300;
+            transform: translateY(-1px);
+        }
+
+        .download-button:active {
+            background-color: #036817;
+            transform: translateY(0);
+        }
+
+        .download-button svg {
+            font-size: 1.1em;
+        }
+        .home-svg:hover {
+            background-color: #68000071;
+            transform: translateY(-1px);
+            border-radius: 3px;
+        }
+
+        .home-svg:active {
+            background-color: #ff7c7c;
+            transform: translateY(0);
+        }
+
+        .bottom-details {
+            background-color: #fff;
+            padding: 25px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            margin-top: 30px;
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            flex-wrap: wrap; 
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px 30px;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .detail-item strong {
+            color: #333;
+            font-size: 1.05em;
+            margin-top: 5px;
+        }
+
+        .amount-paid {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #28a745;
+            margin-left: auto; 
+        }
+
+        .amount-paid .check-icon {
+            font-size: 1.5em;
+            color: #28a745;
+        }
+
+        @media (max-width: 850px) {
+            .ticket-card {
+                flex-direction: column; 
+            }
+
+            .ticket-left-section,
+            .ticket-middle-section,
+            .ticket-right-section {
+                border-right: none; 
+                border-bottom: 1px dashed #e0e0e0;
+                width: 100%;
+                padding: 20px;
+                justify-content: center; 
+                align-items: center;
+                text-align: center;
+            }
+
+            .ticket-middle-section {
+                flex-direction: row; 
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+                align-items: center;
+            }
+
+            .movie-info {
+                text-align: center;
+            }
+
+            .movie-info h3 {
+                font-size: 1.5em;
+            }
+
+            .movie-info p {
+                font-size: 0.9em;
+            }
+
+            .movie-poster {
+                width: 100px;
+                height: 150px;
+            }
+
+            .ticket-left-section {
+                flex-direction: column; 
+                align-items: center;
+            }
+
+            .bottom-details {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+                gap: 10px;
+            }
+
+            .amount-paid {
+                margin-left: 0; 
+                width: 100%;
+                justify-content: flex-start;
+            }
+            }
+
+        @media (max-width: 550px) {
+            header {
+                padding: 10px 20px;
+            }
+            header h1 {
+                font-size: 1.5em;
+            }
+            .confirmation-message {
+                flex-direction: column;
+                text-align: center;
+                padding: 15px 20px;
+            }
+            .confirmation-message .checkmark {
+                font-size: 2.5em;
+            }
+            .confirmation-message h2 {
+                font-size: 1.8em;
+            }
+            .ticket-card {
+                border-radius: 10px;
+            }
+            .ticket-left-section,
+            .ticket-middle-section,
+            .ticket-right-section {
+                padding: 15px;
+            }
+            .movie-info h3 {
+                font-size: 1.3em;
+            }
+            .movie-info p, .seat-type, .seat-numbers, .screen-number {
+                font-size: 0.85em;
+            }
+            .qr-code {
+                width: 120px;
+                height: 120px;
+            }
+            .booking-id {
+                font-size: 1.1em;
+            }
+            .download-button {
+                padding: 8px 15px;
+                font-size: 0.8em;
+            }
+            .bottom-details {
+                padding: 15px;
+            }
+            .detail-item, .amount-paid {
+                font-size: 0.85em;
+            }
+        }
