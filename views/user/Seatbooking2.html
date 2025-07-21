@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Your Seats</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Kirang+Haerang&display=swap"
+        rel="stylesheet">
+        <link rel="stylesheet" href="Seatbooking2.css">
+</head>
+
+<body>
+
+    <div class="top-nav">
+        <span class="back-arrow">&#8592;</span>
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color-box available"></div>
+                <span>Available</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color-box selected"></div>
+                <span>Selected</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color-box sold"></div>
+                <span>Sold</span>
+            </div>
+        </div>
+        <div class="ticket-count">
+            <span>2 TICKETS</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-chevron-right">
+                <path d="m9 18 6-6-6-6" />
+            </svg>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="left-panel">
+            <div class="movie-details-card">
+                <h3 class="movie-title">Sitaare Zameen Par</h3>
+                <p class="movie-language">Hindi, 2D</p>
+                <div class="date-time-row">
+                    <span>Mon, 7 July 2025</span>
+                    <span class="time-box">7:30 PM</span>
+                </div>
+                <p class="cinema-info">PVR INOX: Infiniti Mall, Gachibowli, Hyderabad</p>
+                <div class="selected-seats-info">
+                    <span>Selected seats</span>
+                    <div class="seat-placeholders">
+                        <div class="placeholder-box">B1</div>
+                        <div class="placeholder-box">B2</div>
+                        <div class="placeholder-box">B3</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="booking-summary-card">
+                <h2>BOOKING SUMMARY</h2>
+                <div class="summary-item">
+                    <span>B6,B7,B8 (3 seats)</span>
+                    <span>300</span>
+                </div>
+                <div class="summary-item">
+                    <span>Convenience fee</span>
+                    <span>100</span>
+                </div>
+                <div class="summary-total">
+                    <span>Sub total</span>
+                    <span>400</span>
+                </div>
+                <button class="book-tickets-button">BOOK TICKETS</button>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="seat-category">
+                <h3>RECLINER: 325</h3>
+                <p>Price: 150</p>
+            </div>
+            <div class="seat-category">
+                <h3>PRIME: 325</h3>
+                <p>Price: 150</p>
+            </div>
+            <div class="seat-category">
+                <h3>CLASSIC: 325</h3>
+                <p>Price: 100</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
