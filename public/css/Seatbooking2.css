@@ -1,0 +1,408 @@
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: 'josefin sans', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .top-nav {
+            background-color: #ffffffcc;
+            color: #fff;
+            width: 100%;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .top-nav .back-arrow {
+            font-size: 1.8em;
+            cursor: pointer;
+            color: #000000;
+        }
+
+        .top-nav .ticket-count {
+            background-color: #ff5b5c;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .top-nav .ticket-count:hover {
+            background-color: #c2185b;
+        }
+
+        .top-nav .ticket-count svg {
+            font-size: 1.1em;
+        }
+
+        .main-container {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 20px;
+            gap: 20px;
+            padding: 0 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .left-panel {
+            flex: 0 0 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .movie-details-card {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .movie-details-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 115px;
+            background-color: #ff5b5c;
+            border-radius: 12px 12px 0 0;
+            z-index: 0;
+            transform: translateY(-50px);
+            font-family: 'josefin sans';
+        }
+
+        .movie-details-card h3 {
+            font-size: 1.2em;
+            color: #fff;
+            font-weight: 700;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .movie-details-card p {
+            font-size: 1em;
+            color: #f0f0f0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .movie-details-card .movie-title {
+            color: #fff;
+        }
+
+        .movie-details-card .movie-language {
+            color: #000000;
+            margin-bottom: 10px;
+        }
+
+        .movie-details-card .date-time-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 0px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .movie-details-card .date-time-row span {
+            background-color: #ff4e4e98;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9em;
+            white-space: nowrap;
+        }
+
+        .movie-details-card .date-time-row .time-box {
+            background-color: #ff4e4e98;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .movie-details-card .date-time-row .time-box:hover {
+            background-color: #a0104a;
+        }
+
+        .movie-details-card .cinema-info {
+            font-size: 0.9em;
+            color: #000000;
+            margin-top: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .movie-details-card .selected-seats-info {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px dashed #e0e0e0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .movie-details-card .selected-seats-info span {
+            font-size: 0.9em;
+            color: #666;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .seat-placeholders {
+            display: flex;
+            gap: 5px;
+        }
+
+        .seat-placeholders .placeholder-box {
+            width: 30px;
+            height: 30px;
+            background-color: #b0e0e6;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            padding: 7px 5px 3px 5px;
+        }
+
+        .booking-summary-card {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .booking-summary-card h2 {
+            font-size: 1.3em;
+            color: #333;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed #e0e0e0;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95em;
+            color: #555;
+        }
+
+        .summary-total {
+            border-top: 1px dashed #e0e0e0;
+            padding-top: 15px;
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .book-tickets-button {
+            background-color: #e91e63;
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(233, 30, 99, 0.3);
+        }
+
+        .book-tickets-button:hover {
+            background-color: #c2185b;
+            transform: translateY(-2px);
+        }
+
+        .book-tickets-button:active {
+            background-color: #a0104a;
+            transform: translateY(0);
+        }
+
+
+        .right-panel {
+            flex: 1;
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+            margin: 20px 0px 15px 500px;
+            flex-wrap: wrap;
+
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9em;
+            color: #2d2d2d;
+        }
+
+        .legend-color-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+
+        }
+
+        .legend-color-box.available {
+            background-color: #ffc0cb;
+        }
+
+        .legend-color-box.selected {
+            background-color: #e91e63;
+        }
+
+        .legend-color-box.sold {
+            background-color: #b0e0e6;
+        }
+
+        .seat-category {
+            background-color: #f8f8f8;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.03);
+            height: 32%;
+            gap: 5px;
+        }
+
+        .seat-category h3 {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .seat-category p {
+            font-size: 1.1em;
+            color: #555;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        @media (max-width: 850px) {
+            .main-container {
+                flex-direction: column;
+                align-items: center;
+                padding: 0 15px;
+            }
+
+            .left-panel {
+                flex: none;
+                width: 100%;
+                max-width: 400px;
+            }
+
+            .right-panel {
+                flex: none;
+                width: 100%;
+                padding: 20px;
+            }
+
+            .top-nav {
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px 15px;
+            }
+
+            .top-nav .ticket-count {
+                margin-top: 10px;
+            }
+
+            .legend {
+                justify-content: center;
+                margin-bottom: 15px;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .main-container {
+                padding: 0 10px;
+            }
+
+            .left-panel {
+                max-width: 100%;
+            }
+
+            .movie-details-card,
+            .booking-summary-card,
+            .right-panel {
+                padding: 20px;
+            }
+
+            .movie-details-card h3 {
+                font-size: 1.3em;
+            }
+
+            .movie-details-card p {
+                font-size: 0.85em;
+            }
+
+            .booking-summary-card h2 {
+                font-size: 1.1em;
+            }
+
+            .summary-item,
+            .summary-total {
+                font-size: 0.9em;
+            }
+
+            .book-tickets-button {
+                padding: 12px 20px;
+                font-size: 1em;
+            }
+
+            .seat-category h3 {
+                font-size: 1.2em;
+            }
+
+            .seat-category p {
+                font-size: 1em;
+            }
+        }
