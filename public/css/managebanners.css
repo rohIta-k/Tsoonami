@@ -1,0 +1,180 @@
+#bannerspopup {
+            height: 60%;
+            width: 40%;
+            background-color: rgb(215, 248, 250);
+            align-items: center;
+            align-self: center;
+            border-radius: 12px;
+            margin: 20px;
+            padding: 15px;
+            box-shadow: 0.3px 0.3px 0.9px rgb(105, 132, 147);
+
+        }
+
+        #bannertitle {
+            font-family: 'josefin sans';
+            font-size: 20px;
+            text-align: center;
+            padding: 10px 10px 10px 10px;
+           font-weight: 600;
+
+        }
+
+        #addbanner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #bannerdisplay {
+    
+            display: flex;
+            max-height: 150px;
+            width: 95%;
+            gap: 20px;
+            padding: 20px;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+
+        .imgg {
+            height: 85px;
+            width: 110px;
+            background-color: #535252;
+            border-radius: 4px;
+
+        }
+
+        .parent {
+            position: relative;
+        }
+
+        .deletebanner {
+            cursor: default;
+            position: absolute;
+            top: 85%;
+            left: 60%;
+            font-size: 13px;
+            background-color: #FF5B5C;
+            color: azure;
+            border: none;
+            border-radius: 6px;
+            padding: 3px 6px 3px 6px;
+            z-index: 2;
+        }
+
+        .deletebanner:hover {
+            cursor: pointer;
+            background-color: crimson;
+        }
+
+
+        .file-input-section {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 24px;
+            margin-top: 32px;
+        }
+
+        .custom-file-wrapper {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .custom-input {
+            opacity: 0;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .custom-file-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #FFB6B8;
+            color: #ab0d0d;
+            padding: 12px 22px;
+            font-family: 'josefin sans';
+            border-radius: 50px;
+            
+
+            border: 1px solid #FF5B5C;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .custom-file-label:hover {
+            cursor: pointer;
+        }
+
+
+        .file-name-display {
+            background-color: #FFB6B8;
+            color: #ab0d0d;
+            padding: 12px 22px;
+            border-radius: 50px;
+            font-weight: 500;
+            font-family: 'josefin sans';
+            flex-grow: 1;
+            text-align: left;
+            border: 1px solid #FF5B5C;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+
+
+        .add-remove {
+            width: 50%;
+            background-color: #FF5B5C;
+            border-radius: 1vw;
+            padding: 10px;
+            border: none;
+            font-family: 'Josefin Sans';
+            color: white;
+            margin-bottom: 15px;
+            font-size: 16px;
+            box-shadow: 0.5px 0.5px 1px rgb(141, 49, 49);
+        }
+
+        .add-remove:hover {
+            cursor: pointer;
+        }
+
+        .add-remove:active {
+            transform: translateY(+2%);
+            background-color: #c93737;
+        }
+
+
+
+
+        #bannerdisplay {
+            display: flex;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            width: 70%;
+           margin-left: 55px;
+        }
+
+        #bannerdisplay::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        #bannerdisplay::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        #bannerdisplay::-webkit-scrollbar-thumb {
+            background-color: #df1c5d;
+            border-radius: 10px;
+            width: 4px;
+            height: 4px;
+        }
+
+    
