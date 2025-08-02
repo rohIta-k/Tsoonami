@@ -1,8 +1,8 @@
 const axios=require('axios');
 const tmdb=axios.create({
-    root:'https://api.themoviedb.org/3',
+    baseURL:'https://api.themoviedb.org/3',
     params:{
-        apikey:process.env.tmdb-api-key,
+        api_key:process.env.TMDB_API_KEY,
         language:'en-US'
     }
 });

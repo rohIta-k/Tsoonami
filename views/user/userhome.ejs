@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOVIEPUFF</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=BenchNine:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kirang+Haerang&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/css/userhome.css">
+</head>
+
+<body>
+    <div id="backdrop">
+        <div class="FullPopup">
+            <div class="chooselocation">CHOOSE LOCATION</div>
+            <div class="container">
+                <button class="Imgbox">
+                    <div class="Namebox">Bengaluru
+                    </div>
+                    <img src="/assets/blr.avif" alt="Imgbengaluru" />
+                </button>
+                <button class="Imgbox">
+                    <div class="Namebox">Chennai
+                    </div>
+                    <img src="/assets/chennai.avif" alt="Imgbengaluru" />
+                </button>
+                <button class="Imgbox">
+                    <div class="Namebox">Delhi
+                    </div>
+                    <img src="/assets/delhi.webp" alt="Imgbengaluru" />
+                </button>
+                <button class="Imgbox">
+                    <div class="Namebox">Hyderabad
+                    </div>
+                    <img src="/assets/hyd.jpg" alt="Imgbengaluru" />
+                </button>
+                <button class="Imgbox">
+                    <div class="Namebox">Kolkata
+                    </div>
+                    <img src="/assets/kol.webp" alt="Imgbengaluru" />
+                </button>
+                <button class="Imgbox">
+                    <div class="Namebox">Mumbai
+                    </div>
+                    <img src="/assets/bom.avif" alt="Imgbengaluru" />
+                </button>
+                <button class="Imgbox">
+                    <div class="Namebox">Ahmedabad
+                    </div>
+                    <img src="/assets/ahm.jpeg" alt="Imgbengaluru" />
+                </button>
+                <button class="Imgbox">
+                    <div class="Namebox">Jaipur
+                    </div>
+                    <img src="/assets/jai.jpg" alt="Imgbengaluru" />
+                </button>
+                <button class="Imgbox">
+                    <div class="Namebox">Visakhapatnam
+                    </div>
+                    <img src="/assets/vis.webp" alt="Imgbengaluru" />
+                </button>
+
+
+            </div>
+        </div>
+    </div>
+    <main>
+        <section id="navbar">
+            <h1 id="title">TSOONAMI</h1>
+            <span id="searchfield">
+                <input type="text" placeholder="Search and add movies" name="q" autocomplete="off">
+                <span class="material-symbols-outlined search-icon">
+                    search
+                </span>
+                <div id="results">
+                    <ul id="results-ul">
+                    </ul>
+                </div>
+            </span>
+            <div id="location">
+                <span class="material-symbols-outlined">
+                    location_on
+                </span>
+                <span id="locname">Location</span>
+            </div>
+            <div class="profile-icon">
+                <span class="material-symbols-outlined">person</span>
+            </div>
+        </section>
+        <section id="banner">
+            <img id="showimage" src="/assets/banner_one.jpeg">
+            <button class="banner-arrow left" id="leftscroll">
+                <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+            <button class="banner-arrow right" id="rightscroll">
+                <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+        </section>
+        <div id="maincontent">
+            <section id="filter">
+                <div id="browsebycinema">BROWSE BY CINEMA</div>
+                <div class="titleclass">
+                    <div class="filtertitle">Genre</div>
+                    <img src="/assets/downarrow.svg" id="genree">
+                </div>
+                <ul class="specificfilter hidden" id="genredetail">
+                    <li><span class="text">Action</span></li>
+                    <li><span class="text">Adventure</span></li>
+                    <li><span class="text">Animation</span></li>
+                    <li><span class="text">Comedy</span></li>
+                    <li><span class="text">Crime</span></li>
+                    <li><span class="text">Documentary</span></li>
+                    <li><span class="text">Drama</span></li>
+                    <li><span class="text">Family</span></li>
+                    <li><span class="text">Fantasy</span></li>
+                    <li><span class="text">History</span></li>
+                    <li><span class="text">Horror</span></li>
+                    <li><span class="text">Music</span></li>
+                    <li><span class="text">Mystery</span></li>
+                    <li><span class="text">Romance</span></li>
+                    <li><span class="text">Science Fiction</span></li>
+                    <li><span class="text">TV Movie</span></li>
+                    <li><span class="text">Thriller</span></li>
+                    <li><span class="text">War</span></li>
+                    <li><span class="text">Western</span></li>
+                </ul>
+                <div class="titleclass">
+                    <div class="filtertitle">Language</div>
+                    <img src="/assets/downarrow.svg" id="languagee">
+                </div>
+                <ul class="specificfilter hidden" id="languagedetail">
+                    <li><span class="text">Hindi</span></li>
+                    <li><span class="text">English</span></li>
+                    <li><span class="text">Telugu</span></li>
+                    <li><span class="text">Tamil</span></li>
+                    <li><span class="text">Malayalam</span></li>
+                    <li><span class="text">Kannada</span></li>
+                    <li><span class="text">Marathi</span></li>
+                    <li><span class="text">Punjabi</span></li>
+                    <li><span class="text">Bengali</span></li>
+                    <li><span class="text">Gujarati</span></li>
+                </ul>
+            </section>
+            <div id="container">
+                <h2 class="subtitles">NOW SHOWING</h2>
+                <section id="nowshowing">
+
+                </section>
+                <h2 class="subtitles second">UPCOMING MOVIES</h2>
+                <section id="upcomingmovies">
+
+                </section>
+            </div>
+        </div>
+    </main>
+    <footer id="footer">
+
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type='module' src="/js/userhome.js"></script>
+</body>
+
+</html>

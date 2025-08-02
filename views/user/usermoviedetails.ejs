@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOVIEPUFF</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=BenchNine:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kirang+Haerang&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/usermoviedetails.css">
+</head>
+
+<body>
+
+    <div id="backdrop">
+        <div id="trailerspopup">
+            <div id="popuptitle">
+                <% movie.trailers.forEach((trailer, index)=> { %>
+                    <button class="lang-display <%= index === 0 ? 'selected' : '' %>"
+                        data-videoid="<%= trailer.videoId %>">
+                        <%= trailer.language %>
+                    </button>
+                    <% }) %>
+            </div>
+            <iframe></iframe>
+            <button id="close" class="lang-display">Close</button>
+        </div>
+    </div>
+    <main>
+        <section id="navbar">
+            <h1 id="title">TSOONAMI</h1>
+            <span id="searchfield">
+                <input type="text" placeholder="Search and add movies" name="q" autocomplete="off">
+                <span class="material-symbols-outlined search-icon">
+                    search
+                </span>
+                <div id="results">
+                    <ul id="results-ul">
+                    </ul>
+                </div>
+            </span>
+            <div class="profile-icon">
+                <span class="material-symbols-outlined">person</span>
+            </div>
+            <span class="material-symbols-outlined homee">
+                home
+            </span>
+        </section>
+        <section id="description">
+            <img id="bg-img" src="/assets/sunami3.jpg">
+            <div id="mainstart">
+                <div id="imagedetails">
+                    <img id="poster" src="https://image.tmdb.org/t/p/w500<%= movie.poster %>">
+                    <button id="watchtrailer">Watch Trailers<span class="material-symbols-outlined">
+                            sound_sampler
+                        </span></button>
+                </div>
+                <div id="content">
+                    <div id="line-one">
+                        <div id="movietitle">
+                            <%= movie.title %>
+                        </div>
+
+                        <% const today=new Date(); const release=new Date(movie.releasedate); if (!isNaN(release)) {
+                            const diffInDays=(release - today) / (1000 * 60 * 60 * 24); if (diffInDays>
+                            0) {
+                            const options = { day: '2-digit', month: 'short' };
+                            const formattedDate = release.toLocaleDateString('en-US', options);
+                            %>
+                            <div id="moviestatus">
+                                Available in Theatres from <%= formattedDate %>
+                            </div>
+                            <% } } %>
+
+
+                    </div>
+                    <div id="sub-container">
+                        <div id="left">
+                            <div id="genres">
+                                <%for(let genre of movie.genres){%>
+                                    <button>
+                                        <%=genre%>
+                                    </button>
+                                    <%}%>
+                            </div>
+                            <div id="specifics">
+                                <%if (movie.status=='nowshowing' ){%>
+                                    <span class="colored" id="imdb">
+                                        <%='IMDb'%>
+                                    </span>
+                                    <span class="spec-info">
+                                        <%= movie.imdb%>
+                                    </span>
+                                    <%}%>
+                                        <span class="colored" id="age">Age</span>
+                                        <span class="spec-info">
+                                            <%=movie.age%>
+                                        </span>
+                                        <span id="duration" class="colored">
+                                            <span class="material-symbols-outlined">
+                                                timer
+                                            </span>
+                                        </span>
+                                        <span class="spec-info">
+                                            <%=movie.duration%>
+                                        </span>
+                            </div>
+                            <div id="language">
+                                <div id="spec-lang">
+                                    <%for(let language of movie.languages) {%>
+                                        <button class="lang-display">
+                                            <%=language%>
+                                        </button>
+                                        <%}%>
+                                </div>
+                            </div>
+                            <p id="plot">
+                                <%=movie.plot%>
+                            </p>
+                            <div class="cast-sub">
+                                <div class="difftitle">Cast</div>
+                                <div id="cast">
+                                    <%for(let single of movie.cast){%>
+                                        <div class="cast-spec">
+                                            <%if(single.profile_path){ %><img
+                                                    src="<%=`https://image.tmdb.org/t/p/w185${single.profile_path}`%>">
+                                                <%}%>
+                                                    <div class="cast-names">
+                                                        <%=single.name%>
+                                                            <span>as <%=single.character%></span>
+                                                    </div>
+                                        </div>
+                                        <%}%>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="vr"></div>
+                        <div class="people-info">
+                            <div class="people-sub">
+                                <div class="difftitle">Director</div>
+                                <div class="director">
+                                    <ul>
+                                        <li>
+                                            <%=movie.director%>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="people-sub writers">
+                                <div class="difftitle">Writers</div>
+                                <div class="director">
+                                    <ul>
+                                        <%for(let writer of movie.writers) {%>
+                                            <li>
+                                                <%=writer%>
+                                            </li>
+                                            <%}%>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div id="second-nav">
+            <div id="date">
+                <span class="material-symbols-outlined" id="prev">
+                    arrow_back_ios
+                </span>
+                <div id="inside-date">
+
+                </div>
+                <span class="material-symbols-outlined" id="next">
+                    arrow_forward_ios
+                </span>
+            </div>
+            <div id="formats">
+                <div class="formats-sub" id="biglang">
+                    <button>Language</button>
+                    <img src="/assets/downarrow.svg" id="languageimg">
+                    <div class='formatcontainer' id="languagedropdown">
+                        <ul class="formatul" id="languageid">
+                            <%for(let one of movie.languages) {%>
+                                <li>
+                                    <%=one%>
+                                </li>
+                                <hr>
+                                <%}%>
+                        </ul>
+                    </div>
+                </div>
+                <div class="formats-sub" id="bigformat">
+                    <button>Format</button>
+                    <img src="/assets/downarrow.svg" id="formatimg">
+                    <div class='formatcontainer' id="formatdropdown">
+                        <ul class="formatul" id="formatid">
+                            <li>2D</li>
+                            <hr>
+                            <li>3D</li>
+                            <hr>
+                            <li>4D</li>
+                            <hr>
+                            <li>IMAX</li>
+                            <hr>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="addbar">
+            <div id="theatres">
+                <button>Add Theatres</button>
+                <img src="/assets/downarrow.svg" id="addtheatresimg">
+                <div class='formatcontainer' id="theatredropdown">
+                    <ul class="formatul" id="theatreid">
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="about-theatres">
+        </div>
+    </main>
+    <footer id="footer">
+
+    </footer>
+
+    <script>
+        const id = "<%= movie.tmdbid %>";
+        const mrelease = "<%= movie.releasedate %>";
+        const mstatus = "<%= movie.status %>";
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="/js/usermoviedetails.js"></script>
+</body>
+
+</html>

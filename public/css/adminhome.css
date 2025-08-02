@@ -1,37 +1,393 @@
-* {
+body {
     margin: 0;
     padding: 0;
+    background-color: #f0f2f5;
 }
 
-#navbar {
-    background-color: #FF5B5C;
-    border-radius: 200px;
-    margin: 15px 5px;
-    height: 70px;
+#backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 100000;
+    display: none;
+}
+
+#theatrespopup {
+    display: none;
+    position: fixed;
+    background-color: #FCF8F8;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60vw;
+    height: 500px;
+    border-radius: 2vw;
+    padding: 10px;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+#popuptitle {
+    cursor: default;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.subpopuptitle {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 28px;
+    margin-bottom: 15px;
+    cursor: default;
+}
+
+#bodyy {
     display: flex;
+    justify-content: space-evenly;
+    width: 90%;
+    margin-bottom: 20px;
+    gap: 15px;
+}
+
+.left-right {
+    border-radius: 20px;
+    background-color: #fff4f4;
+    box-shadow: 2px 2px 10px #5e4747;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.add-remove {
+    width: 50%;
+    background-color: #FF5B5C;
+    border-radius: 1vw;
+    padding: 10px;
+    border: none;
+    font-family: 'Josefin Sans', sans-serif;
+    color: white;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+#close {
+    background-color: #FF5B5C;
+    border-radius: 1vw;
+    padding: 10px;
+    border: none;
+    box-shadow: 2px 3px 8px #5e474767;
+    font-family: 'Josefin Sans', sans-serif;
+    color: white;
+    font-size: 16px;
+}
+
+.formats-sub {
+    position: relative;
+    display: flex;
+    width: 15vw;
+    background-color: white;
+    border: 1px solid #FF5B5C;
+    margin-bottom: 30px;
+    justify-content: flex-start;
+}
+
+.formats-sub button {
+    padding: 10px;
+    text-align: left;
+    flex-grow: 1;
+    background-color: white;
+    border: none;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 16px;
+    margin-right: 8px;
+}
+
+.formats-sub img {
+    padding-right: 10px;
+}
+
+.formatcontainer {
+    padding: 0px 10px;
+    display: none;
+    width: 100%;
+    height: 140px;
+    background-color: white;
+    overflow-y: auto;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    border: 1px solid #FF5B5C;
+    border-radius: 0vw 0vw 0.5vw 0.5vw;
+    border-top: none;
+    box-sizing: border-box;
+}
+
+.addition {
+    z-index: 10;
+}
+
+.formatul {
+    padding: 0;
+    width: 100%;
+    list-style-type: none;
+}
+
+.formatul li {
+    text-align: left;
+    cursor: default;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 16px;
+}
+
+.formatul hr {
+    margin: 10px 0px;
+}
+
+.theatreinput {
+    box-sizing: border-box;
+    border: 1px solid #FF5B5C;
+    padding: 6px;
+    font-family: 'Josefin Sans', sans-serif;
+    outline: none;
+    width: 100%;
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#bannerspopup {
+    height: 60%;
+    width: 40%;
+    background-color: rgb(215, 248, 250);
+    align-items: center;
+    border-radius: 12px;
+    margin: 20px;
+    padding: 15px;
+    box-shadow: 0.3px 0.3px 0.9px rgb(105, 132, 147);
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+}
+
+#bannertitle {
+    font-family: 'Josefin Sans';
+    font-size: 20px;
+    text-align: center;
+    font-weight: 600;
+    margin: 20px 0px;
+}
+
+#bannerdisplay {
+    display: flex;
+    max-height: 150px;
+    width: 75%;
+    gap: 20px;
+    padding: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+}
+
+#bannerdisplay::-webkit-scrollbar {
+    height: 4px;
+}
+
+#bannerdisplay::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#bannerdisplay::-webkit-scrollbar-thumb {
+    background-color: #df1c5d;
+    border-radius: 10px;
+    width: 4px;
+    height: 4px;
+}
+
+
+#addbanner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.imgg {
+    height: 85px;
+    width: 110px;
+    background-color: #535252;
+    border-radius: 4px;
+
+}
+
+.parent {
+    position: relative;
+}
+
+.deletebanner {
+    cursor: default;
+    position: absolute;
+    top: 85%;
+    left: 60%;
+    font-size: 13px;
+    background-color: #FF5B5C;
+    color: azure;
+    border: none;
+    border-radius: 6px;
+    padding: 3px 6px 3px 6px;
+    z-index: 2;
+}
+
+.deletebanner:hover {
+    cursor: pointer;
+    background-color: crimson;
+}
+
+.file-input-section {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 24px;
+    margin-top: 32px;
+}
+
+.custom-file-wrapper {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.custom-input {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.custom-file-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFB6B8;
+    color: #ab0d0d;
+    padding: 12px 22px;
+    font-family: 'josefin sans';
+    border-radius: 50px;
+    border: 1px solid #FF5B5C;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.custom-file-label:hover {
+    cursor: pointer;
+}
+
+.file-name-display {
+    background-color: #FFB6B8;
+    color: #ab0d0d;
+    padding: 12px 22px;
+    border-radius: 50px;
+    font-weight: 500;
+    font-family: 'josefin sans';
+    flex-grow: 1;
+    text-align: left;
+    border: 1px solid #FF5B5C;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+
+#navbar {
+    padding: 5px 5px;
+    background-color: #FF5B5C;
+    border-radius: 100px;
+    margin: 15px 10px 15px 10px;
+    height: 60px;
+    display: flex;
+    position: sticky;
     align-items: center;
     padding: 0px 25px;
     justify-content: space-between;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    top: 0;
+    z-index: 1000;
 }
 
 #title {
     color: white;
-    font-family: "Fredoka", sans-serif;
+    font-family: "kirang haerang", sans-serif;
     font-weight: 700;
-    font-size: 36px;
+    font-size: 32px;
+    letter-spacing: 1px;
     display: inline-block;
+    margin-right: 20px;
 }
 
 #searchfield {
     display: flex;
     background-color: white;
-    flex-basis: 600px;
-    border-radius: 90px;
-    height: 45px;
+    height: 35px;
     box-sizing: border-box;
     align-items: center;
     flex-shrink: 3;
-    margin-left: 20px;
+    position: relative;
+    flex-basis: 600px;
+}
+
+.search-icon {
+    color: #FF5B5C;
+    font-size: 24px;
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    margin: 0px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#results {
+    display: none;
+    width: 100%;
+    background-color: white;
+    position: absolute;
+    top: 100%;
+    height: 400px;
+    overflow-y: auto;
+    padding: 0px 0px 0px 12px;
+    box-sizing: border-box;
+    border-radius: 0vw 0vw 2vw 2vw;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+#results::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+#results-ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+#results li {
+    margin-top: 12px;
+    font-family: "Be Vietnam Pro", sans-serif;
+    margin-bottom: 12px;
+}
+
+#results-ul li:hover {
+    cursor: default;
 }
 
 #searchfield input {
@@ -39,105 +395,190 @@
     border-radius: 90px;
     font-size: 18px;
     flex: 1;
-    height: 35px;
+    height: 25px;
     margin-right: 0;
     justify-content: center;
     padding-left: 15px;
     font-family: "Be Vietnam Pro", sans-serif;
+    outline: none;
+    display: flex;
+    align-items: center;
 }
 
-#searchfield .clicker {
-    border: none;
-    background-color: yellow;
-    height: 45px;
-    width: 45px;
+.profile-icon {
+    background-color: white;
     border-radius: 50%;
-}
-
-#searchfield img {
-    background-color: yellow;
-    object-fit: contain;
-}
-
-.clicker {
-    background-color: #DEDDDD;
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    border: none;
-    flex-shrink: 1;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
     margin-left: 10px;
 }
 
-#banner {
+.profile-icon:hover {
+    transform: scale(1.05);
+}
+
+.main-banner-section {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    height: 250px;
     display: flex;
-    text-align: center;
-    margin: 0px 20px;
     align-items: center;
+    justify-content: flex-end;
+    background-color: #333;
+}
+
+.main-banner-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+#banner {
+    width: 90%;
+    max-width: 1500px;
+    position: relative;
+    display: flex;
+    margin: 20px auto;
+    align-items: center;
+    border-radius: 15px;
+    background-color: #333;
+    justify-content: flex-end;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    height: 250px;
 }
 
 #banner img {
     flex-grow: 1;
-    width: 96%;
-    height: 300px;
-    border-radius: 1vw;
-    margin: 0px 8px;
-
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    object-fit: fill;
 }
 
-#banner button {
-    height: 40px;
-    width: 30px;
+#banner .banner-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(105, 105, 105, 0.9);
+    color: white;
     border: none;
-    border-radius: 0.5vw;
-    color: White;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    cursor: pointer;
+    z-index: 3;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+    opacity: 0.8;
+}
+
+#banner .banner-arrow:hover {
     background-color: #FF5B5C;
+    transform: translateY(-50%) scale(1.05);
+    opacity: 1;
+}
+
+#banner .banner-arrow.left {
+    left: 20px;
+}
+
+#banner .banner-arrow.right {
+    right: 20px;
 }
 
 #controls {
-    margin-top: 58px;
-    margin-left: 20px;
-    background-color: rgba(203, 214, 222, 0.3);
-    padding: 16px;
-    width: 320px;
-    border-radius: 17px;
-    height: 500px;
-
+    margin-top: 20px;
 }
 
 #controls-title {
-    margin: 14px 0px 30px 0px;
-    text-align: center;
+    font-family: "Be Vietnam Pro", sans-serif;
     font-size: 30px;
-    font-family: "Belanosima", sans-serif;
-
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 15px;
+    text-align: center;
 }
 
 #controls-container {
+    margin-left: 20px;
+    padding: 16px;
+    width: 250px;
+    border-radius: 17px;
+    height: 350px;
+    border: #919090;
+    background-color: #e6f8fa;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
+    border:0.5px solid rgb(59, 85, 94);
 }
 
 .specific-controls {
-    width: 90%;
-    height: 45px;
+    color: #001627;
+    padding: 8px 12px;
+    font-weight: 600;
+    font-size: 1.2em;
+    white-space: nowrap;
+    width: 80%;
+    height: 35px;
     text-align: center;
-    background-color: #A91C48;
-    color: white;
-    border-radius: 0.8vw;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: "Belanosima", sans-serif;
-    font-size: 20px;
-    margin: 20px 0px;
+    font-family: "Josefin Sans", sans-serif;
+    margin: 10px 0px;
+}
+
+.specific-controls:hover {
+    cursor: pointer;
+    transform: translateY(-5%) scale(1.01);
+}
+
+.specific-controls:active {
+    transform: translateY(-5%) scale(0.98);
+    box-shadow: none;
 }
 
 .controls-text {
     flex-grow: 1;
 }
+
+.controls-text {
+    display: flex;
+    justify-content: center;
+}
+
+hr {
+    all: unset;
+    display: block;
+    width: 70%;
+    height: 1px;
+    background-color: #001627;
+    margin: 0px auto;
+}
+
 
 #maincontent {
     display: flex;
@@ -153,7 +594,9 @@
 .subtitles {
     margin-bottom: 15px;
     font-family: "Be Vietnam Pro", sans-serif;
-    font-weight: 400;
+    font-size: 30px;
+    font-weight: 600;
+    color: #444;
 }
 
 #nowshowing,
@@ -161,12 +604,14 @@
     display: flex;
     overflow-x: auto;
     scroll-behavior: smooth;
-    width: 100%
+    width: 100%;
+    margin-bottom: 20px;
+    min-height: 380px;
 }
 
 #nowshowing::-webkit-scrollbar,
 #upcomingmovies::-webkit-scrollbar {
-    height: 4px;
+    height: 8px;
 }
 
 #nowshowing::-webkit-scrollbar-track,
@@ -178,33 +623,49 @@
 #upcomingmovies::-webkit-scrollbar-thumb {
     background-color: #E51A5A;
     border-radius: 10px;
+    border: 2px solid #e0e0e0;
 }
 
 
 .card {
-    height: 400px;
-    width: 350px;
+    height: 350px;
+    width: 250px;
     margin: 0px 20px 20px 0px;
+    display: flex;
+    flex-direction: column;
     flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
 }
 
 .card img {
     width: 100%;
-    height: 87%;
+    height: 80%;
     border-radius: 1vw 1vw 0vw 0vw;
 
 }
 
-.card .moviebutton-container {
-    background-color: rgba(203, 214, 222, 0.3);
+.card .info {
+    background-color: #ffffff;
     font-family: "Be Vietnam Pro", sans-serif;
-    padding: 8px 12px;
+    padding: 6px 8px;
     border-radius: 0vw 0vw 1vw 1vw;
     display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
 }
 
-.card .moviebutton-container .info {
-    flex-grow: 1;
+.second-row {
+    margin-top: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .removebutton {
@@ -215,18 +676,15 @@
     padding: 6px;
     border-radius: 0.5vw;
     font-weight: 500;
+    box-shadow: 0.2px 0.5px 1px #5e4747;
 }
 
-.card .moviebutton-container p {
-    font-size: 16px;
-    font-weight: 300;
-}
 
-.card .moviebutton-container p:nth-of-type(2n) {
+.card .second-row div {
     font-size: 14px;
     font-weight: 200;
     opacity: 65%;
-    margin-top: 4px;
+    margin-right: 12px;
 }
 
 #upcomingmovies {

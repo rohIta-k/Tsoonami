@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOVIEPUFF</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Kirang+Haerang&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/css/adminseatbooking.css">
+</head>
+
+<body>
+    <div id="top-nav">
+        <div id="legend">
+            <div class="legend-item">
+                <div class="legendbox available"></div>
+                <span>Available</span>
+            </div>
+            <div class="legend-item">
+                <div class="legendbox selected"></div>
+                <span>Selected</span>
+            </div>
+            <div class="legend-item">
+                <div class="legendbox sold"></div>
+                <span>Sold</span>
+            </div>
+        </div>
+    </div>
+    <div id="main-container">
+        <div id="left-panel">
+            <div id="movie-details-card">
+                <h3 id="movie-title">
+                    <%=newobject.title%>
+                </h3>
+                <p id="movie-language">
+                    <%=newobject.language%>,<%=newobject.format%>
+                </p>
+                <div id="date-time-row">
+                    <span class="time-box">
+                        <%=newobject.day%>, <%=newobject.date+ ' ' + newobject.month%>
+                    </span>
+                    <span class="time-box">
+                        <%=newobject.time%>
+                    </span>
+                </div>
+                <p id="cinema-info">
+                    <%=newobject.theatre%>
+                </p>
+            </div>
+            <div class="booking-summary-card">
+                <h2>SEAT PLAN</h2>
+                <div class="formats-sub" id="bigformat">
+                    <button>Section</button>
+                    <img src="/assets/downarrow.svg" id="formatimg">
+                    <div class='formatcontainer' id="formatdropdown">
+                        <ul class="formatul" id="formatid">
+                            <li>Recliner</li>
+                            <hr>
+                            <li>Prime</li>
+                            <hr>
+                            <li>Classic</li>
+                            <hr>
+                        </ul>
+                    </div>
+                </div>
+                <div class="horizontal">
+                    <label for="rows">No of Rows:</label>
+                    <input type="number" min="1" max="3" value="1" id="rows"
+                        oninput="const val = parseInt(this.value);const min = parseInt(this.min);const max = parseInt(this.max);if (!isNaN(val)) this.value = Math.max(min, Math.min(max, val));">
+                </div>
+                <div class="horizontal">
+                    <label for="columns">No of Columns:</label>
+                    <input type="number" min="1" max="22" value="1" id="columns"
+                        oninput="const val2 = parseInt(this.value);const min2 = parseInt(this.min);const max2 = parseInt(this.max);if (!isNaN(val2)) this.value = Math.max(min, Math.min(max, val2));">
+                </div>
+                <button class="book-tickets-button">MAKE</button>
+            </div>
+            <button id="save">SAVE</button>
+        </div>
+        <div id="right-panel">
+            <div class="seat-category" id="recliner">
+                <h3>RECLINER: Rs:325</h3>
+                <div id="reclinerseats">
+                    <% if (newobject.recliner) { %>
+                        <% for (let i=0; i < newobject.recliner.rows; i++) { %>
+                            <div class="sub-row">
+                                <% for (let j=0; j < newobject.recliner.columns; j++) { %>
+                                    <div class="seat"></div>
+                                    <% } %>
+                            </div>
+                            <% } %>
+                                <% } %>
+                </div>
+            </div>
+            <div class="seat-category">
+                <h3>PRIME: Rs:200</h3>
+                <div id="primeseats">
+                    <% if (newobject.prime) { %>
+                        <% for (let i=0; i < newobject.prime.rows; i++) { %>
+                            <div class="sub-row">
+                                <% for (let j=0; j < newobject.prime.columns; j++) { %>
+                                    <div class="seat"></div>
+                                    <% } %>
+                            </div>
+                            <% } %>
+                                <% } %>
+                </div>
+            </div>
+            <div class="seat-category">
+                <h3>CLASSIC: Rs:250</h3>
+                <div id="classicseats">
+                    <% if (newobject.classic) { %>
+                        <% for (let i=0; i < newobject.classic.rows; i++) { %>
+                            <div class="sub-row">
+                                <% for (let j=0; j < newobject.classic.columns; j++) { %>
+                                    <div class="seat"></div>
+                                    <% } %>
+                            </div>
+                            <% } %>
+                                <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="/js/adminseatbooking.js"></script>
+</body>

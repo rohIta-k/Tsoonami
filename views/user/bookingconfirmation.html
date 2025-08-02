@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmed!</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Kirang+Haerang&family=Lilita+One&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Kirang+Haerang&family=Lilita+One&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../../public/css/userbookingconfirmation.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>TSOONAMI</h1>
+        <svg class="home-svg" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30"
+            viewBox="0 0 50 50" style="fill:#FFFFFF;">
+            <path
+                d="M 25 1.0507812 C 24.7825 1.0507812 24.565859 1.1197656 24.380859 1.2597656 L 1.3808594 19.210938 C 0.95085938 19.550938 0.8709375 20.179141 1.2109375 20.619141 C 1.5509375 21.049141 2.1791406 21.129062 2.6191406 20.789062 L 4 19.710938 L 4 46 C 4 46.55 4.45 47 5 47 L 19 47 L 19 29 L 31 29 L 31 47 L 45 47 C 45.55 47 46 46.55 46 46 L 46 19.710938 L 47.380859 20.789062 C 47.570859 20.929063 47.78 21 48 21 C 48.3 21 48.589063 20.869141 48.789062 20.619141 C 49.129063 20.179141 49.049141 19.550938 48.619141 19.210938 L 25.619141 1.2597656 C 25.434141 1.1197656 25.2175 1.0507812 25 1.0507812 z M 35 5 L 35 6.0507812 L 41 10.730469 L 41 5 L 35 5 z">
+            </path>
+        </svg>
+    </header>
+
+    <section class="confirmation-message">
+        <span class="checkmark">&#10003;</span>
+        <h2>BOOKING CONFIRMED!</h2>
+    </section>
+
+    <div class="ticket-card">
+        <div class="ticket-left-section">
+            <img src="Images/superman.jpg" alt="Movie Poster" class="movie-poster">
+            <div class="movie-info">
+                <h3>Superman</h3>
+                <p>PVR INOX: Phoenix Marketcity, Kurla West, Mumbai</p>
+                <p class="time-date">12:45 PM <br>Saturday, 21 July 2025</p>
+            </div>
+        </div>
+
+        <div class="ticket-middle-section">
+            <div class="seat-type">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-armchair">
+                    <path d="M19 9V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v3" />
+                    <path d="M3 16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3H3Z" />
+                    <path d="M14 15v3" />
+                    <path d="M10 15v3" />
+                </svg>
+                RECLINER(3)
+            </div>
+            <div class="seat-numbers"> B1, B2, B3</div>
+            <div class="screen-number">SCREEN - 3</div>
+        </div>
+
+        <div class="ticket-right-section">
+            <img src="Images/qr.png" alt="QR Code" class="qr-code">
+            <div class="booking-id-display">BOOKING ID</div>
+            <div id="booking-id-code">WTQLB45</div>
+            <button class="download-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-download">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" x2="12" y1="15" y2="3" />
+                </svg>
+                DOWNLOAD CONFIRMATION
+            </button>
+        </div>
+    </div>
+
+    <div class="bottom-details">
+        <div class="detail-item">
+            <span>BOOKING TIME</span>
+            <strong>Mon, 19 September 2025, 20:34 HOURS</strong>
+        </div>
+        <div class="detail-item">
+            <span>PAYMENT METHOD</span>
+            <strong>Credit Card</strong>
+        </div>
+        <div class="detail-item">
+            <span>CONFIRMATION ID</span>
+            <strong>2345867</strong>
+        </div>
+        <div class="amount-paid">
+            <span class="check-icon">&#10003;</span>
+            <span>Amount Paid</span>
+            <span>Rs. 1200.50</span>
+        </div>
+    </div>
+
+</body>
+
+</html>

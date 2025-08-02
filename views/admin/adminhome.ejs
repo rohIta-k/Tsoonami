@@ -14,188 +14,159 @@
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=BenchNine:wght@300;400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kirang+Haerang&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="/css/adminhome.css">
 </head>
 
 <body>
+    <div id="backdrop">
+        <div id="theatrespopup">
+            <div id="popuptitle">MANAGE THEATRES</div>
+            <div id="bodyy">
+                <div class="left-right" id="first">
+                    <div class="subpopuptitle">Add Theatre</div>
+                    <div class="formats-sub" id="addcity">
+                        <button>Select City</button>
+                        <img src="/assets/downarrow.svg" id="cityimg">
+                        <div class='formatcontainer' id="citydropdown">
+                            <ul class="formatul" id="cityid">
+                                <li>Bangalore</li>
+                                <hr>
+                                <li>Chennai</li>
+                                <hr>
+                                <li>Delhi</li>
+                                <hr>
+                                <li>Hyderabad</li>
+                                <hr>
+                                <li>Kolkata</li>
+                                <hr>
+                                <li>Mumbai</li>
+                                <hr>
+                                <li>Ahmedabad</li>
+                                <hr>
+                                <li>Jaipur</li>
+                                <hr>
+                                <li>Visakhapatnam</li>
+                                <hr>
+                            </ul>
+                        </div>
+                    </div>
+                    <input type="text" placeholder="Enter theatre" class="theatreinput" id="filltheatre">
+                    <input type="text" placeholder="Enter theatre location" class="theatreinput" id="filllocation">
+                    <button class="add-remove" id="addtheatre">Add</button>
+                </div>
+                <div class="left-right">
+                    <div class="subpopuptitle">Remove Theatre</div>
+
+                    <div class="formats-sub" id="removecity">
+                        <button>Select City</button>
+                        <img src="/assets/downarrow.svg" id="remcityimg">
+                        <div class='formatcontainer addition' id="remcitydropdown">
+                            <ul class="formatul" id="remcityid">
+                                <li>Bangalore</li>
+                                <hr>
+                                <li>Chennai</li>
+                                <hr>
+                                <li>Delhi</li>
+                                <hr>
+                                <li>Hyderabad</li>
+                                <hr>
+                                <li>Kolkata</li>
+                                <hr>
+                                <li>Mumbai</li>
+                                <hr>
+                                <li>Ahmedabad</li>
+                                <hr>
+                                <li>Jaipur</li>
+                                <hr>
+                                <li>Coimbatore</li>
+                                <hr>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="formats-sub" id="removetheatre">
+                        <button>Choose Theatre</button>
+                        <img src="/assets/downarrow.svg" id="remtheatreimg">
+                        <div class='formatcontainer' id="remtheatredropdown">
+                            <ul class="formatul" id="remtheatreid">
+                            </ul>
+                        </div>
+                    </div>
+
+                    <button class="add-remove" id="removetheatree">Remove</button>
+                </div>
+            </div>
+            <button id="close">Close</button>
+        </div>
+        <div id="bannerspopup">
+            <div id="bannertitle">MANAGE BANNERS</div>
+            <div id="bannerdisplay">
+            </div>
+            <div id="addbanner">
+                <div class="file-input-section">
+                    <div class="custom-file-wrapper">
+                        <input type="file" id="bannerimage" class="custom-input" accept="image/*">
+                        <label for="bannerimage" class="custom-file-label">Choose File</label>
+                    </div>
+                    <span id="file-name-display" class="file-name-display">No file chosen</span>
+                </div>
+                <button id="addbannerbtn" class="add-remove">Add Banner</button>
+                <button id="closebannerpopup" class="add-remove">Close</button>
+            </div>
+
+        </div>
+    </div>
     <main>
         <section id="navbar">
-            <h1 id="title">MOVIEPUFF</h1>
+            <h1 id="title">TSOONAMI</h1>
             <span id="searchfield">
-                <input type="text" placeholder="Search and add movies" name="q">
-                <button class="clicker">
-                    <img src="/assets/search.svg" alt="search">
-                </button>
+                <input type="text" placeholder="Search and add movies" name="q" autocomplete="off">
+                <span class="material-symbols-outlined search-icon">
+                    search
+                </span>
+                <div id="results">
+                    <ul id="results-ul">
+                    </ul>
+                </div>
             </span>
-            <button class="clicker">
-                <img src="/assets/profile.svg" id="profile">
-            </button>
+            <div class="profile-icon">
+                <span class="material-symbols-outlined">person</span>
+            </div>
         </section>
         <section id="banner">
-            <button id="leftscroll"><span class="material-symbols-outlined">
-                    chevron_left
-                </span></button>
-            <img id="showimage"
-                src="https://img.freepik.com/premium-vector/realistic-popcorn-cinema-movie-watching-concept-online-filmshow-entertainment-3d-cinematic-objects-two-tickets-snack-drink-promotion-flyer-vector-horizontal-isolated-poster_176411-4140.jpg">
-            <button id="rightscroll"><span class="material-symbols-outlined">
-                    chevron_right
-                </span></button>
+            <img id="showimage" src="/assets/banner_one.jpeg">
+            <button class="banner-arrow left" id="leftscroll">
+                <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+            <button class="banner-arrow right" id="rightscroll">
+                <span class="material-symbols-outlined">chevron_right</span>
+            </button>
         </section>
         <div id="maincontent">
             <section id="controls">
-                <div id="controls-title">CONTROLS</div>
+                <h2 id="controls-title">CONTROLS</h2>
                 <div id="controls-container">
-                    <div class="specific-controls"><span class="controls-text">Add Cities</span><span
-                            class="material-symbols-outlined">
-                            add
-                        </span></div>
-                    <div class="specific-controls"><span class="controls-text">Add Theatres</span><span
-                            class="material-symbols-outlined">
-                            add
-                        </span></div>
+                    <div class="specific-controls" id="managetheatres">
+                        <span class="controls-text">Manage Theatres</span>
+                    </div>
+                    <hr>
                     <div class="specific-controls"><span class="controls-text">Action History</span></div>
-                    <div class="specific-controls"><span class="controls-text">Manage Banners</span></div>
+                    <hr>
+                    <div class="specific-controls"><span class="controls-text" id="managebanners">Manage Banners</span>
+                    </div>
+                    <hr>
                 </div>
             </section>
             <div id="container">
                 <h2 class="subtitles">NOW SHOWING</h2>
                 <section id="nowshowing">
-                    <div class="card">
-                        <img
-                            src="https://img.freepik.com/premium-vector/realistic-popcorn-cinema-movie-watching-concept-online-filmshow-entertainment-3d-cinematic-objects-two-tickets-snack-drink-promotion-flyer-vector-horizontal-isolated-poster_176411-4140.jpg">
-                        <div class="moviebutton-container">
-                            <div class="info">
-                                <p>Movie Title</p>
-                                <p> Age | Genre</p>
-                            </div>
-                            <button class="removebutton">Remove</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img
-                            src="https://img.freepik.com/premium-vector/realistic-popcorn-cinema-movie-watching-concept-online-filmshow-entertainment-3d-cinematic-objects-two-tickets-snack-drink-promotion-flyer-vector-horizontal-isolated-poster_176411-4140.jpg">
-                        <div class="moviebutton-container">
-                            <div class="info">
-                                <p>Movie Title</p>
-                                <p> Age | Genre</p>
-                            </div>
-                            <button class="removebutton">Remove</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img
-                            src="https://img.freepik.com/premium-vector/realistic-popcorn-cinema-movie-watching-concept-online-filmshow-entertainment-3d-cinematic-objects-two-tickets-snack-drink-promotion-flyer-vector-horizontal-isolated-poster_176411-4140.jpg">
-                        <div class="moviebutton-container">
-                            <div class="info">
-                                <p>Movie Title</p>
-                                <p> Age | Genre</p>
-                            </div>
-                            <button class="removebutton">Remove</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img
-                            src="https://img.freepik.com/premium-vector/realistic-popcorn-cinema-movie-watching-concept-online-filmshow-entertainment-3d-cinematic-objects-two-tickets-snack-drink-promotion-flyer-vector-horizontal-isolated-poster_176411-4140.jpg">
-                        <div class="moviebutton-container">
-                            <div class="info">
-                                <p>Movie Title</p>
-                                <p> Age | Genre</p>
-                            </div>
-                            <button class="removebutton">Remove</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img
-                            src="https://img.freepik.com/premium-vector/realistic-popcorn-cinema-movie-watching-concept-online-filmshow-entertainment-3d-cinematic-objects-two-tickets-snack-drink-promotion-flyer-vector-horizontal-isolated-poster_176411-4140.jpg">
-                        <div class="moviebutton-container">
-                            <div class="info">
-                                <p>Movie Title</p>
-                                <p> Age | Genre</p>
-                            </div>
-                            <button class="removebutton">Remove</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img
-                            src="https://img.freepik.com/premium-vector/realistic-popcorn-cinema-movie-watching-concept-online-filmshow-entertainment-3d-cinematic-objects-two-tickets-snack-drink-promotion-flyer-vector-horizontal-isolated-poster_176411-4140.jpg">
-                        <div class="moviebutton-container">
-                            <div class="info">
-                                <p>Movie Title</p>
-                                <p> Age | Genre</p>
-                            </div>
-                            <button class="removebutton">Remove</button>
-                        </div>
-                    </div>
-                    <hr>
+
                 </section>
                 <h2 class="subtitles second">UPCOMING MOVIES</h2>
                 <section id="upcomingmovies">
-                    <div class="card">
-                        <img
-                            src="https://img.freepik.com/premium-vector/realistic-popcorn-cinema-movie-watching-concept-online-filmshow-entertainment-3d-cinematic-objects-two-tickets-snack-drink-promotion-flyer-vector-horizontal-isolated-poster_176411-4140.jpg">
-                        <div class="moviebutton-container">
-                            <div class="info">
-                                <p>Movie Title</p>
-                                <p> Age | Genre</p>
-                            </div>
-                            <button class="removebutton">Remove</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img
-                            src="https://img.freepik.com/premium-vector/realistic-popcorn-cinema-movie-watching-concept-online-filmshow-entertainment-3d-cinematic-objects-two-tickets-snack-drink-promotion-flyer-vector-horizontal-isolated-poster_176411-4140.jpg">
-                        <div class="moviebutton-container">
-                            <div class="info">
-                                <p>Movie Title</p>
-                                <p> Age | Genre</p>
-                            </div>
-                            <button class="removebutton">Remove</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img
-                            src="https://img.freepik.com/premium-vector/realistic-popcorn-cinema-movie-watching-concept-online-filmshow-entertainment-3d-cinematic-objects-two-tickets-snack-drink-promotion-flyer-vector-horizontal-isolated-poster_176411-4140.jpg">
-                        <div class="moviebutton-container">
-                            <div class="info">
-                                <p>Movie Title</p>
-                                <p> Age | Genre</p>
-                            </div>
-                            <button class="removebutton">Remove</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img
-                            src="https://img.freepik.com/premium-vector/realistic-popcorn-cinema-movie-watching-concept-online-filmshow-entertainment-3d-cinematic-objects-two-tickets-snack-drink-promotion-flyer-vector-horizontal-isolated-poster_176411-4140.jpg">
-                        <div class="moviebutton-container">
-                            <div class="info">
-                                <p>Movie Title</p>
-                                <p> Age | Genre</p>
-                            </div>
-                            <button class="removebutton">Remove</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img
-                            src="https://img.freepik.com/premium-vector/realistic-popcorn-cinema-movie-watching-concept-online-filmshow-entertainment-3d-cinematic-objects-two-tickets-snack-drink-promotion-flyer-vector-horizontal-isolated-poster_176411-4140.jpg">
-                        <div class="moviebutton-container">
-                            <div class="info">
-                                <p>Movie Title</p>
-                                <p> Age | Genre</p>
-                            </div>
-                            <button class="removebutton">Remove</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img
-                            src="https://img.freepik.com/premium-vector/realistic-popcorn-cinema-movie-watching-concept-online-filmshow-entertainment-3d-cinematic-objects-two-tickets-snack-drink-promotion-flyer-vector-horizontal-isolated-poster_176411-4140.jpg">
-                        <div class="moviebutton-container">
-                            <div class="info">
-                                <p>Movie Title</p>
-                                <p> Age | Genre</p>
-                            </div>
-                            <button class="removebutton">Remove</button>
-                        </div>
-                    </div>
+
                 </section>
             </div>
         </div>
@@ -203,7 +174,8 @@
     <footer id="footer">
 
     </footer>
-    <script src="/js/adminhome.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type='module' src="/js/adminhome.js"></script>
 </body>
 
 </html>
