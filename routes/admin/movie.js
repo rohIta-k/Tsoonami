@@ -6,7 +6,7 @@ const tmdb = require('../admin/tmdb');
 const axios = require('axios');
 const youtube = require('../../config/youtube');
 const Theatre = require('../../models/theatres');
-
+const moment = require('moment');
 
 async function gettrailers(title, language) {
 
@@ -27,6 +27,7 @@ async function gettrailers(title, language) {
         thumbnail: item.snippet.thumbnails.medium.url
     };
 };
+
 function getmoviestatus(releasedate) {
     const today = new Date();
     const release = new Date(releasedate);
@@ -38,46 +39,63 @@ function getmoviestatus(releasedate) {
         return 'upcoming';
     }
 }
+router.get('/genres/:location', async (req, res) => {
+    try {
+        let { genres, languages } = req.query;
+        const location = req.params.location;
+        if (!genres) genres = [];
+        else if (!Array.isArray(genres)) genres = [genres];
 
-router.get('/genres', async (req, res) => {
+        if (!languages) languages = [];
+        else if (!Array.isArray(languages)) languages = [languages];
 
-  try {
-    let { genres, languages } = req.query;
+        console.log("Genres:", genres);
+        console.log("Languages:", languages);
 
-    if (!genres) genres = [];
-    else if (!Array.isArray(genres)) genres = [genres];
+        // Step 1: Query by genres/languages
+        const query = {};
+        if (genres.length > 0) {
+            query.genres = { $in: genres };
+        }
+        if (languages.length > 0) {
+            query.languages = { $in: languages };
+        }
 
-    if (!languages) languages = [];
-    else if (!Array.isArray(languages)) languages = [languages];
+        const matchingMovies = await Movie.find(query);
+        console.log("Matching movies before theatre filter:", matchingMovies.length);
 
-    console.log("Genres:", genres);
-    console.log("Languages:", languages);
+        // Step 2: Filter by theatre showtimes
+        const allTheatres = await Theatre.find({
+            city: new RegExp(`^${location.trim()}$`, 'i')
+        });
+        console.log(allTheatres);
+        const now = new Date();
+        const validTmdbIds = new Set();
 
-    const query = {};
-    if (genres.length > 0) {
-      query.genres = { $in: genres };
+        allTheatres.forEach(theatre => {
+            theatre.showtimes.forEach(time => {
+                const dateTimeStr = `${theatre.date} ${time}`;
+                const fullDateTime = moment(dateTimeStr, 'D-MMM HH:mm').toDate();
+
+                if (fullDateTime > now) {
+                    validTmdbIds.add(theatre.tmdbid);
+                }
+            });
+        });
+
+        // Step 3: Final movie filter
+        const filteredMovies = matchingMovies.filter(movie =>
+            validTmdbIds.has(movie.tmdbid)
+        );
+
+        console.log("Filtered movies after theatre check:", filteredMovies.length);
+        res.json(filteredMovies);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Server error" });
     }
-    if (languages.length > 0) {
-      query.languages = { $in: languages };
-    }
-
-    const matchingMovies = await Movie.find(query);
-    console.log("Matching movies before theatre filter:", matchingMovies.length);
-
-    const allTheatres = await Theatre.find({}, 'tmdbid');
-    const theatreTmdbIds = [...new Set(allTheatres.map(t => t.tmdbid))];
-
-    const filteredMovies = matchingMovies.filter(movie =>
-      theatreTmdbIds.includes(movie.tmdbid)
-    );
-
-    console.log("Filtered movies after theatre check:", filteredMovies.length);
-    res.json(filteredMovies);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Server error" });
-  }
 });
+
 
 
 router.get('/:id', async (req, res) => {
@@ -92,6 +110,7 @@ router.get('/:id', async (req, res) => {
                 tmdb.getmoviecredits(id)
             ]);
             console.log(movie);
+            console.log(certification);
             const castnondb = credits.data.cast.slice(0, 8).map(actor => ({
                 name: actor.name,
                 profile_path: actor.profile_path,
@@ -107,7 +126,6 @@ router.get('/:id', async (req, res) => {
             });
             const writersnondb = Array.from(map.values()).map(w => w.name);
             const originallang = movie.original_language;
-
             const originallanguage = languages.find(lang => lang.code === originallang);
             const otherlanguages = languages.filter(lang => lang.code !== originallang);
 
@@ -135,6 +153,7 @@ router.get('/:id', async (req, res) => {
                 filtered = trailers.filter(m => m.title.toLowerCase().includes('trailer') && m.title.toLowerCase().includes('official') && m.title.toLowerCase().replace(/\s+/g, '').includes(movie.title.toLowerCase().replace(/\s+/g, '')));
             }
             console.log(filtered);
+
             let minutes = movie.runtime;
             let hours = parseInt(minutes / 60);
             minutes = minutes % 60;
@@ -145,7 +164,7 @@ router.get('/:id', async (req, res) => {
                 plot: movie.overview,
                 genres: movie.genres.map(g => g.name),
                 imdb: `${movie.vote_average.toFixed(1)}/10`,
-                age: certification[0].certification,
+                age: certification[0]?.certification || 'NR',
                 duration: `${hours}h ${minutes}m`,
                 languages: [...new Set(filtered.map(t => t.language))],
                 cast: castnondb,

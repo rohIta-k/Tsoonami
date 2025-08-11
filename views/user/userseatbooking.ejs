@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOVIEPUFF</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Kirang+Haerang&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/userseatbooking.css">
+</head>
+
+<body>
+
+    <div id="top-nav">
+        <span class="material-symbols-outlined homee">
+            home
+        </span>
+        <div id="legend">
+            <div class="legend-item">
+                <div class="legendbox available"></div>
+                <span>Available</span>
+            </div>
+            <div class="legend-item">
+                <div class="legendbox selected"></div>
+                <span>Selected</span>
+            </div>
+            <div class="legend-item">
+                <div class="legendbox sold"></div>
+                <span>Sold</span>
+            </div>
+        </div>
+    </div>
+    <div id="main-container">
+        <div id="left-panel">
+            <div id="movie-details-card">
+                <h3 id="movie-title">
+                    <%=newobject.title%>
+                </h3>
+                <p id="movie-language">
+                    <%=newobject.language%>,<%=newobject.format%>
+                </p>
+                <div id="date-time-row">
+                    <span class="time-box">
+                        <%=newobject.day%>, <%=newobject.date+ ' ' + newobject.month%>
+                    </span>
+                    <span class="time-box">
+                        <%=newobject.time%>
+                    </span>
+                </div>
+                <p id="cinema-info">
+                    <%=newobject.theatre%>
+                </p>
+                <div class="selected-seats-info">
+                    <span>Selected seats</span>
+                    <div class="seat-placeholders">
+                    </div>
+                </div>
+            </div>
+            <div class="booking-summary-card">
+                <h2>BOOKING SUMMARY</h2>
+                <div class="summary-item" id="summary">
+                    <span id="details"></span>
+                    <span id="cost">300</span>
+                </div>
+                <div class="summary-item">
+                    <span>Convenience fee</span>
+                    <span>Rs 100</span>
+                </div>
+                <div class="summary-total">
+                    <span>Sub total</span>
+                    <span id="total"></span>
+                </div>
+                <button class="book-tickets-button">BOOK TICKETS</button>
+            </div>
+        </div>
+        <div id="right-panel">
+            <% let rowIndex=0, getRowLetter=i=> String.fromCharCode(65 + i); %>
+
+
+                <div class="seat-category" id="recliner">
+                    <h3>RECLINER: Rs:325</h3>
+                    <div id="reclinerseats">
+                        <% if (newobject.recliner) { %>
+                            <% for (let i=0; i < newobject.recliner.rows; i++, rowIndex++) { let
+                                rowLetter=getRowLetter(rowIndex); %>
+                                <div class="sub-row">
+                                    <% for (let j=1; j <=newobject.recliner.columns; j++) { %>
+                                        <div class="seat" data-seat="<%= rowLetter + j %>" data-section="Recliner">
+                                            <%= rowLetter + j %>
+                                        </div>
+                                        <% } %>
+                                </div>
+                                <% } %>
+                                    <% } %>
+                    </div>
+                </div>
+
+                <div class="seat-category">
+                    <h3>PRIME: Rs:200</h3>
+                    <div id="primeseats">
+                        <% if (newobject.prime) { %>
+                            <% for (let i=0; i < newobject.prime.rows; i++, rowIndex++) { let
+                                rowLetter=getRowLetter(rowIndex); %>
+                                <div class="sub-row">
+                                    <% for (let j=1; j <=newobject.prime.columns; j++) { %>
+                                        <div class="seat" data-seat="<%= rowLetter + j %>" data-section="Prime">
+                                            <%= rowLetter + j %>
+                                        </div>
+                                        <% } %>
+                                </div>
+                                <% } %>
+                                    <% } %>
+                    </div>
+                </div>
+
+                <div class="seat-category">
+                    <h3>CLASSIC: Rs:250</h3>
+                    <div id="classicseats">
+                        <% if (newobject.classic) { %>
+                            <% for (let i=0; i < newobject.classic.rows; i++, rowIndex++) { let
+                                rowLetter=getRowLetter(rowIndex); %>
+                                <div class="sub-row">
+                                    <% for (let j=1; j <=newobject.classic.columns; j++) { %>
+                                        <div class="seat" data-seat="<%= rowLetter + j %>" data-section="Classic">
+                                            <%= rowLetter + j %>
+                                        </div>
+
+                                        <% } %>
+                                </div>
+                                <% } %>
+                                    <% } %>
+                    </div>
+                </div>
+        </div>
+
+    </div>
+    </div>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        const soldSeats = <% - JSON.stringify(newobject.sold.map(s => s.trim())) %>;
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="/js/userseatbooking.js"></script>
+</body>

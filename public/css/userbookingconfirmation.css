@@ -4,41 +4,36 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'josefin sans';
-            background-color: #f5f0f3;
-            color: #333;
-            min-height: 100vh;
+        #navbar {
+            padding: 5px 5px;
+            background-color: #FF5B5C;
+            border-radius: 100px;
+            margin: 15px 10px 15px 10px;
+            height: 60px;
             display: flex;
-            flex-direction: column;
+            position: sticky;
             align-items: center;
-            padding: 15px;
-            overflow-x: hidden;
-
-        }
-
-        header {
-            background-color: #ff535f;
-            color: #fff;
-            padding: 10px 15px;
-            border-radius: 9px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-            display: flex;
+            padding: 0px 25px;
             justify-content: space-between;
-            align-items: stretch;
-            width: 100%;
-            max-width: 1330px;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-            gap: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            top: 0;
+            z-index: 1000;
         }
 
-        header h1 {
-            font-size: 1.8em;
-            font-weight: 800;
+        #title {
+            color: white;
+            font-family: "kirang haerang", sans-serif;
+            font-weight: 700;
+            font-size: 32px;
             letter-spacing: 1px;
-            margin: 0;
-            font-family: 'kirang haerang';
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .homee {
+            color: white;
+            font-size: 30px;
+            cursor: default;
         }
 
         .confirmation-message {
@@ -46,23 +41,24 @@
             align-items: center;
             justify-content: center;
             gap: 15px;
+            margin: 0px auto;
             margin-bottom: 30px;
             background-color: #c6ffd3;
             padding: 10px 20px;
             border-radius: 0px;
             box-shadow: 0 5px 15px rgba(0, 128, 0, 0.25);
-            width: 100%;
-            max-width: 800px;
+            width: 70%;
+            flex-shrink: 1;
         }
 
         .confirmation-message .checkmark {
-            font-size: 3em;
+            font-size: 4vw;
             color: #28a745;
             line-height: 1;
         }
 
         .confirmation-message h2 {
-            font-size: 2.5em;
+            font-size: 2.5vw;
             color: #28a745;
             font-weight: 800;
             text-transform: uppercase;
@@ -71,23 +67,35 @@
         }
 
         .ticket-card {
+            padding: 20px;
+            margin: 0px auto;
             background-color: #fff;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             display: flex;
             flex-wrap: wrap;
-            width: 100%;
-            max-width: 900px;
+            width: 70%;
             overflow: hidden;
         }
 
         .ticket-left-section {
             flex: 2;
-            padding: 30px;
             display: flex;
-            gap: 25px;
+            flex-direction: column;
+            gap: 20px;
             align-items: flex-start;
             border-right: 1px dashed #e0e0e0;
+        }
+
+        .first-layer {
+            gap: 25px;
+            display: flex;
+        }
+
+        .second-layer {
+            width: 70%;
+            display: flex;
+            justify-content: space-between;
         }
 
         .movie-poster {
@@ -131,12 +139,18 @@
 
         .ticket-middle-section {
             flex: 1;
-            padding: 30px;
+            padding: 10px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             gap: 15px;
             border-right: 1px dashed #e0e0e0;
+            align-items: center;
+        }
+
+        #seattitle {
+            font-size: 20px;
+            font-weight: 600;
         }
 
         .seat-type,
@@ -251,14 +265,16 @@
             gap: 15px 30px;
         }
 
-        .detail-item {
+        .detail-item,
+        .costt {
             display: flex;
             flex-direction: column;
             font-size: 0.9em;
             color: #666;
         }
 
-        .detail-item strong {
+        .detail-item strong,
+        .costt strong {
             color: #333;
             font-size: 1.05em;
             margin-top: 5px;

@@ -177,8 +177,30 @@ document.addEventListener('click', (event) => {
     }
 });
 
+const remove = document.querySelector('#removepopup');
+remove.style.display = 'none';
 
+const add = document.querySelector('#addpopup');
+const addbutton = document.querySelector('#addbutton');
+const removebutton = document.querySelector('#removebutton');
 
+let selected;
+
+addbutton.addEventListener('click', () => {
+    selected = 'add';
+    removebutton.classList.remove('active');
+    addbutton.classList.add('active');
+    remove.style.display = 'none';
+    add.style.display = 'flex';
+});
+
+removebutton.addEventListener('click', () => {
+    selected = 'remove';
+    addbutton.classList.remove('active');
+    removebutton.classList.add('active');
+    add.style.display = 'none';
+    remove.style.display = 'flex';
+});
 
 const citycontainer = document.querySelector('#addcity');
 const citydropdown = document.querySelector('#citydropdown');
@@ -203,6 +225,7 @@ document.querySelector('#addtheatre').addEventListener('click', async () => {
     const selectedcity = document.querySelector('#addcity button').innerText.trim();
     const theatrename = document.querySelector('#filltheatre').value.trim();
     const theatrelocation = document.querySelector('#filllocation').value.trim()
+    console.log(selectedcity,theatrename,theatrelocation);
 
     if (!theatrename || !theatrelocation || selectedcity === 'Select City') {
         alert('Please fill all details.');
@@ -226,11 +249,6 @@ document.querySelector('#addtheatre').addEventListener('click', async () => {
         alert('Cannot add movie');
     }
 })
-
-
-
-
-
 const citytwocontainer = document.querySelector('#removecity');
 const citytwodropdown = document.querySelector('#remcitydropdown');
 const citytwobutton = document.querySelector('#remcityimg');

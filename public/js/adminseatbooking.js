@@ -1,3 +1,7 @@
+
+document.querySelector('.homee').addEventListener('click', () => {
+    window.location.href = '/admin'
+})
 const formatcontainer = document.querySelector('#bigformat');
 const formatdropdown = document.querySelector('#formatdropdown');
 const formatbutton = document.querySelector('#formatimg');
@@ -56,40 +60,15 @@ make.addEventListener('click', () => {
         for (let j = 0; j < columns; j++) {
             const div = document.createElement('div');
             div.classList.add('seat');
-            div.addEventListener('click', () => {
-                const currentColor = getComputedStyle(div).backgroundColor;
-
-                if (currentColor === 'rgb(255, 192, 203)') {
-                    div.style.backgroundColor = '#e91e63';
-                } else {
-                    div.style.backgroundColor = '#ffc0cb';
-                }
-            })
             row.appendChild(div);
         }
         mainsection.appendChild(row);
     }
 
 })
-function attachSeatListeners() {
-    const seats = document.querySelectorAll('.seat');
-    seats.forEach((div) => {
-        div.addEventListener('click', () => {
-            const currentColor = getComputedStyle(div).backgroundColor;
-            if (currentColor === 'rgb(255, 192, 203)') {
-                div.style.backgroundColor = '#e91e63';
-            } else {
-                div.style.backgroundColor = '#ffc0cb';
-            }
-        });
-    });
-}
 
-window.addEventListener('DOMContentLoaded', () => {
-    attachSeatListeners();
-});
 
- const url = new URL(window.location.href);
+const url = new URL(window.location.href);
 const pathnameParts = window.location.pathname.split('/');
 const tmdbid = pathnameParts[pathnameParts.length - 1];
 const date = url.searchParams.get("date");
@@ -138,6 +117,39 @@ async function checkExistingLayout() {
         if (layout == 'yes') {
             document.querySelector('.booking-summary-card').style.display = 'none';
             document.querySelector('#save').style.display = 'none';
+            const seatContainers = [
+                { id: 'reclinerseats' },
+                { id: 'primeseats' },
+                { id: 'classicseats' }
+            ];
+
+            let rowCharCode = 65;
+
+            seatContainers.forEach(containerInfo => {
+                const container = document.getElementById(containerInfo.id);
+                if (!container) return;
+
+                const rows = container.querySelectorAll('.sub-row');
+                rows.forEach(row => {
+                    const rowLabel = String.fromCharCode(rowCharCode++);
+                    const seats = row.querySelectorAll('.seat');
+                    seats.forEach((seat, index) => {
+                        const seatLabel = `${rowLabel}${index + 1}`;
+                        seat.textContent = seatLabel;
+                        seat.setAttribute('data-seat', seatLabel);
+                    });
+                });
+            });
+            const allSeats = document.querySelectorAll('.seat');
+            console.log(soldSeats);
+
+            allSeats.forEach(seat => {
+                const seatCode = seat.dataset.seat;
+                if (soldSeats.includes(seatCode)) {
+                    console.log('hey');
+                    seat.classList.add('soldd');
+                }
+            });
         }
     } catch (err) {
         console.error(err);

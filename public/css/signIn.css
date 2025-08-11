@@ -1,50 +1,107 @@
 body {
-  font-family: "josefin sans";
   margin: 0;
   padding: 0;
-  background-color: #f0f2f5;
+}
+
+.message {
+  font-size: 1.8vw;
+  margin: 50px auto;
+  text-align: center;
+  color: #ff5b5c;
+  height: 20px;
+  font-weight: 600;
+  z-index: 100;
+  position: absolute;
+  top: 6%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+img {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  /* image stays in normal flow but can be stacked */
+  z-index: 1;
+  /* lower than popup */
+}
+
+.left-div {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  min-height: 100vh;
-  overflow: hidden;
+}
+
+.title {
+  font-size: 2.7vw;
+  font-weight:600;
+  font-family: 'Kirang Haerang', sans-serif;
+  margin-bottom:30px;
+}
+
+.left-img {
+  width: 220px;
+  height: 250px;
+  border-radius: 20px;
 }
 
 .login-popup {
+  position: absolute;
+  /* or fixed if you want it to stay in place */
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   display: flex;
   overflow: hidden;
-  max-width: 800px;
-  width: 95%;
-  max-height: 500px;
+  width: 60%;
+  max-height: 550px;
+  z-index: 10;
+  /* higher than image */
 }
 
+
 .left-div {
-  flex: 1;
+  flex: 1 1 50%;
   background-color: #e4fafc;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
   position: relative;
-  min-width: 300px;
+  min-width: 20px;
+  box-sizing: border-box;
 }
 
-.left-div img {
-  max-width: 100%;
-  height: 55%;
-  display: block;
+@media(max-width:1000px) {
+  .login-popup {
+    width: 80%;
+  }
+}
+
+@media(max-width:770px) {
+  .left-img {
+    display: none;
+  }
+
+  .title {
+    font-size:5vw;
+    font-weight:600;
+    display: inline-block;
+    writing-mode: vertical-rl;
+    /* text flows top to bottom */
+    text-orientation: upright;
+  }
 }
 
 .right-content {
-  flex: 1.2;
+  flex: 1 0 50%;
   padding: 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-width: 400px;
+  min-width: 300px;
 }
 
 .tabs {
@@ -54,6 +111,7 @@ body {
 }
 
 .tab-button {
+  font-family: "Poppins", sans-serif;
   background: none;
   border: none;
   padding: 10px 20px;
@@ -79,6 +137,11 @@ body {
   background-color: #000;
 }
 
+#login {
+  display: flex;
+  flex-direction: column;
+}
+
 h2 {
   font-size: 1.8rem;
   margin-bottom: 25px;
@@ -89,58 +152,43 @@ h2 {
 
 .social-login {
   display: flex;
-  gap: 15px;
+  gap: 30px;
   margin-bottom: 5px;
-}
-
-.social-button {
-  flex: 1;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #fff;
-  font-size: 1.2rem;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
   align-items: center;
-  transition: background-color 0.2s, border-color 0.2s;
+  justify-content: center;
+  border-color: #a1a1a1;
+  border-style: groove;
+  border-width: 0.5px;
+  height: 44px;
+  background-color: #f9f9f9;
+  align-self: center;
+  width: 100%;
 }
 
-.social-button:hover {
-  background-color: #f5f5f5;
-  border-color: #ccc;
+.social-login span {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
 }
 
-.social-button i {
-  font-size: 1.4rem;
-  color: #555;
-}
-
-.or-separator {
+.contain {
+  display: flex;
   text-align: center;
   margin: 25px 0;
   color: #999;
   font-size: 0.9rem;
-  position: relative;
+  align-items: center;
 }
 
-.or-separator::before,
-.or-separator::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  width: 28%;
+.line {
+  flex: 1 1 20%;
   height: 1px;
   background-color: #eee;
+
 }
 
-.or-separator::before {
-  left: 0;
-}
-
-.or-separator::after {
-  right: 0;
+.or-separator {
+  flex: 1 0 40%;
+  font-size: 14px;
 }
 
 .input-group {
@@ -188,15 +236,6 @@ h2 {
   transition: color 0.2s;
 }
 
-.social-login {
-  align-items: center;
-  border-color: #a1a1a1;
-  border-style: groove;
-  border-width: 0.5px;
-  padding-left: 190px;
-  height: 44px;
-  background-color: #f9f9f9;
-}
 .social-login:hover {
   cursor: pointer;
 }
@@ -220,62 +259,4 @@ h2 {
 
 .login-button:hover {
   background-color: #d03a3a;
-}
-
-@media (max-width: 768px) {
-  .login-popup {
-    flex-direction: column;
-    max-width: 450px;
-    width: 90%;
-    max-height: unset;
-    margin: 20px;
-  }
-
-  .left-illustration {
-    min-width: unset;
-    height: 200px;
-    padding: 15px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-  }
-
-  .right-content {
-    padding: 30px;
-    min-width: unset;
-  }
-
-  .social-login {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .social-button {
-    flex: unset;
-    width: 48%;
-  }
-}
-
-@media (max-width: 480px) {
-  .right-content {
-    padding: 20px;
-  }
-
-  h2 {
-    font-size: 1.5rem;
-  }
-
-  .social-button {
-    width: 100%;
-  }
-
-  .input-group input {
-    padding: 10px;
-  }
-
-  .login-button {
-    padding: 12px;
-    font-size: 1rem;
-  }
 }

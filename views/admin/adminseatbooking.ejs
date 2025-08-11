@@ -7,6 +7,7 @@
     <title>MOVIEPUFF</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link
@@ -17,6 +18,9 @@
 
 <body>
     <div id="top-nav">
+        <span class="material-symbols-outlined homee">
+            home
+        </span>
         <div id="legend">
             <div class="legend-item">
                 <div class="legendbox available"></div>
@@ -76,7 +80,7 @@
                 </div>
                 <div class="horizontal">
                     <label for="columns">No of Columns:</label>
-                    <input type="number" min="1" max="22" value="1" id="columns"
+                    <input type="number" min="1" max="15" value="1" id="columns"
                         oninput="const val2 = parseInt(this.value);const min2 = parseInt(this.min);const max2 = parseInt(this.max);if (!isNaN(val2)) this.value = Math.max(min, Math.min(max, val2));">
                 </div>
                 <button class="book-tickets-button">MAKE</button>
@@ -129,6 +133,9 @@
         </div>
     </div>
     </div>
+    <script>
+        const soldSeats = <% - JSON.stringify(newobject.sold.map(s => s.trim())) %>;
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script type="module" src="/js/adminseatbooking.js"></script>
 </body>

@@ -1,3 +1,116 @@
+document.querySelector('.profile-icon').addEventListener('click', function () {
+    this.classList.toggle('active');
+});
+
+
+document.getElementById("personal").addEventListener("click", () => {
+    window.location.href = "/userprofile#personal";
+});
+
+document.querySelector(".menu-item:nth-child(2)").addEventListener("click", () => {
+    window.location.href = "/userprofile#account";
+});
+
+document.querySelector(".menu-item:nth-child(3)").addEventListener("click", () => {
+    window.location.href = "/userprofile#bookingg";
+});
+
+document.querySelector(".menu-item:nth-child(4)").addEventListener("click", () => {
+    window.location.href = "/userprofile#query";
+});
+
+document.querySelector('#logg').addEventListener('click', async () => {
+    try {
+        const res = await axios.post('/auth/logout');
+        if (res.status === 200) {
+            window.location.href = '/tsoonami';
+        }
+    } catch (err) {
+        console.error('Logout failed:', err);
+        alert('Error logging out. Please try again.');
+    }
+});
+
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const token = localStorage.getItem('token');
+    console.log(token);
+    if (!token) {
+        window.location.href = '/tsoonami';
+        return;
+    }
+
+    try {
+        const res = await axios.get('/location/info', {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+
+        const userData = res.data;
+        console.log(userData.location);
+
+        if (!userData.location) {
+            console.log('hey');
+            showLocationPopup();
+        } else {
+            setDefaultLocation(userData.location);
+        }
+    } catch (err) {
+        console.error(err);
+
+        if (err.response && (err.response.status === 401 || err.response.status === 403)) {
+            // Token invalid or expired
+            localStorage.removeItem('token');
+            window.location.href = '/tsoonami';
+        } else {
+            alert('Something went wrong. Please try again later.');
+        }
+    }
+});
+function setDefaultLocation(location) {
+    localStorage.setItem('userLocation', location);
+    document.getElementById('locname').innerText = location;
+    getshowingmovies(location);
+}
+
+function showLocationPopup() {
+    document.querySelector('.FullPopup').style.display = 'block';
+    document.querySelector('#backdrop').style.display = 'block';
+}
+document.querySelector('#locname').addEventListener('click', () => {
+    document.querySelector('.FullPopup').style.display = 'block';
+    document.querySelector('#backdrop').style.display = 'block';
+})
+
+document.querySelectorAll('.Imgbox').forEach(box => {
+    box.addEventListener('click', async () => {
+        document.querySelector('#locname').innerHTML = box.querySelector('.Namebox').innerHTML;
+        const locationValue = document.querySelector('#locname').innerHTML.trim();
+        if (!locationValue) {
+            alert('Please enter your location');
+            return;
+        }
+        try {
+            const res = await axios.post('/location',
+                { location: locationValue },
+                { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+            );
+
+            alert(res.data.message);
+            setDefaultLocation(res.data.location);
+            document.querySelector('.FullPopup').style.display = 'none';
+            document.querySelector('#backdrop').style.display = 'none';
+            getshowingmovies(box.querySelector('.Namebox').innerHTML);
+        } catch (err) {
+            console.error(err);
+            alert('Your session expired. Please sign in again.');
+            localStorage.removeItem('token');
+            window.location.href = '/tsoonami';
+
+        }
+    });
+});
+
+
 
 function renderMovies(allmovies) {
     document.querySelector('#nowshowing').innerHTML = '';
@@ -7,7 +120,7 @@ function renderMovies(allmovies) {
             const card = document.createElement('div');
             card.classList.add('card');
             card.addEventListener('click', () => {
-                window.location.href = `/user/movie/${movie.tmdbid}`;
+                window.location.href = `/user/movie/${movie.tmdbid}?q=${document.querySelector('#locname').innerHTML}`;
             });
             const mimg = document.createElement('img');
             mimg.src = movie.poster;
@@ -94,7 +207,7 @@ function makeelements(all) {
         newli.addEventListener('click', () => {
             results.style.display = 'none';
             console.log('clicked');
-            window.location.href = `/user/movie/${movie.tmdbid}`;
+            window.location.href = `/user/movie/${movie.tmdbid}?q=${document.querySelector('#locname').innerHTML}`;
             console.log('clicked');
         })
         ulelement.appendChild(newli);
@@ -138,19 +251,8 @@ document.addEventListener('click', (event) => {
         results.style.display = 'none';
     }
 });
-document.querySelector('#location').addEventListener('click', () => {
-    document.querySelector('.FullPopup').style.display = 'flex';
-    document.querySelector('#backdrop').style.display = 'block';
-})
 
-document.querySelectorAll('.Imgbox').forEach(box => {
-    box.addEventListener('click', () => {
-        document.querySelector('.FullPopup').style.display = 'none';
-        document.querySelector('#backdrop').style.display = 'none';
-        document.querySelector('#locname').innerHTML = box.querySelector('.Namebox').innerHTML;
-        getshowingmovies(box.querySelector('.Namebox').innerHTML);
-    });
-});
+
 const genredropdown = document.querySelector('#genree');
 const genredetails = document.querySelector('#genredetail');
 genredropdown.addEventListener('click', () => {
@@ -185,7 +287,7 @@ async function fetchMoviesByGenres() {
     selectedLanguages.forEach(l => params.append('languages', l));
 
     try {
-        const res = await axios.get(`/admin/movie/genres?${params.toString()}`);
+        const res = await axios.get(`/admin/movie/genres/${document.querySelector('#locname').innerHTML}?${params.toString()}`);
         renderMovies(res.data);
     } catch (err) {
         console.log(err);

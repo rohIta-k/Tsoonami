@@ -1,4 +1,6 @@
-
+document.querySelector('.homee').addEventListener('click', () => {
+    window.location.href = '/user'
+})
 const langcontainer = document.querySelector('#spec-lang');
 const bigdate = document.querySelector('#date');
 const datecontainer = document.querySelector('#inside-date');
@@ -7,20 +9,13 @@ const prev = document.querySelector('#prev');
 const formatcontainer = document.querySelector('#bigformat');
 const formatdropdown = document.querySelector('#formatdropdown');
 const formatbutton = document.querySelector('#formatimg');
-const citycontainer = document.querySelector('#bigcity');
-const citydropdown = document.querySelector('#citydropdown');
-const citybutton = document.querySelector('#cityimg');
 const langscontainer = document.querySelector('#biglang');
 const langdropdown = document.querySelector('#languagedropdown');
 const langbutton = document.querySelector('#languageimg');
-const theatrecontainer = document.querySelector('#theatres');
-const theatredropdown = document.querySelector('#theatredropdown');
-const addtheatresimg = document.querySelector('#addtheatresimg');
 const trailerlangs = document.querySelectorAll('#popuptitle button');
 const frame = document.querySelector('iframe');
 const closebtn = document.querySelector('#close');
 const seetrailer = document.querySelector('#watchtrailer');
-const addupdatebtn = document.querySelector('#add-update');
 
 
 let trailers = [];
@@ -29,7 +24,9 @@ let weekindex = 0;
 let selectedday;
 let selectedmonth;
 let selecteddate;
-let selectedcity;
+const urlParams = new URLSearchParams(window.location.search);
+const selectedcity = urlParams.get('q');
+localStorage.setItem('selectedcity', selectedcity);
 let response;
 let selectedformat = '';
 let selectedlanguage = '';
@@ -111,7 +108,6 @@ function renderdatewindow() {
             localStorage.setItem('selectedmonth', selectedmonth);
             localStorage.setItem('selectedday', selectedday);
             loadFromDatabase();
-            loadfromlocalstorage(selectedcity);
         });
 
         datecontainer.appendChild(newdiv);
@@ -201,13 +197,9 @@ document.addEventListener('click', (event) => {
     }
 });
 
-document.querySelector('.homee').addEventListener('click',()=>{
-    window.location.href='/user';
+document.querySelector('.homee').addEventListener('click', () => {
+    window.location.href = '/user';
 })
-
-
-
-
 
 langbutton.addEventListener('click', () => {
     if (langdropdown.style.display == "block")
@@ -224,7 +216,6 @@ document.querySelectorAll('#languageid li').forEach(li => {
         document.querySelector('#biglang button').innerHTML = li.innerHTML;
         langdropdown.style.display = 'none';
         loadFromDatabase();
-        loadfromlocalstorage(selectedcity);
     })
 })
 
@@ -244,119 +235,9 @@ document.querySelectorAll('#formatid li').forEach(li => {
         document.querySelector('#bigformat button').innerHTML = li.innerHTML;
         formatdropdown.style.display = 'none';
         loadFromDatabase();
-        loadfromlocalstorage(selectedcity);
     })
 })
 
-
-citybutton.addEventListener('click', () => {
-    if (citydropdown.style.display == "block")
-        citydropdown.style.display = 'none';
-    else {
-        citydropdown.style.display = "block";
-    }
-
-});
-
-document.querySelectorAll('#cityid li').forEach(li => {
-    li.addEventListener('click', async () => {
-        console.log(JSON.parse(localStorage.getItem('moviedetailspagedraft')));
-        const prevcity = selectedcity;
-
-        if (prevcity && prevcity !== 'City') {
-            console.log(`Saving before switch from ${prevcity}`);
-            savetolocalstorage(prevcity);
-        }
-        selectedcity = li.innerHTML.trim();
-        document.querySelector('#bigcity button').innerHTML = selectedcity;
-        const res = await axios.get(`/api/cities/${li.innerHTML}/theatres`);
-        response = res.data;
-        citydropdown.style.display = 'none';
-        theatredropdown.style.display = 'none';
-        document.querySelector('#theatres button').innerHTML = 'Add Theatres';
-        loadFromDatabase();
-        loadfromlocalstorage(li.innerHTML);
-    })
-})
-
-addtheatresimg.addEventListener('click', () => {
-    if (document.querySelector('#bigcity button').innerHTML == 'City') {
-        alert('Select City first');
-    }
-    else {
-        if (theatredropdown.style.display == "block")
-            theatredropdown.style.display = 'none';
-        else {
-            if (response.theatres.length != 0) {
-                maketheatres(response.theatres);
-                theatredropdown.style.display = "block";
-            }
-            else
-                alert(response.message);
-        }
-    }
-
-});
-
-function maketheatres(theatres) {
-    const theatreList = document.querySelector('#theatreid');
-    theatreList.innerHTML = '';
-
-    if (theatres.length === 0) return;
-
-    for (const theatre of theatres) {
-        const li = theatrelistitem(theatre);
-        const div = document.createElement('div');
-        theatreList.appendChild(li);
-        theatreList.appendChild(div);
-    }
-}
-
-function theatrelistitem(theatre) {
-    const li = document.createElement('li');
-    li.innerHTML = theatre.name;
-
-    li.addEventListener('click', () => {
-
-        if (!selectedcity || selectedcity === 'City') {
-            alert('Please select a city first.');
-            return;
-        }
-
-        if (!selectedformat || selectedformat === 'Format') {
-            alert('Please select a format first.');
-            return;
-        }
-
-        if (!selecteddate) {
-            alert('Please select a date first.');
-            return;
-        }
-        if (!selectedlanguage) {
-            alert('Please select a language first.');
-            return;
-        }
-        const isduplicate = istheatreduplicate(theatre.name);
-        theatredropdown.style.display = 'none';
-
-        if (isduplicate) {
-            alert('Theatre already added');
-            return;
-        }
-
-        const theatrecard = createtheatrecard(theatre);
-        document.querySelector('#about-theatres').appendChild(theatrecard);
-        document.querySelector('#about-theatres').appendChild(document.createElement('hr'));
-        savetolocalstorage();
-    });
-
-    return li;
-}
-
-function istheatreduplicate(name) {
-    const alltitles = document.querySelectorAll('.movie-title');
-    return Array.from(alltitles).some(title => title.innerHTML === name);
-}
 function clean(val) {
     return encodeURIComponent(String(val || '').replace(/\s+/g, ' ').trim());
 }
@@ -365,134 +246,6 @@ function convertTo12Hour(time24) {
     const ampm = hour >= 12 ? 'PM' : 'AM';
     const hour12 = hour % 12 || 12; // 0 becomes 12
     return `${hour12}:${minute.toString().padStart(2, '0')} ${ampm}`;
-}
-
-
-function createtheatrecard(theatre) {
-    const bigdiv = document.createElement('div');
-    bigdiv.classList.add('about-one');
-    bigdiv.setAttribute('data-location', theatre.location);
-
-    const subdiv = document.createElement('div');
-    subdiv.classList.add('name-info');
-
-    const titleplus = document.createElement('div');
-    titleplus.classList.add('name-close');
-
-    const title = document.createElement('span');
-    title.classList.add('movie-title');
-    title.innerHTML = theatre.name;
-
-    const close = document.createElement('span');
-    close.classList.add('material-symbols-outlined');
-    close.innerHTML = 'close';
-    close.addEventListener('click', () => {
-        bigdiv.remove()
-        savetolocalstorage();
-    });
-
-    titleplus.appendChild(title);
-    titleplus.appendChild(close);
-
-    const infospan = createinfobutton(theatre);
-    subdiv.appendChild(titleplus);
-    subdiv.appendChild(infospan);
-
-    const showtimediv = document.createElement('div');
-    showtimediv.classList.add('manage-showtime');
-
-    const allshowtimes = document.createElement('div');
-    allshowtimes.classList.add('all-showtimes');
-
-    const addbtn = document.createElement('button');
-    addbtn.classList.add('plus');
-    addbtn.innerHTML = '+';
-    addbtn.addEventListener('click', () => {
-        const parent = addbtn.parentElement;
-        const existingtimeinputs = parent.querySelectorAll('input[type="time"]');
-
-        for (let input of existingtimeinputs) {
-            if (!input.value) {
-                alert("Please set time for all existing showtimes before adding a new one.");
-                return;
-            }
-        }
-        const oneshowtime = document.createElement('div');
-        oneshowtime.classList.add('each-showtime');
-
-        // Create time input and subtract inside this scope
-        const timeinput = document.createElement('input');
-        timeinput.type = 'time';
-        timeinput.addEventListener('click', (e) => {
-            e.stopPropagation();
-        });
-        timeinput.addEventListener('focus', (e) => {
-            e.stopPropagation();
-        });
-        timeinput.addEventListener('change', () => {
-            sortshowtimes(allshowtimes);
-            savetolocalstorage();
-        });
-
-        // Subtract button
-        const subtract = document.createElement('span');
-        subtract.classList.add('subtract');
-        subtract.innerHTML = '-';
-        subtract.addEventListener('click', (e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            // Don't redirect, just remove the block
-            oneshowtime.remove();
-            savetolocalstorage();
-        });
-
-        // Back button / label (optional UI element)
-        const back = document.createElement('div');
-        back.innerHTML = 'm';
-
-        // Append all
-        oneshowtime.appendChild(back);
-        oneshowtime.appendChild(timeinput);
-        oneshowtime.appendChild(subtract);
-
-        // Main click for redirect
-        oneshowtime.addEventListener('click', (e) => {
-            // Protect from accidental redirect
-            if (
-                e.target.closest('.subtract') ||
-                e.target.closest('input[type="time"]')
-            ) {
-                return;
-            }
-            console.log("Redirect triggered", e.target);
-
-
-            const timeinputvalue = timeinput.value;
-            if (!timeinputvalue) {
-                alert('Please select a valid time');
-                return;
-            }
-
-            const convertedtime = convertTo12Hour(timeinputvalue);
-            const tselecteddate = clean(localStorage.getItem('selecteddate'));
-            const tselectedmonth = clean(localStorage.getItem('selectedmonth'));
-            const tselectedlanguage = clean(localStorage.getItem('selectedlanguage'));
-            const tselectedformat = clean(localStorage.getItem('selectedformat'));
-            const tselectedday = clean(localStorage.getItem('selectedday'));
-
-            window.location.href = `/admin/showtime/${id}?date=${encodeURIComponent(tselecteddate)}&day=${encodeURIComponent(tselectedday)}&month=${encodeURIComponent(tselectedmonth)}&lang=${tselectedlanguage}&format=${tselectedformat}&time=${encodeURIComponent(convertedtime)}&theatre=${encodeURIComponent(theatre.name)}`;
-        });
-        allshowtimes.appendChild(oneshowtime);
-        parent.insertBefore(allshowtimes, addbtn);
-    })
-    showtimediv.appendChild(allshowtimes);
-    showtimediv.appendChild(addbtn);
-
-    bigdiv.appendChild(subdiv);
-    bigdiv.appendChild(showtimediv);
-
-
-    return bigdiv;
 }
 
 function sortshowtimes(container) {
@@ -557,54 +310,30 @@ function createinfobutton(theatre) {
 
     return infospan;
 }
-function savetolocalstorage(cityOverride = null) {
 
-    const selected = cityOverride || selectedcity;
-    if (!selected || selected === 'City') return;
-    if (!selecteddate || !selectedmonth) {
-        return;
-    }
+function createtheatrecard(theatre) {
+    const bigdiv = document.createElement('div');
+    bigdiv.classList.add('about-one');
+    bigdiv.setAttribute('data-location', theatre.location);
 
-    if (!selectedformat || selectedformat === 'Format') {
-        return;
-    }
-    if (!selectedlanguage || selectedlanguage === 'Language') {
-        return;
-    }
+    const subdiv = document.createElement('div');
+    subdiv.classList.add('name-info');
 
-    const data = [];
+    const title = document.createElement('span');
+    title.classList.add('movie-title');
+    title.innerHTML = theatre.name;
+    subdiv.appendChild(title);
 
-    document.querySelectorAll('.about-one').forEach(card => {
-        const name = card.querySelector('.movie-title')?.innerText;
-        const location = card.getAttribute('data-location') || '';
-        const showtimes = Array.from(card.querySelectorAll('input[type="time"]'))
-            .map(input => input.value)
-            .filter(val => val);
-        data.push({ name, location, showtimes });
-    });
-    const alldrafts = JSON.parse(localStorage.getItem('moviedetailspagedraft') || '{}');
-    const fulldate = `${selecteddate}-${selectedmonth}`
-    if (!alldrafts[selected]) alldrafts[selected] = {};
-    if (!alldrafts[selected][fulldate]) alldrafts[selected][fulldate] = {};
-    if (!alldrafts[selected][fulldate][selectedlanguage]) alldrafts[selected][fulldate][selectedlanguage] = {};
-    alldrafts[selected][fulldate][selectedlanguage][selectedformat] = data;
-    localStorage.setItem('moviedetailspagedraft', JSON.stringify(alldrafts));
-
-    console.log(data);
-    console.log(JSON.parse(localStorage.getItem('moviedetailspagedraft')));
-}
-
-function loadfromlocalstorage(city) {
-    console.log(JSON.parse(localStorage.getItem('moviedetailspagedraft')));
-    const alldrafts = JSON.parse(localStorage.getItem('moviedetailspagedraft') || '{}');
-    const fulldate = `${selecteddate}-${selectedmonth}`;
-    const data = alldrafts?.[city]?.[fulldate]?.[selectedlanguage]?.[selectedformat] || [];
-    if (data == '')
-        return;
-    console.log(data);
-    rendertheatreblocks(data);
+    const infospan = createinfobutton(theatre);
+    subdiv.appendChild(infospan);
+    const allShowtimes = document.createElement('div');
+    allShowtimes.classList.add('all-showtimes');
+    bigdiv.appendChild(subdiv);
+    bigdiv.appendChild(allShowtimes);
+    return bigdiv;
 }
 function rendertheatreblocks(data = []) {
+    let counttwo = 0;
     document.querySelector('#about-theatres').innerHTML = '';
 
     for (let theatre of data) {
@@ -612,70 +341,61 @@ function rendertheatreblocks(data = []) {
         const container = card.querySelector('.all-showtimes');
 
         for (let time of theatre.showtimes) {
+            const convertedTime = convertTo12Hour(time);
+
+            const tselectedyear = new Date().getFullYear();
+
+            const selectedDateObj = new Date(`${selectedmonth} ${selecteddate}, ${tselectedyear}`);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            const isToday = selectedDateObj.getTime() === today.getTime();
+
+            if (isToday) {
+                const [timeStr, meridian] = convertedTime.split(' ');
+                const [hours, minutes] = timeStr.split(':').map(Number);
+
+                let showtimeDate = new Date();
+                showtimeDate.setHours(meridian === 'PM' && hours !== 12 ? hours + 12 : (meridian === 'AM' && hours === 12 ? 0 : hours));
+                showtimeDate.setMinutes(minutes);
+                showtimeDate.setSeconds(0);
+
+                const now = new Date();
+
+                if (showtimeDate <= now) {
+                    continue;
+                }
+            }
+            counttwo++;
             const oneshowtime = document.createElement('div');
             oneshowtime.classList.add('each-showtime');
 
-            const timeinput = document.createElement('input');
-            timeinput.type = 'time';
-            timeinput.value=time;
-            timeinput.addEventListener('click', (e) => {
-                e.stopPropagation();
-            });
-            timeinput.addEventListener('focus', (e) => {
-                e.stopPropagation();
-            });
-            timeinput.addEventListener('change', () => {
-                e.stopPropagation();
-                sortshowtimes(allshowtimes);
-            });
+            const timee = document.createElement('div');
+            timee.innerHTML = convertTo12Hour(time);
 
-            const subtract = document.createElement('span');
-            subtract.classList.add('subtract');
-            subtract.innerHTML = '-';
-            subtract.addEventListener('click', (e) => {
-                e.stopPropagation();
-                e.preventDefault();
-                oneshowtime.remove();
-            });
-
-            const back = document.createElement('div');
-            back.innerHTML = 'm';
-
-            oneshowtime.appendChild(back);
-            oneshowtime.appendChild(timeinput);
-            oneshowtime.appendChild(subtract);
+            oneshowtime.appendChild(timee);
 
 
             oneshowtime.addEventListener('click', (e) => {
-                if (
-                    e.target.closest('.subtract') ||
-                    e.target.closest('input[type="time"]')
-                ) {
-                    return;
-                }
                 console.log("Redirect triggered", e.target);
 
-
-                const timeinputvalue = timeinput.value;
-                if (!timeinputvalue) {
-                    alert('Please select a valid time');
-                    return;
-                }
-
-                const convertedtime = convertTo12Hour(timeinputvalue);
+                const convertedtime = convertTo12Hour(time);
                 const tselecteddate = clean(localStorage.getItem('selecteddate'));
                 const tselectedmonth = clean(localStorage.getItem('selectedmonth'));
                 const tselectedlanguage = clean(localStorage.getItem('selectedlanguage'));
                 const tselectedformat = clean(localStorage.getItem('selectedformat'));
                 const tselectedday = clean(localStorage.getItem('selectedday'));
 
-                window.location.href = `/admin/showtime/${id}?date=${encodeURIComponent(tselecteddate)}&day=${encodeURIComponent(tselectedday)}&month=${encodeURIComponent(tselectedmonth)}&lang=${tselectedlanguage}&format=${tselectedformat}&time=${encodeURIComponent(convertedtime)}&theatre=${encodeURIComponent(theatre.name)}`;
+                window.location.href = `/user/showtime/${id}?date=${encodeURIComponent(tselecteddate)}&day=${encodeURIComponent(tselectedday)}&month=${encodeURIComponent(tselectedmonth)}&lang=${tselectedlanguage}&format=${tselectedformat}&time=${encodeURIComponent(convertedtime)}&theatre=${encodeURIComponent(theatre.name)}`;
             });
             container.appendChild(oneshowtime);
         }
+        if (counttwo != 0) {
+            document.querySelector('#about-theatres').appendChild(card);
+            document.querySelector('#about-theatres').appendChild(document.createElement('hr'));
+        }
 
-        document.querySelector('#about-theatres').appendChild(card);
-        document.querySelector('#about-theatres').appendChild(document.createElement('hr'));
+
     }
 
 }
@@ -753,9 +473,7 @@ window.addEventListener('load', () => {
     localStorage.removeItem('selectedformat');
     localStorage.removeItem('selectedlanguage');
     localStorage.removeItem('selectedday');
-    localStorage.removeItem('moviedetailspagedraft');
 
-    document.querySelector('#bigcity button').innerText = 'City';
     document.querySelector('#bigformat button').innerText = 'Format';
     document.querySelector('#biglang button').innerText = 'Language';
 
@@ -763,7 +481,6 @@ window.addEventListener('load', () => {
         card.classList.remove('selected');
     });
 
-    selectedcity = null;
     selecteddate = null;
     selectedmonth = null;
     selectedformat = null;

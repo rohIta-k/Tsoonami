@@ -3,11 +3,36 @@ const axios = require('axios');
 const router = express.Router();
 const tmdb = require('../../config/tmdb');
 
+async function getmovievideos(id, code) {
+    try {
+        const response = await tmdb.get(`/movie/${id}/videos`, {
+            params: {
+                language: code // request trailers in specific language
+            }
+        });
+
+        // Only return trailers, sorted by official first
+        return response.data.results
+            .filter(video =>
+                video.site === 'YouTube' &&
+                video.type === 'Trailer'
+            )
+            .sort((a, b) => {
+                if (a.official && !b.official) return -1;
+                if (!a.official && b.official) return 1;
+                return 0;
+            });
+    } catch (err) {
+        console.error(`Error fetching videos for movie ${id} (${code}):`, err.message);
+        return [];
+    }
+}
+
 
 async function getcertification(id) {
     const res = await tmdb.get(`/movie/${id}/release_dates`);
     const indiaones = res.data.results.find(m => m.iso_3166_1 === 'IN');
-    return indiaones.release_dates;
+    return indiaones?.release_dates || [];
 }
 
 async function getmoviebyid(id) {
@@ -98,4 +123,4 @@ router.get('/popular', async (req, res) => {
     }
 });
 
-module.exports = { router, getmoviebyid, getcertification, getmoviecredits };
+module.exports = { router, getmoviebyid, getcertification, getmoviecredits,getmovievideos };

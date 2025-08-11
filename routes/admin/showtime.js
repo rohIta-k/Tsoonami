@@ -22,6 +22,26 @@ const convertTo24Hour = (timeStr) => {
     const mm = String(minutes).padStart(2, '0');
     return `${hh}:${mm}`;
 };
+router.get('/find', async (req, res) => {
+    const { id,date, month,lang, format, theatre } = req.query;
+    const fullDate = new Date();
+    if (date && month) {
+        const dateNum = parseInt(date);
+        const monthIndex = new Date(`${month} 1, 2025`).getMonth();
+        const thisYear = new Date().getFullYear();
+        fullDate.setFullYear(thisYear, monthIndex, dateNum);
+        fullDate.setHours(0, 0, 0, 0);
+    }
+    const existing = await Showtime.find({
+        tmdbid: id,
+        language: lang,
+        format: format,
+        date: fullDate,
+        theatre: theatre
+    });
+    console.log(existing);
+    res.send(existing);
+})
 
 router.get('/:id', async (req, res) => {
     const { id } = req.params;
@@ -54,12 +74,14 @@ router.get('/:id', async (req, res) => {
         theatre: theatre,
         recliner: null,
         prime: null,
-        classic: null
+        classic: null,
+        sold: []
     }
     if (existing) {
         newobject.recliner = existing.recliner || null;
         newobject.prime = existing.prime || null;
         newobject.classic = existing.classic || null;
+        newobject.sold=existing.sold||[];
     }
     res.render('admin/adminseatbooking', { newobject });
 })
@@ -122,4 +144,34 @@ router.get('/check/:seatkey', async (req, res) => {
         console.log(err.message);
     }
 });
+router.post('/update', async (req, res) => {
+    try {
+        const {
+            tmdbid, date, day, month, lang, format, time, theatre, seats } = req.body;
+        const fullDate = new Date();
+        if (date && month) {
+            const dateNum = parseInt(date);
+            const monthIndex = new Date(`${month} 1, 2025`).getMonth();
+            const thisYear = new Date().getFullYear();
+            fullDate.setFullYear(thisYear, monthIndex, dateNum);
+            fullDate.setHours(0, 0, 0, 0);
+        }
+        const existing = await Showtime.findOne({
+            tmdbid: tmdbid,
+            language: lang,
+            format: format,
+            date: fullDate,
+            time: time,
+            theatre: theatre
+        });
+        existing.sold.push(...seats);
+
+
+        await existing.save();
+    }
+    catch (err) {
+        console.log(err);
+    }
+})
+
 module.exports = router;

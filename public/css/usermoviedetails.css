@@ -158,10 +158,85 @@ iframe {
     transition: transform 0.2s ease;
     margin-left: 10px;
 }
-.homee{
-    color:white;
-    font-size:30px;
-    cursor:default;
+
+.homee {
+    color: white;
+    font-size: 30px;
+    cursor: default;
+}
+
+@media (max-width: 1000px) {
+    #navbar {
+        padding: 0px 15px;
+        align-items: center;
+    }
+
+    #title {
+        font-size: 26px;
+        margin-right: 10px;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    #searchfield {
+        flex-basis: 400px;
+    }
+
+    .homee {
+        font-size: 32px;
+        margin-left: 6px;
+    }
+
+    .profile-icon {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+/* Phone adjustments */
+@media (max-width: 600px) {
+    #navbar {
+        display: flex;
+        flex-wrap: wrap;
+        /* allow wrapping into multiple rows */
+        align-items: center;
+        border-radius: 20px;
+        padding: 10px;
+        height: auto;
+    }
+
+    /* First row: title + home + profile */
+    #title,
+    .homee,
+    .profile-icon {
+        flex: 0 0 auto;
+        /* don't stretch */
+        margin: 4px;
+    }
+
+    #title {
+        order: 1;
+        font-size: 26px;
+    }
+
+    .homee {
+        order: 2;
+        font-size: 34px;
+    }
+
+    .profile-icon {
+        order: 3;
+        width: 38px;
+        height: 38px;
+    }
+
+    /* Second row: search bar full width */
+    #searchfield {
+        order: 4;
+        flex: 1 0 100%;
+        /* take full width and wrap to next line */
+        margin-top: 8px;
+    }
 }
 
 
@@ -358,7 +433,7 @@ iframe {
     flex-direction: column;
     align-items: center;
     flex: 1;
-    gap:20px;
+    gap: 20px;
 }
 
 .people-sub {
@@ -437,12 +512,82 @@ h3 {
     font-size: 20px;
     font-weight: 300;
     color: white;
-    padding:0;
+    padding: 0;
 }
 
 .director ul li {
     text-align: center;
     margin-bottom: 18px;
+}
+
+@media (max-width: 1000px) {
+
+    /* Remove VR line */
+    #vr {
+        display: none;
+    }
+
+    /* Stack content vertically */
+    #sub-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    /* Image section full-width */
+    #imagedetails {
+        margin-right: 30px;
+        width: 100%;
+    }
+
+    #imagedetails img,
+    #imagedetails button {
+        width: 100%;
+        height: auto;
+        min-width: 150px;
+        max-width: 300px;
+    }
+
+    /* Make cast section wrap better */
+    #cast img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .cast-spec {
+        height: auto;
+        border-radius: 30px;
+        padding: 4px;
+    }
+
+    /* People-info becomes horizontal on smaller widths */
+    .people-info {
+        display: none;
+    }
+
+}
+
+/* Even smaller screens */
+@media (max-width: 730px) {
+    #imagedetails {
+        margin-right: 15px;
+    }
+
+    #movietitle {
+        font-size: 24px;
+    }
+
+    #plot {
+        font-size: 17px;
+        line-height: 1.5em;
+    }
+
+    .cast-sub {
+        display: none;
+    }
+
+    #cast {
+        display: none;
+    }
 }
 
 #second-nav {
@@ -559,67 +704,73 @@ h3 {
     margin: 10px 0px;
 }
 
-#addbar {
-    display: flex;
-    width: 95%;
-    margin: 0px auto;
-    justify-content: space-between;
-    margin-bottom: 30px;
-}
+@media (max-width: 830px) {
+    #second-nav {
+        flex-direction: column;
+        height: auto;
+        padding: 12px 10px;
+        gap: 15px;
+        align-items: center;
+    }
 
-#theatres {
-    align-items: center;
-    width: 50vw;
-    background-color: rgb(255, 145, 146);
-    font-family: 'Instrument Sans', sans-serif;
-    font-size: 24px;
-    margin-right: 20px;
-    display: flex;
-    position: relative;
-    justify-content: flex-start;
-}
+    #date {
+        margin-right: 0;
+        justify-content: center;
+        width: 90%;
+    }
 
-#theatres button {
-    background-color: inherit;
-    font-family: 'Instrument Sans', sans-serif;
-    padding: 12px 12px 12px 12px;
-    flex-grow: 1;
-    text-align: left;
-    font-size: 22px;
-    margin-right: 8px;
-    border: none;
-}
+    #inside-date {
+        justify-content: center;
+        width: 100%;
+    }
 
-#theatres img {
-    height: 12px;
-    padding-right: 20px;
-}
+    .date-card {
+        width: 18vw;
+        /* a bit wider on smaller screens */
+        margin-right: 8px;
+        padding: 8px 0;
+        border-radius: 12px;
+    }
 
-#theatredropdown {
-    display: none;
-    width: 100%;
-    height: 250px;
-    overflow-y: auto;
-    position: absolute;
-    top: 100%;
-    background-color: rgb(255, 145, 146);
-    padding: 0px 10px 10px 22px;
-    border-radius: 0vw 0vw 1vw 1vw;
-}
+    .month {
+        font-size: 16px;
+    }
 
-#theatreid {
-    margin-top: 0;
-}
+    .datee {
+        font-size: 20px;
+    }
 
-#theatreid li {
-    font-size: 20px;
-    padding-left: 0px;
-}
+    .day {
+        font-size: 14px;
+    }
 
-#theatreid div {
-    background-color: black;
-    height: 1px;
-    margin: 6px 0;
+    #formats {
+        justify-content: center;
+        width: 100%;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .formats-sub {
+        width: 45vw;
+        /* almost half the screen on smaller devices */
+        justify-content: center;
+        padding: 0 5px;
+    }
+
+    .formats-sub button {
+        font-size: 14px;
+        margin-right: 6px;
+        padding: 8px;
+    }
+
+    .formats-sub img {
+        padding-right: 6px;
+    }
+
+    .formatul li {
+        font-size: 14px;
+    }
 }
 
 #about-theatres {
@@ -638,10 +789,6 @@ h3 {
     margin-bottom: 8px;
     justify-content: space-evenly;
     box-sizing: border-box;
-}
-
-.name-close {
-    display: flex;
 }
 
 .name-info {
@@ -698,20 +845,6 @@ h3 {
     margin-right: 4px;
 }
 
-.manage-showtime {
-    display: flex;
-    flex: 1.8;
-    align-items: center;
-    max-width: 80%;
-    flex-wrap: wrap;
-    gap: 20px;
-
-}
-
-input[type="time"] {
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 16px;
-}
 
 .each-showtime {
     cursor: default;
@@ -727,39 +860,78 @@ input[type="time"] {
     align-items: center;
     flex: 0 1 auto;
 }
-.backk{
-    background-color: white;
-    width:100%;
-    height:100%;
-}
+
 
 .all-showtimes {
     display: flex;
     gap: 20px;
     align-items: center;
     flex-wrap: wrap;
+    max-width: 80%;
+    flex: 1.8;
 }
 
-.plus {
-    border: none;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: rgba(255, 91, 92, 0.7);
-    font-size: 24px;
-}
+@media (max-width: 768px) {
+    #about-theatres {
+        width: 100%;
+        padding: 10px;
+    }
 
-.subtract {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: rgba(255, 91, 92, 0.7);
-    font-weight: 300;
-    margin-left: 10px;
-    font-size: 35px;
+    .about-one {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .name-info {
+        margin-left: 0;
+        margin-right: 0;
+        padding-top: 12px;
+        width: 100%;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .movie-title {
+        font-size: 18px;
+        margin-right: 20px;
+        margin-bottom: 6px;
+    }
+
+    .more-info {
+        width: 40%;
+        font-size: 14px;
+        padding: 6px 8px;
+        border-radius: 12px;
+        justify-content: center;
+    }
+
+    .infopopup {
+        width: 50vw;
+        height: auto;
+        top: 110%;
+        left: 0;
+        border-radius: 10px;
+        font-size: 14px;
+    }
+
+    .manage-showtime {
+        max-width: 100%;
+        gap: 12px;
+        justify-content: center;
+    }
+
+    .each-showtime {
+        font-size: 16px;
+        padding: 8px;
+        gap: 8px;
+    }
+
+    .all-showtimes {
+        gap: 12px;
+        justify-content: flex-start;
+    }
+
 }
 
 footer {
@@ -767,5 +939,131 @@ footer {
     background-color: #A91C48;
     width: 100%;
     text-align: center;
-    height: 340px;
+    height: 160px;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+
+    color: rgb(255, 255, 255);
+    font-family: 'Josefin Sans', sans-serif;
+    width: 100%;
+}
+
+.footer-top {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 30px;
+}
+
+.footer-top a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 0 10px;
+    border-right: 1px solid white;
+}
+
+.footer-top a:last-child {
+    border-right: none;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    padding-top: 20px;
+    padding-right: 20px;
+}
+
+.footer-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-left .logo {
+    font-size: 29px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-family: 'Kirang Haerang', sans-serif;
+}
+
+.footer-left .copyright {
+    font-size: 12px;
+}
+
+.footer-right {
+    display: flex;
+    gap: 10px;
+}
+
+.footer-right .social-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: rgb(255, 245, 245);
+    padding: 8px;
+}
+
+/* Tablet adjustments */
+@media (max-width: 1000px) {
+    .footer-top {
+        flex-wrap: wrap;
+        /* Allow links to wrap */
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        align-items: center;
+        padding-right: 0;
+        gap: 10px;
+    }
+
+    .footer-left {
+        align-items: center;
+        text-align: center;
+    }
+}
+
+/* Phone adjustments */
+@media (max-width: 600px) {
+    footer {
+        height: auto;
+        /* Let it expand for mobile */
+        padding: 15px 0;
+    }
+
+    .footer-top a {
+        font-size: 12px;
+        padding: 0 6px;
+    }
+
+    .footer-left .logo {
+        font-size: 24px;
+    }
+
+    .footer-left .copyright {
+        font-size: 11px;
+    }
+
+    .footer-right {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .footer-right .social-icon {
+        width: 25px;
+        height: 25px;
+        padding: 6px;
+    }
 }

@@ -1,3 +1,29 @@
+document.querySelector('.homee').addEventListener('click', () => {
+    window.location.href = '/admin'
+})
+document.addEventListener('DOMContentLoaded', () => {
+    localStorage.removeItem('selectedcity');
+    localStorage.removeItem('selecteddate');
+    localStorage.removeItem('selectedmonth');
+    localStorage.removeItem('selectedformat');
+    localStorage.removeItem('selectedlanguage');
+    localStorage.removeItem('selectedday');
+    localStorage.removeItem('moviedetailspagedraft');
+    document.querySelector('#bigcity button').innerText = 'City';
+    document.querySelector('#bigformat button').innerText = 'Format';
+    document.querySelector('#biglang button').innerText = 'Language';
+
+    document.querySelectorAll('.date-card').forEach(card => {
+        card.classList.remove('selected');
+    });
+
+    // If you haven't declared these variables above, declare them to avoid ReferenceError
+    let selectedcity = null;
+    let selecteddate = null;
+    let selectedmonth = null;
+    let selectedformat = null;
+    let selectedlanguage = null;
+});
 
 const langcontainer = document.querySelector('#spec-lang');
 const bigdate = document.querySelector('#date');
@@ -434,6 +460,25 @@ function createtheatrecard(theatre) {
             e.stopPropagation();
         });
         timeinput.addEventListener('change', () => {
+            const selectedTime = timeinput.value;
+            const [hours, minutes] = selectedTime.split(':').map(Number);
+
+            const now = new Date();
+            const todayDate = now.getDate();
+
+            if (Number(selecteddate) === todayDate) {
+                const selectedDateTime = new Date();
+                selectedDateTime.setHours(hours);
+                selectedDateTime.setMinutes(minutes);
+                selectedDateTime.setSeconds(0);
+                selectedDateTime.setMilliseconds(0);
+
+                if (selectedDateTime < now) {
+                    alert('Please select appropriate time.');
+                    timeinput.value = '';
+                    return;
+                }
+            }
             sortshowtimes(allshowtimes);
             savetolocalstorage();
         });
@@ -608,7 +653,7 @@ function loadfromlocalstorage(city) {
     console.log(data);
     rendertheatreblocks(data);
 }
-function rendertheatreblocks(data = []) {
+async function rendertheatreblocks(data = []) {
     document.querySelector('#about-theatres').innerHTML = '';
 
     for (let theatre of data) {
@@ -621,7 +666,7 @@ function rendertheatreblocks(data = []) {
 
             const timeinput = document.createElement('input');
             timeinput.type = 'time';
-            timeinput.value=time;
+            timeinput.value = time;
             timeinput.addEventListener('click', (e) => {
                 e.stopPropagation();
             });
@@ -632,23 +677,44 @@ function rendertheatreblocks(data = []) {
                 e.stopPropagation();
                 sortshowtimes(allshowtimes);
             });
-
-            const subtract = document.createElement('span');
-            subtract.classList.add('subtract');
-            subtract.innerHTML = '-';
-            subtract.addEventListener('click', (e) => {
-                e.stopPropagation();
-                e.preventDefault();
-                oneshowtime.remove();
-            });
-
+            console.log(time);
             const back = document.createElement('div');
             back.innerHTML = 'm';
 
             oneshowtime.appendChild(back);
             oneshowtime.appendChild(timeinput);
-            oneshowtime.appendChild(subtract);
 
+            const data = {
+                id: id?.toString().trim(),
+                date: selecteddate?.toString().trim(),
+                month: selectedmonth?.toString().trim(),
+                lang: selectedlanguage?.toString().trim(),
+                format: selectedformat?.toString().trim(),
+                time: time?.toString().trim(),
+                theatre: theatre.name?.toString().trim(),
+            }
+            try {
+                const res = await axios.get(`/admin/showtime/find`, { params: data });
+                console.log(res.data);
+                res.data.forEach(one => {
+                    if (one.time == convertTo12Hour(time)) {
+                        if (one.sold.length == 0) {
+                            const subtract = document.createElement('span');
+                            subtract.classList.add('subtract');
+                            subtract.innerHTML = '-';
+                            subtract.addEventListener('click', (e) => {
+                                e.stopPropagation();
+                                e.preventDefault();
+                                oneshowtime.remove();
+                                savetolocalstorage();
+                            });
+                            oneshowtime.appendChild(subtract);
+                        }
+                    }
+                })
+            } catch (err) {
+                console.log(err);
+            }
 
             oneshowtime.addEventListener('click', (e) => {
                 if (
@@ -715,6 +781,10 @@ seetrailer.addEventListener('click', () => {
 addupdatebtn.addEventListener('click', async () => {
     try {
         const alldrafts = JSON.parse(localStorage.getItem('moviedetailspagedraft') || '{}');
+        if (!alldrafts || Object.keys(alldrafts).length === 0) {
+            alert("Nothing to update!");
+            return; // stop execution
+        }
 
         const res = await axios.post(`/api/theatres/${id}`, {
             data: alldrafts
@@ -774,32 +844,5 @@ document.addEventListener('click', (event) => {
     if (!langscontainer.contains(event.target)) {
         langdropdown.style.display = 'none';
     }
-});
-
-
-window.addEventListener('load', () => {
-
-    localStorage.removeItem('selectedcity');
-    localStorage.removeItem('selecteddate');
-    localStorage.removeItem('selectedmonth');
-    localStorage.removeItem('selectedformat');
-    localStorage.removeItem('selectedlanguage');
-    localStorage.removeItem('selectedday');
-    localStorage.removeItem('moviedetailspagedraft');
-
-    document.querySelector('#bigcity button').innerText = 'City';
-    document.querySelector('#bigformat button').innerText = 'Format';
-    document.querySelector('#biglang button').innerText = 'Language';
-
-    document.querySelectorAll('.date-card').forEach(card => {
-        card.classList.remove('selected');
-    });
-
-    selectedcity = null;
-    selecteddate = null;
-    selectedmonth = null;
-    selectedformat = null;
-    selectedlanguage = null;
-
 });
 

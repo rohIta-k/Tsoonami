@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmed!</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Kirang+Haerang&family=Lilita+One&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Kirang+Haerang&family=Lilita+One&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/userbookingconfirmation.css">
+</head>
+
+<body>
+    <section id="navbar">
+        <h1 id="title">TSOONAMI</h1>
+        <span class="material-symbols-outlined homee">
+            home
+        </span>
+    </section>
+    <section class="confirmation-message">
+        <span class="checkmark">&#10003;</span>
+        <h2>BOOKING CONFIRMED!</h2>
+    </section>
+
+    <div class="ticket-card">
+        <div class="ticket-left-section">
+            <div class="first-layer">
+                <img src="<%=data.poster%>" alt="Movie Poster" class="movie-poster">
+                <div class="movie-info">
+                    <h3>
+                        <%=data.title%>
+                    </h3>
+                    <p>
+                        <%=data.theatre%>
+                    </p>
+                    <p class="time-date">
+                        <%=data.time%><br>
+                            <%=data.day%>, <%=data.date%>
+                                    <%=data.month%> 2025
+                    </p>
+                </div>
+            </div>
+            <div class="second-layer">
+                <div class="detail-item">
+                    <span>CONFIRMATION ID</span>
+                    <strong>
+                        <%=data.payment_id%>
+                    </strong>
+                </div>
+                <div class="costt">
+                    <span>COST</span>
+                    <strong>
+                        <%=data.cost%>
+                    </strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="ticket-middle-section">
+            <div id="seattitle">Seats</div>
+            <div class="seat-numbers">
+                <%=data.seats%>
+            </div>
+        </div>
+
+        <div class="ticket-right-section">
+
+            <img src="<%= qrImage %>" alt="QR Code" class="qr-code">
+
+            <button class="download-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-download">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" x2="12" y1="15" y2="3" />
+                </svg>
+                DOWNLOAD CONFIRMATION
+            </button>
+        </div>
+    </div>
+    <script src="https://unpkg.com/pdfkit/js/pdfkit.standalone.js"></script>
+    <script src="https://unpkg.com/blob-stream"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script src="/js/userbookingconfirmation.js"></script>
+
+</body>
+
+</html>

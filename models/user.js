@@ -1,0 +1,64 @@
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://127.0.0.1:27017/movieinfo')
+    .then(() => {
+        console.log("connection open");
+    })
+    .catch(err => {
+        console.log('oh no error');
+    })
+
+const inquirySchema = new mongoose.Schema({
+    inquiryType: { type: String, required: true },
+    message: { type: String, required: true },
+    createdAt: { type: Date, default: Date.now }
+});
+
+
+const BookingSchema = new mongoose.Schema({
+    payment_id: { type: String, required: true },
+    theatre: { type: String, required: true },
+    language: { type: String, required: true },
+    day: { type: String, required: true },
+    date: { type: Number, required: true },
+    month: { type: String, required: true },
+    format: { type: String, required: true },
+    seats: [{ type: String, required: true }],
+    title: { type: String, required: true },
+    poster: { type: String },
+    time: { type: String, required: true },
+    ticketCode: { type: String, required: true },  // NEW
+    used: { type: Boolean, default: false },
+    cost: {
+        type: Number, required: true
+    },
+    tmdbid: { type: String, required: true },
+    isAdmin: {
+        type: Boolean,
+        default: false
+    }
+}, { timestamps: true });
+const UserSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    lastname: { type: String, default: '' },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        lowercase: true,
+        match: [/\S+@\S+\.\S+/, 'is invalid']
+    },
+    password: { type: String, required: true },
+    isVerified: { type: Boolean, default: false },
+    mobile: { type: String, default: '' }, // new field
+    gender: {
+        type: String, enum: ['Male', 'Female', 'Other', '']
+    },
+    location: {
+        type: String,
+        default: ''
+    },
+    bookings: [BookingSchema],
+    inquiries: [inquirySchema]
+}, { timestamps: true });
+
+module.exports = mongoose.model('User', UserSchema);
