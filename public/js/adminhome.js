@@ -1,4 +1,20 @@
 
+
+document.querySelector('.profile-icon').addEventListener('click', function () {
+    this.classList.toggle('active');
+});
+
+
+document.getElementById("personal").addEventListener("click", () => {
+    window.location.href = "/profile#personal";
+});
+
+document.querySelector(".menu-item:nth-child(2)").addEventListener("click", () => {
+    window.location.href = "/profile#query";
+});
+document.querySelector('#adminlogg').addEventListener('click',()=>{
+    window.location.href='/tsoonami';
+})
 function renderMovies(allmovies) {
     if (allmovies.length != 0) {
         for (let movie of allmovies) {

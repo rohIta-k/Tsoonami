@@ -1,3 +1,37 @@
+
+
+document.querySelector('.profile-icon').addEventListener('click', function () {
+    this.classList.toggle('active');
+});
+
+document.getElementById("personal").addEventListener("click", () => {
+    window.location.href = "/userprofile#personal";
+});
+
+document.querySelector(".menu-item:nth-child(2)").addEventListener("click", () => {
+    window.location.href = "/userprofile#account";
+});
+
+document.querySelector(".menu-item:nth-child(3)").addEventListener("click", () => {
+    window.location.href = "/userprofile#bookingg";
+});
+
+document.querySelector(".menu-item:nth-child(4)").addEventListener("click", () => {
+    window.location.href = "/userprofile#query";
+});
+
+document.querySelector('#logg').addEventListener('click', async () => {
+    try {
+        const res = await axios.post('/auth/logout');
+        if (res.status === 200) {
+            window.location.href = '/tsoonami';
+        }
+    } catch (err) {
+        console.error('Logout failed:', err);
+        alert('Error logging out. Please try again.');
+    }
+});
+
 document.querySelector('.homee').addEventListener('click', () => {
     window.location.href = '/user'
 })

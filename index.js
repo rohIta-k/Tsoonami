@@ -13,6 +13,7 @@ const cityroute = require('./routes/admin/city');
 const theatreroute = require('./routes/admin/theatres');
 const bannerroute = require('./routes/admin/banner');
 const showtimeroute = require('./routes/admin/showtime');
+const adminprofileroute=require('./routes/admin/adminprofile');
 const usermovieroute = require('./routes/user/usermovie');
 const cronfunction = require('./cron/moviestatus');
 const usershowtimeroute = require('./routes/user/usershowtime');
@@ -21,6 +22,7 @@ const authroute = require('./routes/auth');
 const locationroute = require('./routes/user/location');
 const contactroute = require('./routes/contact');
 const profileroute = require('./routes/user/profile');
+
 
 const searchroute = require('./routes/user/search');
 
@@ -65,7 +67,9 @@ app.use('/api/cities', cityroute);
 app.use('/api/theatres', theatreroute);
 app.use('/api/banners', bannerroute);
 app.use('/admin/showtime', showtimeroute);
+app.use('/profile',adminprofileroute);
 app.use('/user/movie', usermovieroute);
+
 
 app.use('/user/search', searchroute);
 app.use('/user/showtime', usershowtimeroute);
@@ -74,6 +78,7 @@ app.use('/auth', authroute);
 app.use('/location', locationroute);
 app.use('/contact', contactroute);
 app.use('/userprofile', profileroute);
+
 
 
 app.get('/admin', (req, res) => {

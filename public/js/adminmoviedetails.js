@@ -1,6 +1,23 @@
 document.querySelector('.homee').addEventListener('click', () => {
     window.location.href = '/admin'
 })
+
+
+document.querySelector('.profile-icon').addEventListener('click', function () {
+    this.classList.toggle('active');
+});
+
+
+document.getElementById("personal").addEventListener("click", () => {
+    window.location.href = "/profile#personal";
+});
+
+document.querySelector(".menu-item:nth-child(2)").addEventListener("click", () => {
+    window.location.href = "/profile#query";
+});
+document.querySelector('#adminlogg').addEventListener('click', () => {
+    window.location.href = '/tsoonami';
+})
 document.addEventListener('DOMContentLoaded', () => {
     localStorage.removeItem('selectedcity');
     localStorage.removeItem('selecteddate');

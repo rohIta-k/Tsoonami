@@ -461,6 +461,50 @@ input[type='text'] {
     transform: scale(1.05);
 }
 
+
+.profile-menu {
+    position: absolute;
+    top: 120%;
+    /* below icon */
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: none;
+    flex-direction: column;
+    width: 200px;
+    overflow: hidden;
+    font-family: 'Josefin Sans', sans-serif;
+    z-index: 9999;
+}
+
+.profile-menu .menu-item {
+    padding: 12px 16px;
+    cursor: pointer;
+    font-size: 18px;
+    border-bottom: 1px solid #f1f1f1;
+    transition: background-color 0.2s ease;
+}
+
+.profile-menu .menu-item:hover {
+    background-color: #f5f5f5;
+    color: black;
+}
+
+.profile-menu .logout {
+    background-color: #ff5b5c;
+    color: white;
+    border-bottom: none;
+    text-align: center;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+.profile-icon.active .profile-menu {
+    display: flex;
+}
+
 @media (max-width: 1000px) {
     #title {
         font-size: 24px;
