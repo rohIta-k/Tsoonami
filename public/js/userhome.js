@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         const res = await axios.get('/location/info', {
-            headers: { Authorization: `Bearer ${token}` }
+            withCredentials: true
         });
 
         const userData = res.data;
@@ -86,7 +86,7 @@ document.querySelectorAll('.Imgbox').forEach(box => {
         try {
             const res = await axios.post('/location',
                 { location: locationValue },
-                { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+                { withCredentials: true }
             );
 
             alert(res.data.message);
