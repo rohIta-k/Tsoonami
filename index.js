@@ -87,9 +87,7 @@ app.get('/admin', (req, res) => {
 app.get('/user', async (req, res) => {
     res.render('user/userhome');
 })
-app.get('/tsoonami', (req, res) => {
-    res.render('signIn');
-})
+
 app.get('/privacypolicy', (req, res) => {
     res.render('privacypolicy');
 })
@@ -98,6 +96,9 @@ app.get('/admin/Contactus', (req, res) => {
 })
 app.get('/user/Contactus', (req, res) => {
     res.render('user/usercontactus');
+})
+app.get('/', (req, res) => {
+    res.render('signIn');
 })
 
 app.listen(3000, () => {

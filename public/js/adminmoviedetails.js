@@ -16,7 +16,7 @@ document.querySelector(".menu-item:nth-child(2)").addEventListener("click", () =
     window.location.href = "/profile#query";
 });
 document.querySelector('#adminlogg').addEventListener('click', () => {
-    window.location.href = '/tsoonami';
+    window.location.href = '/';
 })
 document.addEventListener('DOMContentLoaded', () => {
     localStorage.removeItem('selectedcity');
