@@ -33,10 +33,8 @@ router.post('/', upload.single('image'), async (req, res) => {
     try {
         const hash = getFileHash(filePath);
 
-        // Check if banner with same hash already exists
         const existingBanner = await Banner.findOne({ hash });
         if (existingBanner) {
-            // Remove duplicate uploaded file
             fs.unlinkSync(filePath);
             return res.status(400).json({ message: 'Banner already exists' });
         }

@@ -7,11 +7,10 @@ async function getmovievideos(id, code) {
     try {
         const response = await tmdb.get(`/movie/${id}/videos`, {
             params: {
-                language: code // request trailers in specific language
+                language: code 
             }
         });
 
-        // Only return trailers, sorted by official first
         return response.data.results
             .filter(video =>
                 video.site === 'YouTube' &&
@@ -118,7 +117,6 @@ router.get('/popular', async (req, res) => {
             console.log("TMDB Other Error:", err.message);
         }
 
-        // Always respond to client
         res.status(500).json({ error: "Failed to fetch popular movies" });
     }
 });

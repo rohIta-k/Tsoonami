@@ -768,12 +768,10 @@ input[type='text'] {
     margin-top: 20px;
 }
 
-/* Tablet adjustments */
 @media (max-width: 1000px) {
     #controls-container {
         width: 200px;
         height: 300px;
-        /* Let it grow naturally */
         padding: 12px;
         align-items: center;
         box-sizing: border-box;
@@ -790,11 +788,9 @@ input[type='text'] {
     }
 }
 
-/* Phone adjustments */
 @media (max-width: 600px) {
     #maincontent {
         flex-direction: column;
-        /* Stack controls above content */
         align-items: center;
     }
 
@@ -812,7 +808,6 @@ input[type='text'] {
 
     #controls-container {
         width: 80%;
-        /* Take full width but keep margins */
         margin-left: 0;
         margin-bottom: 15px;
         height: 200px;
@@ -921,11 +916,9 @@ footer {
     padding: 8px;
 }
 
-/* Tablet adjustments */
 @media (max-width: 1000px) {
     .footer-top {
         flex-wrap: wrap;
-        /* Allow links to wrap */
         justify-content: center;
         margin-bottom: 20px;
     }
@@ -943,11 +936,9 @@ footer {
     }
 }
 
-/* Phone adjustments */
 @media (max-width: 600px) {
     footer {
         height: auto;
-        /* Let it expand for mobile */
         padding: 15px 0;
     }
 

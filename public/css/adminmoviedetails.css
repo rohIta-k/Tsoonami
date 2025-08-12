@@ -165,9 +165,6 @@ iframe {
     margin-left: 10px;
 }
 
-/* Default (Desktop) — your original styles */
-
-/* Tablet adjustments */
 @media (max-width: 1000px) {
     #navbar {
         padding: 0px 15px;
@@ -196,24 +193,20 @@ iframe {
     }
 }
 
-/* Phone adjustments */
 @media (max-width: 600px) {
     #navbar {
         display: flex;
         flex-wrap: wrap;
-        /* allow wrapping into multiple rows */
         align-items: center;
         border-radius: 20px;
         padding: 10px;
         height: auto;
     }
 
-    /* First row: title + home + profile */
     #title,
     .homee,
     .profile-icon {
         flex: 0 0 auto;
-        /* don't stretch */
         margin: 4px;
     }
 
@@ -233,11 +226,9 @@ iframe {
         height: 38px;
     }
 
-    /* Second row: search bar full width */
     #searchfield {
         order: 4;
         flex: 1 0 100%;
-        /* take full width and wrap to next line */
         margin-top: 8px;
     }
 }
@@ -528,18 +519,15 @@ h3 {
 
 @media (max-width: 1000px) {
 
-    /* Remove VR line */
     #vr {
         display: none;
     }
 
-    /* Stack content vertically */
     #sub-container {
         flex-direction: column;
         gap: 20px;
     }
 
-    /* Image section full-width */
     #imagedetails {
         margin-right: 30px;
         width: 100%;
@@ -551,7 +539,6 @@ h3 {
         max-width: 300px;
     }
 
-    /* Make cast section wrap better */
     #cast img {
         width: 30px;
         height: 30px;
@@ -563,14 +550,12 @@ h3 {
         padding: 4px;
     }
 
-    /* People-info becomes horizontal on smaller widths */
     .people-info {
         display: none;
     }
 
 }
 
-/* Even smaller screens */
 @media (max-width: 730px) {
     #imagedetails {
         margin-right: 15px;
@@ -593,7 +578,6 @@ h3 {
         display: none;
     }
 }
-
 
 #second-nav {
     width: 95%;
@@ -1154,11 +1138,9 @@ footer {
     padding: 8px;
 }
 
-/* Tablet adjustments */
 @media (max-width: 1000px) {
     .footer-top {
         flex-wrap: wrap;
-        /* Allow links to wrap */
         justify-content: center;
         margin-bottom: 20px;
     }
@@ -1176,11 +1158,10 @@ footer {
     }
 }
 
-/* Phone adjustments */
+
 @media (max-width: 600px) {
     footer {
         height: auto;
-        /* Let it expand for mobile */
         padding: 15px 0;
     }
 

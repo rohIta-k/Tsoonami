@@ -7,7 +7,7 @@ const Theatre = require('../../models/theatres');
 router.use(express.json());
 
 const convertTo24Hour = (timeStr) => {
-    const [time, modifier] = timeStr.split(' '); // "6:42", "PM"
+    const [time, modifier] = timeStr.split(' ');
     let [hours, minutes] = time.split(':').map(Number);
 
     if (modifier.toLowerCase() === 'pm' && hours < 12) {
@@ -17,7 +17,6 @@ const convertTo24Hour = (timeStr) => {
         hours = 0;
     }
 
-    // Pad hours and minutes with leading zero if needed
     const hh = String(hours).padStart(2, '0');
     const mm = String(minutes).padStart(2, '0');
     return `${hh}:${mm}`;

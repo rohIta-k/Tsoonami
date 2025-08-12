@@ -26,7 +26,7 @@ const BookingSchema = new mongoose.Schema({
     title: { type: String, required: true },
     poster: { type: String },
     time: { type: String, required: true },
-    ticketCode: { type: String, required: true },  // NEW
+    ticketCode: { type: String, required: true },  
     used: { type: Boolean, default: false },
     cost: {
         type: Number, required: true
@@ -49,7 +49,7 @@ const UserSchema = new mongoose.Schema({
     },
     password: { type: String, required: true },
     isVerified: { type: Boolean, default: false },
-    mobile: { type: String, default: '' }, // new field
+    mobile: { type: String, default: '' }, 
     gender: {
         type: String, enum: ['Male', 'Female', 'Other', '']
     },

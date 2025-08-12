@@ -400,28 +400,23 @@ label {
 @media (max-width: 650px) {
     #main-container {
         overflow-x: auto;
-        /* allow horizontal scroll */
         -webkit-overflow-scrolling: touch;
-        /* Enable horizontal scroll */
         padding-bottom: 10px;
         padding-left: 0;
         padding-right: 0;
         margin-left: 0;
-        /* Extra space for scrollbar */
     }
 
-    /* Ensure children don’t shrink too small */
     #left-panel {
         flex: 0 0 auto;
-        /* Fix width to natural size */
         min-width: 300px;
-        /* Or whatever min width you want */
     }
 
     #right-panel {
         width: max-content;
         min-width: unset;
         flex: 0 0 auto;
+        
     }
 
     .sub-row {
@@ -430,7 +425,6 @@ label {
     }
 }
 
-/* Small mobile (≤480px) */
 @media (max-width: 480px) {
     #main-container {
         overflow-x: auto;

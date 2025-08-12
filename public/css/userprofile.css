@@ -133,10 +133,8 @@ footer {
 .booking-details-div {
     width: 100%;
     max-width: 1000px;
-    /* allow shrinking on smaller screens */
     min-width: 280px;
     height: auto;
-    /* let content define height */
     background-color: white;
     box-shadow: 2px 2px 4px rgb(205, 205, 205);
     margin: 15px auto;
@@ -172,7 +170,6 @@ h2 {
     gap: 30px;
     margin-bottom: 25px;
     flex-wrap: wrap;
-    /* allow wrapping for small screens */
 }
 
 .detail-label {
@@ -226,10 +223,8 @@ h2 {
     padding: 0 15px;
     display: flex;
     align-items: center;
-    /* vertical centering */
     justify-content: space-between;
     height: 45px;
-    /* keeps it neat */
 }
 
 

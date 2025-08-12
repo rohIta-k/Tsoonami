@@ -80,7 +80,6 @@ body {
     }
 }
 
-/* Mobile adjustments */
 @media (max-width: 600px) {
     .FullPopup {
         align-items: center;
@@ -279,11 +278,9 @@ body {
 @media (max-width: 900px) {
     #searchfield {
         flex-basis: 400px;
-        /* reduce search width */
     }
 }
 
-/* Mobile phones */
 @media (max-width: 750px) {
     #navbar {
         flex-wrap: wrap;
@@ -292,7 +289,6 @@ body {
         border-radius: 0.5vw;
     }
 
-    /* First row: title, location, profile */
     #title,
     #location,
     .profile-icon {
@@ -324,7 +320,6 @@ body {
         margin: auto;
     }
 
-    /* Second row: search bar full width */
     #searchfield {
         order: 4;
         flex-basis: 100%;
@@ -612,7 +607,6 @@ ul {
     margin-top: 20px;
 }
 
-/* Tablet adjustments */
 @media (max-width: 1000px) {
     #filter {
         width: 200px;
@@ -638,11 +632,9 @@ ul {
     }
 }
 
-/* Phone adjustments */
 @media (max-width: 600px) {
     #maincontent {
         flex-direction: column;
-        /* Stack filter above cards */
         align-items: center;
     }
 
@@ -670,7 +662,6 @@ ul {
     #upcomingmovies {
         flex-wrap: wrap;
         overflow-x: hidden;
-        /* no sideways scroll on phones */
         min-height: 300px;
     }
 
@@ -768,11 +759,9 @@ footer {
     padding: 8px;
 }
 
-/* Tablet adjustments */
 @media (max-width: 1000px) {
     .footer-top {
         flex-wrap: wrap;
-        /* Allow links to wrap */
         justify-content: center;
         margin-bottom: 20px;
     }
@@ -790,11 +779,9 @@ footer {
     }
 }
 
-/* Phone adjustments */
 @media (max-width: 600px) {
     footer {
         height: auto;
-        /* Let it expand for mobile */
         padding: 15px 0;
     }
 

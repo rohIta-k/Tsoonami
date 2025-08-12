@@ -21,9 +21,7 @@ img {
   width: 100vw;
   height: 100vh;
   position: relative;
-  /* image stays in normal flow but can be stacked */
   z-index: 1;
-  /* lower than popup */
 }
 
 .left-div {
@@ -47,7 +45,6 @@ img {
 
 .login-popup {
   position: absolute;
-  /* or fixed if you want it to stay in place */
   top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -59,7 +56,6 @@ img {
   width: 60%;
   max-height: 550px;
   z-index: 10;
-  /* higher than image */
 }
 
 
@@ -90,7 +86,6 @@ img {
     font-weight:600;
     display: inline-block;
     writing-mode: vertical-rl;
-    /* text flows top to bottom */
     text-orientation: upright;
   }
 }

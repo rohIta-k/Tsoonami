@@ -52,7 +52,6 @@ router.get('/genres/:location', async (req, res) => {
         console.log("Genres:", genres);
         console.log("Languages:", languages);
 
-        // Step 1: Query by genres/languages
         const query = {};
         if (genres.length > 0) {
             query.genres = { $in: genres };
@@ -64,7 +63,6 @@ router.get('/genres/:location', async (req, res) => {
         const matchingMovies = await Movie.find(query);
         console.log("Matching movies before theatre filter:", matchingMovies.length);
 
-        // Step 2: Filter by theatre showtimes
         const allTheatres = await Theatre.find({
             city: new RegExp(`^${location.trim()}$`, 'i')
         });
@@ -83,7 +81,6 @@ router.get('/genres/:location', async (req, res) => {
             });
         });
 
-        // Step 3: Final movie filter
         const filteredMovies = matchingMovies.filter(movie =>
             validTmdbIds.has(movie.tmdbid)
         );

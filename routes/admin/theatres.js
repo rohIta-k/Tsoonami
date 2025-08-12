@@ -8,11 +8,10 @@ const Showtime = require('../../models/showtime')
 const moment = require('moment');
 
 function formatDate(dateStr) {
-    // If the input is like "4-Aug", add the current year
     const currentYear = new Date().getFullYear();
     const fullDateStr = `${dateStr}-${currentYear}`;
     const date = new Date(fullDateStr);
-    return date.toISOString().slice(0, 10); // Returns in "YYYY-MM-DD"
+    return date.toISOString().slice(0, 10); 
 }
 
 
@@ -21,7 +20,7 @@ function formatTime(timeStr) {
     const date = new Date();
     date.setHours(hours);
     date.setMinutes(minutes);
-    return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }); // e.g., 2:56 PM
+    return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }); 
 }
 
 router.get('/user/movies', async (req, res) => {
@@ -94,16 +93,12 @@ router.post('/:id', async (req, res) => {
                 for (const [language, formatsObj] of Object.entries(languagesObj)) {
                     for (const [format, theatresArr] of Object.entries(formatsObj)) {
 
-                        // 👇 Step 1: Fetch existing showtimes from DB for this specific combo
                         const existingShowtimes = await Theatre.find({ tmdbid, city, date, language, format });
-
-                        // Step 2: Build a map of new entries (from client)
                         const newTheatreMap = new Map();
                         for (const theatre of theatresArr) {
                             newTheatreMap.set(`${theatre.name}|${theatre.location}`, theatre.showtimes);
                         }
 
-                        // Step 3: Delete theatres that no longer exist in the new data
                         for (const existing of existingShowtimes) {
                             const key = `${existing.name}|${existing.location}`;
                             if (!newTheatreMap.has(key)) {
@@ -119,7 +114,6 @@ router.post('/:id', async (req, res) => {
                             }
                         }
 
-                        // Step 4: Upsert new or updated theatres
                         for (const theatre of theatresArr) {
                             await Theatre.updateOne(
                                 {
@@ -139,7 +133,6 @@ router.post('/:id', async (req, res) => {
                                 { upsert: true }
                             );
 
-                            // Update valid seat key for this showtime
                             for (const showtime of theatre.showtimes) {
                                 const key = `${tmdbid}|${formatDate(date)}|${formatTime(showtime)}|${theatre.name.trim()}|${language.trim()}|${format.trim()}`;
                                 validSeatKeys.add(key);
