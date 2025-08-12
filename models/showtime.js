@@ -1,12 +1,7 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://127.0.0.1:27017/movieinfo')
-    .then(() => {
-        console.log("connection open");
-    })
-    .catch(err => {
-        console.log('oh no error');
-    })
+
+
 const seatschema = new mongoose.Schema({
     rows: Number,
     columns: Number
@@ -46,8 +41,8 @@ const showtimeschema = new mongoose.Schema({
     classic: {
         type: seatschema
     },
-    sold:{
-        type:[String]
+    sold: {
+        type: [String]
     }
 })
 showtimeschema.index({

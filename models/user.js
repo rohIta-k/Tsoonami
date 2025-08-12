@@ -1,11 +1,4 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/movieinfo')
-    .then(() => {
-        console.log("connection open");
-    })
-    .catch(err => {
-        console.log('oh no error');
-    })
 
 const inquirySchema = new mongoose.Schema({
     inquiryType: { type: String, required: true },
@@ -26,7 +19,7 @@ const BookingSchema = new mongoose.Schema({
     title: { type: String, required: true },
     poster: { type: String },
     time: { type: String, required: true },
-    ticketCode: { type: String, required: true },  
+    ticketCode: { type: String, required: true },
     used: { type: Boolean, default: false },
     cost: {
         type: Number, required: true
@@ -49,7 +42,7 @@ const UserSchema = new mongoose.Schema({
     },
     password: { type: String, required: true },
     isVerified: { type: Boolean, default: false },
-    mobile: { type: String, default: '' }, 
+    mobile: { type: String, default: '' },
     gender: {
         type: String, enum: ['Male', 'Female', 'Other', '']
     },

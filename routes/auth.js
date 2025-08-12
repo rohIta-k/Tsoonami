@@ -52,6 +52,7 @@ router.post('/logout', (req, res) => {
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax'
     });
+    res.clearCookie('connect.sid');
     return res.status(200).json({ message: 'Logout successful' });
 });
 
@@ -61,7 +62,7 @@ router.post('/register', async (req, res) => {
     if (!result.success) {
         const errors = Object.values(result.error.flatten().fieldErrors)
             .flat()
-            .filter(Boolean); 
+            .filter(Boolean);
 
         return res.status(400).json({ errors });
     }
@@ -110,7 +111,7 @@ router.post('/register', async (req, res) => {
         });
     }
     catch (err) {
-        await User.deleteOne({ email }); 
+        await User.deleteOne({ email });
         return res.status(500).json({ errors: ['Failed to send verification email. Please try again.'] });
     }
 
@@ -140,8 +141,7 @@ router.get('/verify/:token', async (req, res) => {
     }
 });
 
-
-router.post('/login',async (req, res) => {
+router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     const admin = admins.find(admin => admin.email === email);
@@ -159,10 +159,15 @@ router.post('/login',async (req, res) => {
 
         res.cookie('token', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',  
-            maxAge: 7 * 24 * 60 * 60 * 1000,               
+            secure: process.env.NODE_ENV === 'production',
+            maxAge: 7 * 24 * 60 * 60 * 1000,
             sameSite: 'lax'
         });
+
+        req.session.user = {
+            email,
+            isAdmin: true
+        };
 
         return res.status(200).json({
             message: 'Admin login successful',
@@ -170,7 +175,8 @@ router.post('/login',async (req, res) => {
         });
     }
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: email.trim().toLowerCase() }).exec();
+    console.log(user);
     if (!user) {
         return res.status(400).send('Register account, before logging in');
     }
@@ -199,6 +205,13 @@ router.post('/login',async (req, res) => {
         maxAge: 7 * 24 * 60 * 60 * 1000,
         sameSite: 'lax'
     });
+
+    req.session.user = {
+        id: user._id,
+        email: user.email,
+        name: user.name,
+        isAdmin: false
+    };
 
     res.status(200).json({
         message: 'User login successful',

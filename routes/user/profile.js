@@ -7,7 +7,6 @@ router.use(express.urlencoded({ extended: true }));
 
 router.get('/', verifyToken, async (req, res) => {
     try {
-        // If admin, no need to query DB
         if (req.user.isAdmin) {
             return res.json({
                 email: req.user.email,
@@ -25,14 +24,13 @@ router.get('/', verifyToken, async (req, res) => {
             email: user.email,
             isVerified: user.isVerified,
             location: user.location,
-            bookings: user.bookings,    // Array of booking objects
+            bookings: user.bookings,    
             inquiries: user.inquiries,
             mobile: user.mobile,
             lastname: user.lastname,
-            gender:user.gender // Array of inquiry objects
+            gender:user.gender 
         };
 
-        // Render userprofile.ejs (or whatever template engine you use)
         res.render('user/userprofile', { data });
 
     } catch (err) {
@@ -51,7 +49,6 @@ router.post('/update', verifyToken, async (req, res) => {
             }
         }
 
-        // Extra mobile validation
         if (updates.mobile && !/^[0-9]{10}$/.test(updates.mobile)) {
             return res.status(400).json({ error: "Invalid mobile number format" });
         }

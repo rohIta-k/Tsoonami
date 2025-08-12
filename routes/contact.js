@@ -15,14 +15,12 @@ router.post('/', verifyToken, async (req, res) => {
             return res.status(400).json({ error: 'All fields are required' });
         }
 
-        // Create inquiry object
         const inquiry = {
             inquiryType,
             message,
             createdAt: new Date()
         };
 
-        // Push inquiry to current user
         const user = await User.findById(req.user.id);
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
@@ -30,8 +28,6 @@ router.post('/', verifyToken, async (req, res) => {
         user.inquiries.push(inquiry);
         await user.save();
 
-        // Push inquiry to each admin user as well
-        // Assuming admins is an array of objects with an _id property
         await Promise.all(admins.map(async (admin) => {
             if (admin._id) {
                 const adminUser = await User.findById(admin._id);
