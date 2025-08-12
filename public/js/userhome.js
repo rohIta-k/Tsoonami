@@ -23,7 +23,7 @@ document.querySelector('#logg').addEventListener('click', async () => {
     try {
         const res = await axios.post('/auth/logout');
         if (res.status === 200) {
-            window.location.href = '/tsoonami';
+            window.location.href = '/';
         }
     } catch (err) {
         console.error('Logout failed:', err);
@@ -33,12 +33,6 @@ document.querySelector('#logg').addEventListener('click', async () => {
 
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const token = localStorage.getItem('token');
-    console.log(token);
-    if (!token) {
-        window.location.href = '/tsoonami';
-        return;
-    }
 
     try {
         const res = await axios.get('/location/info', {
@@ -60,7 +54,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (err.response && (err.response.status === 401 || err.response.status === 403)) {
             // Token invalid or expired
             localStorage.removeItem('token');
-            window.location.href = '/tsoonami';
+            window.location.href = '/';
         } else {
             alert('Something went wrong. Please try again later.');
         }
@@ -104,7 +98,7 @@ document.querySelectorAll('.Imgbox').forEach(box => {
             console.error(err);
             alert('Your session expired. Please sign in again.');
             localStorage.removeItem('token');
-            window.location.href = '/tsoonami';
+            window.location.href = '/';
 
         }
     });

@@ -24,16 +24,15 @@ async function downloadTicket(ticketCode) {
 }
 
 
-// Only download PDF when button is clicked
+
 document.querySelector('.download-button').addEventListener('click', async () => {
-    // Get the full URL path, e.g. "/user/confirmation/994ee6f0cf50bef8"
+  
     const path = window.location.pathname;
 
-    // Split by "/" and get the last part, which is the ticketCode
     const parts = path.split('/');
     const ticketCode = parts[parts.length - 1];
 
-    console.log(ticketCode);  // "994ee6f0cf50bef8"
+    console.log(ticketCode);  
 
     await downloadTicket(ticketCode);
 });
