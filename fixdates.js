@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const Showtime = require('./models/showtime'); 
+require('dotenv').config();
 
 async function fixDates() {
   try {
-    await mongoose.connect(process.env.MONGODB_URI, {
+    await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true
     });

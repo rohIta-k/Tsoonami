@@ -81,27 +81,7 @@ const lang = urlParams.get('lang');
 const format = urlParams.get('format');
 const time = urlParams.get('time');
 const theatre = urlParams.get('theatre');
-async function sendSeatsToBackend() {
 
-    const dataToSend = {
-        tmdbid,
-        date,
-        day,
-        month,
-        lang,
-        format,
-        time,
-        theatre,
-        seats: finalseats
-    };
-    try {
-        const res = await axios.post('/admin/showtime/update', dataToSend)
-    }
-    catch (err) {
-        console.log(err);
-    }
-
-}
 book.addEventListener('click', function (e) {
     const totalCost = cost + 100;
     if (totalCost == 100) {

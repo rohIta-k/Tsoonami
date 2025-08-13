@@ -21,25 +21,25 @@ const convertTo24Hour = (timeStr) => {
     const mm = String(minutes).padStart(2, '0');
     return `${hh}:${mm}`;
 };
+
+const makeUTCDate = (date, month, year) => {
+    const monthIndex = new Date(`${month} 1, ${year}`).getMonth();
+    return new Date(Date.UTC(year, monthIndex, parseInt(date), 0, 0, 0, 0));
+};
+
+const getUTCDateRange = (date, month, year) => {
+    const start = makeUTCDate(date, month, year);
+    const end = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate(), 23, 59, 59, 999));
+    return { start, end };
+};
 router.get('/find', async (req, res) => {
     const { id, date, month, lang, format, theatre } = req.query;
-    const fullDate = new Date();
-    if (date && month) {
-        const dateNum = parseInt(date);
-        const monthIndex = new Date(`${month} 1, 2025`).getMonth();
-        const thisYear = new Date().getFullYear();
-        fullDate.setFullYear(thisYear, monthIndex, dateNum);
-        fullDate.setHours(0, 0, 0, 0);
-    }
-    const startOfDay = new Date(fullDate);
-    startOfDay.setHours(0, 0, 0, 0);
-    const endOfDay = new Date(fullDate);
-    endOfDay.setHours(23, 59, 59, 999);
+    const { start, end } = getUTCDateRange(date, month, new Date().getUTCFullYear());
     const existing = await Showtime.find({
         tmdbid: id,
         language: lang,
         format: format,
-        date: { $gte: startOfDay, $lte: endOfDay },
+        date: { $gte: start, $lte: end },
         theatre: theatre
     });
     console.log(existing);
@@ -50,26 +50,25 @@ router.get('/:id', async (req, res) => {
     const { id } = req.params;
     const movie = await tmdb.getmoviebyid(id);
     const { date, month, day, time, lang, format, theatre } = req.query;
-    const fullDate = new Date();
-    if (date && month) {
-        const dateNum = parseInt(date);
-        const monthIndex = new Date(`${month} 1, 2025`).getMonth();
-        const thisYear = new Date().getFullYear();
-        fullDate.setFullYear(thisYear, monthIndex, dateNum);
-        fullDate.setHours(0, 0, 0, 0);
-    }
-    const startOfDay = new Date(fullDate);
-    startOfDay.setHours(0, 0, 0, 0);
-    const endOfDay = new Date(fullDate);
-    endOfDay.setHours(23, 59, 59, 999);
+    const { start, end } = getUTCDateRange(date, month, new Date().getUTCFullYear());
+    console.log(start, end);
+    console.log({
+        tmdbid: parseInt(id),
+        language: lang.trim(),
+        format: format.trim(),
+        dateRange: { start, end },
+        time,
+        theatre: theatre.trim()
+    });
     const existing = await Showtime.findOne({
         tmdbid: id,
         language: lang,
         format: format,
-        date: { $gte: startOfDay, $lte: endOfDay },
+        date: { $gte: start, $lte: end },
         time: time,
         theatre: theatre
     });
+    console.log(existing);
     const newobject = {
         title: movie.title,
         language: lang,
@@ -95,13 +94,7 @@ router.get('/:id', async (req, res) => {
 router.post('/save', async (req, res) => {
     try {
         const { tmdbid, date, month, language, format, time, theatre } = req.body;
-        const fullDate = new Date();
-        if (date && month) {
-            const dateNum = parseInt(date);
-            const monthIndex = new Date(`${month} 1, 2025`).getMonth();
-            const thisYear = new Date().getFullYear();
-            fullDate = new Date(Date.UTC(thisYear, monthIndex, dateNum, 0, 0, 0, 0));
-        }
+        const fullDate = makeUTCDate(date, month, new Date().getUTCFullYear());
         const filter = {
             tmdbid,
             language,

@@ -15,6 +15,14 @@ function formatDate(dateStr) {
     return utcDate.toISOString().slice(0, 10);
 }
 
+function toUTCDateString(dateStr) {
+    const currentYear = new Date().getFullYear();
+    const [day, month] = dateStr.split('-');
+    const monthIndex = new Date(`${month} 1, ${currentYear}`).getMonth();
+    const utcDate = new Date(Date.UTC(currentYear, monthIndex, parseInt(day), 0, 0, 0, 0));
+    return utcDate.toISOString().slice(0, 10);
+}
+
 
 function formatTime(timeStr) {
     const [hours, minutes] = timeStr.split(':').map(Number);
@@ -135,7 +143,7 @@ router.post('/:id', async (req, res) => {
                             );
 
                             for (const showtime of theatre.showtimes) {
-                                const key = `${tmdbid}|${formatDate(date)}|${formatTime(showtime)}|${theatre.name.trim()}|${language.trim()}|${format.trim()}`;
+                                const key = `${tmdbid}|${toUTCDateString(date)}|${formatTime(showtime)}|${theatre.name.trim()}|${language.trim()}|${format.trim()}`;
                                 validSeatKeys.add(key);
                             }
                         }
