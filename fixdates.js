@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Showtime = require('./models/showtime'); 
+const Showtime = require('./models/showtime');
 require('dotenv').config();
 
 async function fixDates() {
@@ -18,10 +18,11 @@ async function fixDates() {
       const oldDate = show.date;
 
       if (oldDate) {
+        const intendedDay = oldDate.getUTCDate() + 1; 
         const utcDate = new Date(Date.UTC(
           oldDate.getUTCFullYear(),
           oldDate.getUTCMonth(),
-          oldDate.getUTCDate(),
+          intendedDay,
           0, 0, 0, 0
         ));
 
