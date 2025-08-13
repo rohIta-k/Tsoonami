@@ -39,6 +39,12 @@ body {
     }
 }
 
+@media(max-width:500px) {
+    #theatrespopup {
+        width: 80vw;
+    }
+}
+
 svg {
     align-self: self-end;
 
@@ -215,6 +221,12 @@ input[type='text'] {
 @media (max-width: 1000px) {
     #bannerspopup {
         width: 60%;
+    }
+}
+
+@media (max-width: 500px) {
+    #bannerspopup {
+        height: 50%;
     }
 }
 
@@ -465,7 +477,6 @@ input[type='text'] {
 .profile-menu {
     position: absolute;
     top: 120%;
-    /* below icon */
     right: 0;
     background-color: white;
     border: 1px solid #ddd;
@@ -518,26 +529,45 @@ input[type='text'] {
 
 @media (max-width: 600px) {
     #navbar {
+        flex-wrap: wrap;
         height: auto;
-        padding: 10px;
-        border-radius: 20px;
+        padding: 10px 15px;
+        border-radius: 0.5vw;
+    }
+
+    #title,
+    .profile-icon {
+        flex: 0 0 auto;
+        margin: 5px;
+        text-align: center;
     }
 
     #title {
-        font-size: 20px;
-        margin-bottom: 10px;
-    }
-
-    #searchfield {
-        flex-basis: 150px;
+        margin-right: 40px;
+        order: 1;
+        font-size: 24px;
+        margin-left: 0;
     }
 
     .profile-icon {
-        width: 35px;
-        height: 35px;
+        order: 2;
         margin-left: 0;
+        margin-right: 0;
+        width: 40px;
+        height: 40px;
+        justify-content: center;
+        margin: auto;
+    }
+
+    #searchfield {
+        order: 3;
+        flex-basis: 100%;
+        max-width: 100%;
+        margin: 10px 0 0 0;
+        height: 40px;
     }
 }
+
 
 .main-banner-section {
     width: 100%;
@@ -869,7 +899,7 @@ input[type='text'] {
 
     .card {
         width: 150px;
-        height: 250px;
+        height: 300px;
         margin: 0px 10px 15px 0px;
     }
 
@@ -879,6 +909,11 @@ input[type='text'] {
 
     .card .info {
         font-size: 14px;
+        padding:6px 3px;
+    }
+
+    .card .second-row div {
+        font-size: 11px;
     }
 }
 
@@ -982,6 +1017,7 @@ footer {
 
 @media (max-width: 600px) {
     footer {
+        width:100%;
         height: auto;
         padding: 15px 0;
     }

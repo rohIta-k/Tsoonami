@@ -32,9 +32,9 @@ img {
 
 .title {
   font-size: 2.7vw;
-  font-weight:600;
+  font-weight: 600;
   font-family: 'Kirang Haerang', sans-serif;
-  margin-bottom:30px;
+  margin-bottom: 30px;
 }
 
 .left-img {
@@ -82,8 +82,8 @@ img {
   }
 
   .title {
-    font-size:5vw;
-    font-weight:600;
+    font-size: 5vw;
+    font-weight: 600;
     display: inline-block;
     writing-mode: vertical-rl;
     text-orientation: upright;
@@ -98,6 +98,8 @@ img {
   justify-content: center;
   min-width: 300px;
 }
+
+
 
 .tabs {
   display: flex;
@@ -254,4 +256,37 @@ h2 {
 
 .login-button:hover {
   background-color: #d03a3a;
+}
+
+@media(max-width:480px) {
+  .message {
+    font-size: 20px;
+  }
+
+  .right-content {
+    padding: 14px;
+    min-width: 0px;
+    width: 90%;
+  }
+
+  h2 {
+    display: flex;
+    font-size: 6.5vw;
+    flex-wrap: wrap;
+  }
+
+  #login {
+    width: 96%;
+  }
+
+  form {
+    width: 90%;
+  }
+  .left-div{
+    flex:1 1 0px;
+  }
+  .tab-button{
+    font-size:14px;
+    padding:10px 10px;
+  }
 }

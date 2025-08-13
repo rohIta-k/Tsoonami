@@ -6,19 +6,21 @@ router.get('/:id', async (req, res) => {
     const { id } = req.params;
     const movie = await tmdb.getmoviebyid(id);
     const { date, month, day, time, lang, format, theatre } = req.query;
-    const fullDate = new Date();
-    if (date && month) {
-        const dateNum = parseInt(date);
-        const monthIndex = new Date(`${month} 1, 2025`).getMonth();
-        const thisYear = new Date().getFullYear();
-        fullDate.setFullYear(thisYear, monthIndex, dateNum);
-        fullDate.setHours(0, 0, 0, 0);
-    }
+    const { start, end } = getUTCDateRange(date, month, new Date().getUTCFullYear());
+    console.log(start, end);
+    console.log({
+        tmdbid: parseInt(id),
+        language: lang.trim(),
+        format: format.trim(),
+        dateRange: { start, end },
+        time,
+        theatre: theatre.trim()
+    });
     const existing = await Showtime.findOne({
         tmdbid: id,
         language: lang,
         format: format,
-        date: fullDate,
+        date:{ $gte: start, $lte: end },
         time: time,
         theatre: theatre
     });

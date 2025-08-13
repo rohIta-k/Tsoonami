@@ -621,6 +621,100 @@ h3 {
     }
 }
 
+@media (max-width: 500px) {
+    #description {
+        flex-direction: column;
+        padding: 10px;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+    }
+
+    #mainstart {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+
+    #imagedetails {
+        margin-right: 0;
+        width: 100%;
+        align-items: center;
+    }
+
+    #imagedetails img {
+        max-width: 200px;
+        margin-bottom: 15px;
+    }
+
+    #imagedetails button {
+        width: 80%;
+        font-size: 18px;
+        height: 45px;
+    }
+
+    #movietitle {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    #genres {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    #genres button {
+        font-size: 10px;
+        padding: 0 8px;
+        margin-bottom: 8px;
+    }
+
+    #specifics {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .spec-info {
+        font-size: 12px;
+        margin-bottom: 5px;
+    }
+
+    #language {
+        justify-content: center;
+    }
+    #spec-lang{
+        justify-content: center;
+    }
+
+    .lang-display {
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
+
+    #sub-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    #left {
+        flex: 1;
+        padding: 0;
+    }
+
+    #plot {
+        font-size: 15px;
+        text-align: justify;
+    }
+
+    .people-info {
+        display: none;
+    }
+
+    #cast {
+        display: none;
+    }
+}
+
+
 #second-nav {
     width: 95%;
     display: flex;
@@ -633,7 +727,7 @@ h3 {
 }
 
 .selected {
-    border: 2px solid white;
+    border: 2px solid rgb(66, 82, 116);
 }
 
 #date {

@@ -125,19 +125,19 @@ router.get('/verify/:token', async (req, res) => {
         const user = await User.findOne({ email: decoded.email });
 
         if (!user) {
-            return res.redirect('/tsoonami?verified=invalid');
+            return res.redirect('/?verified=invalid');
         }
 
         if (user.isVerified) {
-            return res.redirect('/tsoonami?verified=already');
+            return res.redirect('/?verified=already');
         }
 
         user.isVerified = true;
         await user.save();
 
-        res.redirect('/tsoonami?verified=success');
+        res.redirect('/?verified=success');
     } catch (err) {
-        res.redirect('/tsoonami?verified=expired');
+        res.redirect('/?verified=expired');
     }
 });
 

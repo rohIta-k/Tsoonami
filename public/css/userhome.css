@@ -660,8 +660,6 @@ ul {
 
     #nowshowing,
     #upcomingmovies {
-        flex-wrap: wrap;
-        overflow-x: hidden;
         min-height: 300px;
     }
 
