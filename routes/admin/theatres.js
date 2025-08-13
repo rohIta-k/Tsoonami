@@ -8,10 +8,11 @@ const Showtime = require('../../models/showtime')
 const moment = require('moment');
 
 function formatDate(dateStr) {
-    const currentYear = new Date().getFullYear();
-    const fullDateStr = `${dateStr}-${currentYear}`;
-    const date = new Date(fullDateStr);
-    return date.toISOString().slice(0, 10); 
+   const currentYear = new Date().getFullYear();
+    const [day, month] = dateStr.split('-');
+    const monthIndex = new Date(`${month} 1, ${currentYear}`).getMonth();
+    const utcDate = new Date(Date.UTC(currentYear, monthIndex, parseInt(day), 0, 0, 0, 0));
+    return utcDate.toISOString().slice(0, 10);
 }
 
 
@@ -20,7 +21,7 @@ function formatTime(timeStr) {
     const date = new Date();
     date.setHours(hours);
     date.setMinutes(minutes);
-    return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }); 
+    return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
 }
 
 router.get('/user/movies', async (req, res) => {

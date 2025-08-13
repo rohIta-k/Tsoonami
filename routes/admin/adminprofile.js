@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const verifyToken = require('../middleware');
 const User = require('../../models/user');
-const user = require('../../models/user');
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 

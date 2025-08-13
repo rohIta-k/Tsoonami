@@ -22,7 +22,7 @@ const convertTo24Hour = (timeStr) => {
     return `${hh}:${mm}`;
 };
 router.get('/find', async (req, res) => {
-    const { id,date, month,lang, format, theatre } = req.query;
+    const { id, date, month, lang, format, theatre } = req.query;
     const fullDate = new Date();
     if (date && month) {
         const dateNum = parseInt(date);
@@ -31,11 +31,15 @@ router.get('/find', async (req, res) => {
         fullDate.setFullYear(thisYear, monthIndex, dateNum);
         fullDate.setHours(0, 0, 0, 0);
     }
+    const startOfDay = new Date(fullDate);
+    startOfDay.setHours(0, 0, 0, 0);
+    const endOfDay = new Date(fullDate);
+    endOfDay.setHours(23, 59, 59, 999);
     const existing = await Showtime.find({
         tmdbid: id,
         language: lang,
         format: format,
-        date: fullDate,
+        date: { $gte: startOfDay, $lte: endOfDay },
         theatre: theatre
     });
     console.log(existing);
@@ -54,11 +58,15 @@ router.get('/:id', async (req, res) => {
         fullDate.setFullYear(thisYear, monthIndex, dateNum);
         fullDate.setHours(0, 0, 0, 0);
     }
+    const startOfDay = new Date(fullDate);
+    startOfDay.setHours(0, 0, 0, 0);
+    const endOfDay = new Date(fullDate);
+    endOfDay.setHours(23, 59, 59, 999);
     const existing = await Showtime.findOne({
         tmdbid: id,
         language: lang,
         format: format,
-        date: fullDate,
+        date: { $gte: startOfDay, $lte: endOfDay },
         time: time,
         theatre: theatre
     });
@@ -80,7 +88,7 @@ router.get('/:id', async (req, res) => {
         newobject.recliner = existing.recliner || null;
         newobject.prime = existing.prime || null;
         newobject.classic = existing.classic || null;
-        newobject.sold=existing.sold||[];
+        newobject.sold = existing.sold || [];
     }
     res.render('admin/adminseatbooking', { newobject });
 })
@@ -92,8 +100,7 @@ router.post('/save', async (req, res) => {
             const dateNum = parseInt(date);
             const monthIndex = new Date(`${month} 1, 2025`).getMonth();
             const thisYear = new Date().getFullYear();
-            fullDate.setFullYear(thisYear, monthIndex, dateNum);
-            fullDate.setHours(0, 0, 0, 0);
+            fullDate = new Date(Date.UTC(thisYear, monthIndex, dateNum, 0, 0, 0, 0));
         }
         const filter = {
             tmdbid,
@@ -152,8 +159,7 @@ router.post('/update', async (req, res) => {
             const dateNum = parseInt(date);
             const monthIndex = new Date(`${month} 1, 2025`).getMonth();
             const thisYear = new Date().getFullYear();
-            fullDate.setFullYear(thisYear, monthIndex, dateNum);
-            fullDate.setHours(0, 0, 0, 0);
+            fullDate = new Date(Date.UTC(thisYear, monthIndex, dateNum, 0, 0, 0, 0));
         }
         const existing = await Showtime.findOne({
             tmdbid: tmdbid,
