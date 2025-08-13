@@ -41,7 +41,7 @@ body {
 
 @media(max-width:500px) {
     #theatrespopup {
-        width: 80vw;
+        width: 70vw;
     }
 }
 
@@ -226,6 +226,7 @@ input[type='text'] {
 
 @media (max-width: 500px) {
     #bannerspopup {
+        width:75%;
         height: 50%;
     }
 }
