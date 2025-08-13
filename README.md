@@ -31,6 +31,7 @@ Tsoonami is a sleek and modern movie ticket booking website that allows users to
 - ✏ **Edit Movie Information** — Modify descriptions, cast, and details.
 - 🕒 **Create Theatre Showtimes** — Set schedules for screenings.
 - 🪑 **Seat Matrix Management** — Define and update seating layouts.
+- 📬 **View User Queries** — Review user feedback and questions.
 
 ## ⚙️ Backend Overview
 
@@ -44,6 +45,9 @@ The backend of **Tsooonami** is designed for efficiency, scalability, and smooth
 
 ### ⏳ Automation
 - **Scheduled Status Updates** — A `cron` job runs nightly to dynamically update the status of movies (e.g., upcoming → now showing).
+  
+### 💳 Payment Integration
+- **Razorpay API** — Simulates real-world payment processing for seat bookings, providing secure and seamless transaction handling.
 
 ### 🗄 Database Structure
 - **Users Database** — Stores user profiles, authentication data, and queries.
@@ -77,6 +81,24 @@ The backend of **Tsooonami** is designed for efficiency, scalability, and smooth
 
 ---
 
+
+# 🚀 Hosted Link
+
+Access the live version of **Tsooonami** at:  
+[https://tsoonami.onrender.com](https://tsoonami.onrender.com)
+
+---
+
+# 💳 Test Card Credentials
+
+To test the payment flow locally or in development, you can use the following **test card credentials** provided by Razorpay:
+
+| Card Number         | CVV  | Expiry Date  |
+|---------------------|------|--------------|
+| 2305 3242 5784 8228 | 123  | Any future date (e.g., 12/30) |
+
+---
+
 # 🎟Local Setup Guide
 
 ## 1️⃣ Clone the Repository
@@ -98,16 +120,15 @@ npm install
 PORT=3000
 JWT_SECRET=your_jwt_secret
 EMAIL_USER=youremail@example.com
-EMAIL_PASS=your_email_password
+EMAIL_PASS=your_email_app_password
 CLIENT_URL=http://localhost:3000
 TMDB_API_KEY=your-tmdb-api-key
 YOUTUBE_API_KEY=your-youtube-data-api-v3
+NODE_ENV=development
+SESSION_SECRET=your_session_secret
+MONGO_URI=your_mongodb_connection_string
 ```
-4️⃣Restore the Local MongoDB Backup
-```bash
-mongorestore --db movieinfo ./backup/movieinfo
-```
-5️⃣ Run the Project
+4️⃣Run the Project
 
 Run the app with Node:
 ```bash
