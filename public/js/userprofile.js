@@ -1,3 +1,7 @@
+
+document.querySelector('.homee').addEventListener('click', () => {
+    window.location.href = '/user'
+})
 const originalData = {
     mobile: "<%= data.mobile %>",
     name: "<%= data.name %>",

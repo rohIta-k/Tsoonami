@@ -2,6 +2,16 @@ const express = require('express');
 const router = express.Router();
 const tmdb=require('../../routes/admin/tmdb');
 const Showtime = require('../../models/showtime');
+const makeUTCDate = (date, month, year) => {
+    const monthIndex = new Date(`${month} 1, ${year}`).getMonth();
+    return new Date(Date.UTC(year, monthIndex, parseInt(date), 0, 0, 0, 0));
+};
+
+const getUTCDateRange = (date, month, year) => {
+    const start = makeUTCDate(date, month, year);
+    const end = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate(), 23, 59, 59, 999));
+    return { start, end };
+};
 router.get('/:id', async (req, res) => {
     const { id } = req.params;
     const movie = await tmdb.getmoviebyid(id);
