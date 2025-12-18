@@ -1,7 +1,7 @@
-
 document.querySelector('.homee').addEventListener('click', () => {
     window.location.href = '/user'
 })
+
 const originalData = {
     mobile: "<%= data.mobile %>",
     name: "<%= data.name %>",
@@ -12,24 +12,21 @@ console.log(originalData);
 
 document.addEventListener("DOMContentLoaded", () => {
     if (originalData.gender) {
-    const genderInput = document.querySelector(`input[name="gender"][value="${originalData.gender}"]`);
-    if (genderInput) {
-        genderInput.checked = true;
+        const genderInput = document.querySelector(`input[name="gender"][value="${originalData.gender}"]`);
+        if (genderInput) {
+            genderInput.checked = true;
+        }
     }
-}
     const container = document.getElementById("bookings-container");
     const inquirycontainer = document.getElementById('inquiry-container');
-
     bookings.forEach(booking => {
         const bookingCard = document.createElement("div");
         bookingCard.classList.add("one");
 
-        // Parse the booking date & time into a real Date object
         const bookingDateTime = new Date(
             `${booking.day}, ${booking.date} ${booking.month} ${new Date(booking.createdAt).getFullYear()} ${booking.time}`
         );
 
-        // Compare with current time
         const now = new Date();
         const status = bookingDateTime < now ? "PAST" : "UPCOMING";
 
@@ -56,7 +53,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const inquiryCard = document.createElement("div");
         inquiryCard.classList.add("one");
 
-        // Format date
         const createdDate = new Date(inquiry.createdAt);
         const formattedDate = createdDate.toLocaleDateString("en-GB", {
             day: "2-digit",
@@ -79,9 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-
-
-
 document.querySelector(".save").addEventListener("click", async () => {
     const currentData = {
         mobile: document.querySelector('input[name="email"]').value.trim(),
@@ -90,14 +83,12 @@ document.querySelector(".save").addEventListener("click", async () => {
         gender: document.querySelector('input[name="gender"]:checked')?.value || ""
     };
 
-    // Mobile validation (10 digits, starts with valid number)
     const mobileRegex = /^[6-9]\d{9}$/;
     if (currentData.mobile && !mobileRegex.test(currentData.mobile)) {
         alert("Please enter a valid 10-digit mobile number starting with 6-9.");
         return;
     }
 
-    // Collect only changed fields
     const updatedData = {};
     for (const key in currentData) {
         if (currentData[key] !== originalData[key] && currentData[key] !== "") {
@@ -105,17 +96,15 @@ document.querySelector(".save").addEventListener("click", async () => {
         }
     }
 
-    // If nothing changed
     if (Object.keys(updatedData).length === 0) {
         alert("No changes detected.");
         return;
     }
 
-    // Send to backend
     try {
         const res = await axios.post(
             "/userprofile/update",
-            updatedData, // body
+            updatedData,
             {
                 headers: {
                     "Content-Type": "application/json"

@@ -8,8 +8,8 @@ const seatschema = new mongoose.Schema({
 })
 
 const showtimeschema = new mongoose.Schema({
-    tmdbid: {
-        type: Number,
+    omdbid: {
+        type: String,
         required: true
     },
     language: {
@@ -46,7 +46,7 @@ const showtimeschema = new mongoose.Schema({
     }
 })
 showtimeschema.index({
-    tmdbid: 1,
+    omdbid: 1,
     date: 1,
     time: 1,
     theatre: 1,

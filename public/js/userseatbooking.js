@@ -16,6 +16,7 @@ const seatPrices = {
     'Classic': 250
 };
 const finalseats = [];
+
 function updateSummaryDisplay() {
     if (count === 0) {
         document.querySelector('#summary').style.display = 'none';
@@ -70,9 +71,10 @@ function attachSeatListeners() {
         });
     });
 }
+
 const urlParams = new URLSearchParams(window.location.search);
 
-const tmdbid = window.location.pathname.split('/').pop();
+const omdbid = window.location.pathname.split('/').pop();
 
 const date = urlParams.get('date');
 const day = urlParams.get('day');
@@ -104,7 +106,7 @@ book.addEventListener('click', function (e) {
 
             const bookingData = {
                 payment_id: response.razorpay_payment_id,
-                tmdbid,
+                omdbid, 
                 date,
                 day,
                 month,
@@ -112,18 +114,15 @@ book.addEventListener('click', function (e) {
                 format,
                 time,
                 theatre,
-                seats: finalseats.join('\n'),
+                seats: finalseats.join(','),
                 cost: totalCost
             };
 
             try {
                 const res = await axios.post('/user/confirmation', bookingData);
-
-                // Axios throws on HTTP errors, so if we are here, status is 2xx
                 const data = res.data;
 
-                // Redirect to confirmation page using ticketCode
-                window.location.href = `/user/confirmation/${encodeURIComponent(data.ticketCode)}`;
+                window.location.href = `/user/confirmation/pdf/${encodeURIComponent(data.ticketCode)}`;
             } catch (err) {
                 if (err.response && err.response.data && err.response.data.error) {
                     alert('Booking failed: ' + err.response.data.error);
@@ -156,16 +155,21 @@ updateSummaryDisplay();
 
 window.addEventListener('DOMContentLoaded', () => {
     attachSeatListeners();
-    const allSeats = document.querySelectorAll('.seat');
-    console.log(soldSeats);
 
-    allSeats.forEach(seat => {
-        const seatCode = seat.dataset.seat;
-        if (soldSeats.includes(seatCode)) {
-            console.log('hey');
-            seat.classList.add('soldd');
-        }
-    });
+    if (typeof soldSeats !== 'undefined') {
+        const cleanSoldSeats = soldSeats.flatMap(entry => 
+            entry.split('\n').map(s => s.trim())
+        ).filter(s => s !== ""); 
+
+        const allSeats = document.querySelectorAll('.seat');
+        
+        allSeats.forEach(seat => {
+            const seatCode = seat.dataset.seat ? seat.dataset.seat.trim() : "";
+            
+            if (cleanSoldSeats.includes(seatCode)) {
+                seat.classList.add('soldd');
+                seat.style.backgroundColor = 'rgb(176, 224, 230)';
+            }
+        });
+    }
 });
-
-

@@ -1,98 +1,82 @@
 
-const signin = document.querySelector('#register');
-signin.style.display = 'none';
+const authUI = {
+  loginSection: document.querySelector('#login-container'),
+  registerSection: document.querySelector('#register-container'),
+  logBtn: document.querySelector('#logbutton'),
+  regBtn: document.querySelector('#regbutton'),
+  messageBox: document.querySelector('.message'),
+  loginForm: document.querySelector('#login-form'),
+  regForm: document.querySelector('#register-form')
+};
 
-const login = document.querySelector('#login');
-const signbutton = document.querySelector('#regbutton');
-const logbutton = document.querySelector('#logbutton');
-const messages = document.querySelector('.message');
+function switchTab(mode) {
+  const isReg = mode === 'reg';
+  
+  authUI.loginSection.style.display = isReg ? 'none' : 'block';
+  authUI.registerSection.style.display = isReg ? 'block' : 'none';
+  
+  authUI.regBtn.classList.toggle('active', isReg);
+  authUI.logBtn.classList.toggle('active', !isReg);
+  
+  authUI.messageBox.innerHTML = '';
+}
 
-let selected;
+authUI.logBtn.addEventListener('click', () => switchTab('log'));
+authUI.regBtn.addEventListener('click', () => switchTab('reg'));
 
-logbutton.addEventListener('click', () => {
-  messages.innerHTML = '';
-  selected = 'login';
-  signbutton.classList.remove('active');
-  logbutton.classList.add('active');
-  signin.style.display = 'none';
-  login.style.display = 'block';
-});
 
-signbutton.addEventListener('click', () => {
-  messages.innerHTML = '';
-  selected = 'signin';
-  logbutton.classList.remove('active');
-  signbutton.classList.add('active');
-  login.style.display = 'none';
-  signin.style.display = 'block';
-});
+const displayMsg = (msg, isError = true) => {
+  authUI.messageBox.innerHTML = `<span style="color: ${isError ? '#ff5b5c' : '#28a745'};">${msg}</span>`;
+};
 
-document.querySelector('#login-submit').addEventListener('click', async (e) => {
+
+authUI.loginForm.addEventListener('submit', async (e) => {
   e.preventDefault();
-  messages.innerHTML = '';
+  displayMsg('Authenticating...', false);
 
   const email = document.querySelector('#login-email').value.trim();
   const password = document.querySelector('#login-password').value;
 
-  if (!email || !password) {
-    messages.innerHTML = 'Please enter both email and password.';
-    return;
-  }
-
   try {
-    const res = await axios.post('/auth/login', { email, password }, { withCredentials: true });
+    const { data } = await axios.post('/auth/login', 
+      { email, password }, 
+      { withCredentials: true } 
+    );
+    
 
-    messages.innerHTML = `<span style="color:green;">${res.data.message || 'Login successful'}</span>`;
+    if (data.token) localStorage.setItem('token', data.token);
+
+    displayMsg(data.message || 'Login successful! Redirecting...', false);
 
     setTimeout(() => {
-      if (res.data.role === 'admin') {
-        window.location.href = '/admin';
-      } else {
-        window.location.href = '/user';
-      }
-    }, 500);
+      window.location.href = data.role === 'admin' ? '/admin' : '/user';
+    }, 800);
 
   } catch (err) {
-    if (err.response?.status === 403) {
-      messages.innerHTML = `<span style="color:red;">${err.response.data || 'Please verify your email before logging in'}</span>`;
-    } else {
-      messages.innerHTML = `<span style="color:red;">${err.response.data || 'Login failed'}</span>`;
-    }
+    const errorMsg = err.response?.data?.message || err.response?.data || 'Login failed';
+    displayMsg(errorMsg);
   }
 });
 
-document.querySelector('#register-submit').addEventListener('click', async (e) => {
-  e.preventDefault();
 
-  const name = document.querySelector('#register-name').value;
-  const email = document.querySelector('#register-email').value;
-  const password = document.querySelector('#register-password').value;
-  const data = { name, email, password };
+authUI.regForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  displayMsg('Creating account...', false);
+  
+  const formData = {
+    name: document.querySelector('#register-name').value.trim(),
+    email: document.querySelector('#register-email').value.trim(),
+    password: document.querySelector('#register-password').value
+  };
 
   try {
-    const res = await axios.post('/auth/register', data);
-    messages.innerHTML = `<span style="color:green;">${'Registration successful! Please check your email to verify your account'}</span>`;
-    selected = 'login';
-    signbutton.classList.remove('active');
-    logbutton.classList.add('active');
-    signin.style.display = 'none';
-    login.style.display = 'block';
+    const { data } = await axios.post('/auth/register', formData);
+    displayMsg('Success! Check your email to verify your account.', false);
+
+    setTimeout(() => switchTab('log'), 2500);
+  } catch (err) {
+
+    const errors = err.response?.data?.errors;
+    displayMsg(Array.isArray(errors) ? errors.join(', ') : (err.response?.data?.message || 'Registration failed'));
   }
-  catch (err) {
-    if (err.response?.data?.errors) {
-      messages.innerHTML = `<span style="color:red;">${err.response.data.errors.join(', ') || 'Please verify your email before logging in'}</span>`;
-    } else {
-      messages.innerHTML = `<span style="color:red;">${err.response?.data?.message || 'Registration failed'}</span>`;
-
-    }
-  }
-});
-
-
-document.querySelectorAll('input').forEach(input => {
-  input.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-    }
-  });
 });

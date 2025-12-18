@@ -1,38 +1,53 @@
 
-document.querySelector('.homee').addEventListener('click', () => {
-    window.location.href = '/user';
-})
+document.querySelector('.homee').onclick = () => window.location.href = '/user';
 async function downloadTicket(ticketCode) {
+    if (!ticketCode) return alert('Invalid Ticket Code');
+
     try {
-        const res = await axios.get(`/user/confirmation/pdf/${encodeURIComponent(ticketCode)}`, { responseType: 'blob' });
+
+        const btn = document.querySelector('.download-button');
+        const originalText = btn.innerText;
+        btn.innerText = 'Downloading...';
+        btn.disabled = true;
+
+        const res = await axios.get(`/user/confirmation/pdf/${encodeURIComponent(ticketCode)}`, { 
+            responseType: 'blob' 
+        });
+
 
         const blob = new Blob([res.data], { type: 'application/pdf' });
         const url = window.URL.createObjectURL(blob);
 
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `ticket-${ticketCode}.pdf`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `TSOONAMI-Ticket-${ticketCode}.pdf`;
+        document.body.appendChild(link);
+        link.click();
+
+        document.body.removeChild(link);
         window.URL.revokeObjectURL(url);
+        
+        btn.innerText = originalText;
+        btn.disabled = false;
 
     } catch (error) {
         console.error('Error downloading ticket:', error);
-        alert(error.response?.data?.error || 'Failed to download ticket.');
+        alert('Could not download ticket. Please try again.');
+        
+        const btn = document.querySelector('.download-button');
+        btn.innerText = 'Download Ticket';
+        btn.disabled = false;
     }
 }
 
 
-
 document.querySelector('.download-button').addEventListener('click', async () => {
-  
-    const path = window.location.pathname;
 
-    const parts = path.split('/');
-    const ticketCode = parts[parts.length - 1];
+    const ticketCode = window.location.pathname.split('/').pop();
 
-    console.log(ticketCode);  
-
-    await downloadTicket(ticketCode);
+    if (ticketCode) {
+        await downloadTicket(ticketCode);
+    } else {
+        alert('Ticket code not found.');
+    }
 });

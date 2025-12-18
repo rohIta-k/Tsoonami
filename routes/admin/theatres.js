@@ -1,19 +1,11 @@
 const express = require('express');
-const axios = require('axios');
 const router = express.Router();
 const Theatre = require('../../models/theatres');
 const Movie = require('../../models/movie');
-router.use(express.json());
-const Showtime = require('../../models/showtime')
+const Showtime = require('../../models/showtime');
 const moment = require('moment');
 
-function formatDate(dateStr) {
-   const currentYear = new Date().getFullYear();
-    const [day, month] = dateStr.split('-');
-    const monthIndex = new Date(`${month} 1, ${currentYear}`).getMonth();
-    const utcDate = new Date(Date.UTC(currentYear, monthIndex, parseInt(day), 0, 0, 0, 0));
-    return utcDate.toISOString().slice(0, 10);
-}
+router.use(express.json());
 
 function toUTCDateString(dateStr) {
     const currentYear = new Date().getFullYear();
@@ -22,7 +14,6 @@ function toUTCDateString(dateStr) {
     const utcDate = new Date(Date.UTC(currentYear, monthIndex, parseInt(day), 0, 0, 0, 0));
     return utcDate.toISOString().slice(0, 10);
 }
-
 
 function formatTime(timeStr) {
     const [hours, minutes] = timeStr.split(':').map(Number);
@@ -37,18 +28,20 @@ router.get('/user/movies', async (req, res) => {
         const location = req.query.q;
         const matchingtheatres = await Theatre.find({ city: location });
         const now = new Date();
-        const validTmdbIds = new Set();
+        const validOmdbIds = new Set();
+
         matchingtheatres.forEach(theatre => {
             theatre.showtimes.forEach(time => {
                 const dateTimeStr = `${theatre.date} ${time}`;
                 const fullDateTime = moment(dateTimeStr, 'D-MMM HH:mm').toDate();
 
                 if (fullDateTime > now) {
-                    validTmdbIds.add(theatre.tmdbid);
+                    validOmdbIds.add(theatre.omdbid); 
                 }
             });
         });
-        const movies = await Movie.find({ tmdbid: { $in: Array.from(validTmdbIds) } });
+
+        const movies = await Movie.find({ omdbid: { $in: Array.from(validOmdbIds) } });
         res.json(movies);
     } catch (err) {
         console.error(err);
@@ -60,8 +53,7 @@ router.get('/movies', async (req, res) => {
     try {
         const theatres = await Theatre.find();
         const now = new Date();
-
-        const validTmdbIds = new Set();
+        const validOmdbIds = new Set();
 
         theatres.forEach(theatre => {
             theatre.showtimes.forEach(time => {
@@ -69,12 +61,12 @@ router.get('/movies', async (req, res) => {
                 const fullDateTime = moment(dateTimeStr, 'D-MMM HH:mm').toDate();
 
                 if (fullDateTime > now) {
-                    validTmdbIds.add(theatre.tmdbid);
+                    validOmdbIds.add(theatre.omdbid); 
                 }
             });
         });
 
-        const movies = await Movie.find({ tmdbid: { $in: Array.from(validTmdbIds) } });
+        const movies = await Movie.find({ omdbid: { $in: Array.from(validOmdbIds) } });
         res.json(movies);
     } catch (err) {
         console.error(err);
@@ -82,27 +74,34 @@ router.get('/movies', async (req, res) => {
     }
 });
 
+router.delete('/cleanup/:id', async (req, res) => {
+    try {
+        const movieID = req.params.id;
+        await TheatreMovie.deleteOne({ omdbid: movieID }); 
+        res.status(200).json({ message: "Expired movie removed from database" });
+    } catch (err) {
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
 
 router.delete('/:id', async (req, res) => {
-    const { id } = req.params;
-    const deleted = await Theatre.deleteMany({ tmdbid: id });
+    const { id } = req.params; 
+    await Theatre.deleteMany({ omdbid: id }); 
     res.json({ message: 'Deleted successfully' });
-})
-
+});
 
 router.post('/:id', async (req, res) => {
-    const tmdbid = parseInt(req.params.id);
+    const omdbid = req.params.id; 
     const sentdata = req.body.data;
 
     try {
-        const theatreInserts = [];
         const validSeatKeys = new Set();
         for (const [city, datesObj] of Object.entries(sentdata)) {
             for (const [date, languagesObj] of Object.entries(datesObj)) {
                 for (const [language, formatsObj] of Object.entries(languagesObj)) {
                     for (const [format, theatresArr] of Object.entries(formatsObj)) {
 
-                        const existingShowtimes = await Theatre.find({ tmdbid, city, date, language, format });
+                        const existingShowtimes = await Theatre.find({ omdbid, city, date, language, format });
                         const newTheatreMap = new Map();
                         for (const theatre of theatresArr) {
                             newTheatreMap.set(`${theatre.name}|${theatre.location}`, theatre.showtimes);
@@ -112,13 +111,8 @@ router.post('/:id', async (req, res) => {
                             const key = `${existing.name}|${existing.location}`;
                             if (!newTheatreMap.has(key)) {
                                 await Theatre.deleteOne({
-                                    tmdbid,
-                                    city,
-                                    date,
-                                    language,
-                                    format,
-                                    name: existing.name,
-                                    location: existing.location
+                                    omdbid, city, date, language, format,
+                                    name: existing.name, location: existing.location
                                 });
                             }
                         }
@@ -126,24 +120,18 @@ router.post('/:id', async (req, res) => {
                         for (const theatre of theatresArr) {
                             await Theatre.updateOne(
                                 {
-                                    tmdbid,
-                                    city,
-                                    date,
+                                    omdbid, city, date,
                                     language: language.trim(),
                                     format,
                                     name: theatre.name,
                                     location: theatre.location
                                 },
-                                {
-                                    $set: {
-                                        showtimes: theatre.showtimes
-                                    }
-                                },
+                                { $set: { showtimes: theatre.showtimes } },
                                 { upsert: true }
                             );
 
                             for (const showtime of theatre.showtimes) {
-                                const key = `${tmdbid}|${toUTCDateString(date)}|${formatTime(showtime)}|${theatre.name.trim()}|${language.trim()}|${format.trim()}`;
+                                const key = `${omdbid}|${toUTCDateString(date)}|${formatTime(showtime)}|${theatre.name.trim()}|${language.trim()}|${format.trim()}`;
                                 validSeatKeys.add(key);
                             }
                         }
@@ -151,13 +139,12 @@ router.post('/:id', async (req, res) => {
                 }
             }
         }
-        await Promise.all(theatreInserts);
-        const allExistingSeats = await Showtime.find({ tmdbid });
 
+        const allExistingSeats = await Showtime.find({ omdbid });
         const toDelete = [];
 
         for (const seat of allExistingSeats) {
-            const seatKey = `${seat.tmdbid}|${seat.date.toISOString().slice(0, 10)}|${seat.time}|${seat.theatre}|${seat.language}|${seat.format}`;
+            const seatKey = `${seat.omdbid}|${seat.date.toISOString().slice(0, 10)}|${seat.time}|${seat.theatre}|${seat.language}|${seat.format}`;
             if (!validSeatKeys.has(seatKey)) {
                 toDelete.push(seat._id);
             }
@@ -167,32 +154,36 @@ router.post('/:id', async (req, res) => {
             await Showtime.deleteMany({ _id: { $in: toDelete } });
         }
 
-        return res.json({ message: "Movie details and showtimes updated successfully." });
+        return res.json({ message: "Showtimes updated successfully." });
 
     } catch (err) {
         console.error(err);
-        return res.status(500).json({ message: "Error saving movie details." });
+        return res.status(500).json({ message: "Error saving theatre details." });
     }
 });
-
 
 router.get('/', async (req, res) => {
-    const { tmdbid, date, language, format, city } = req.query;
+    const { omdbid, date, language, format, city } = req.query;
+    console.log(omdbid,date,language,format,city);
 
     try {
-        const showtimes = await Theatre.find({
-            tmdbid: parseInt(tmdbid),
-            date,
-            language: language.trim(),
-            format,
-            city
+        const theatres = await Theatre.find({
+            omdbid: omdbid, 
+            date: date, 
+            language: language?.trim(),
+            format: format,
+            city: city
         });
-        console.log(showtimes);
 
-        res.json(showtimes);
+        if (!theatres || theatres.length === 0) {
+            return res.json([]);
+        }
+
+        res.json(theatres);
     } catch (err) {
-        console.error(err.message);
-        res.status(500).json({ error: "Failed to fetch showtimes" });
+        console.error("Error fetching theatres:", err.message);
+        res.status(500).json({ error: "Internal Server Error" });
     }
 });
+
 module.exports = router;

@@ -1,7 +1,7 @@
-
 document.querySelector('.homee').addEventListener('click', () => {
     window.location.href = '/admin'
 })
+
 const formatcontainer = document.querySelector('#bigformat');
 const formatdropdown = document.querySelector('#formatdropdown');
 const formatbutton = document.querySelector('#formatimg');
@@ -67,10 +67,9 @@ make.addEventListener('click', () => {
 
 })
 
-
 const url = new URL(window.location.href);
 const pathnameParts = window.location.pathname.split('/');
-const tmdbid = pathnameParts[pathnameParts.length - 1];
+const omdbid = pathnameParts[pathnameParts.length - 1]; 
 const date = url.searchParams.get("date");
 const month = url.searchParams.get("month");
 const lang = url.searchParams.get("lang");
@@ -78,16 +77,17 @@ const format = url.searchParams.get("format");
 const time = url.searchParams.get("time");
 const theatre = url.searchParams.get("theatre");
 const save = document.querySelector('#save');
+
 save.addEventListener('click', async () => {
     if (count == 0) {
         alert('Nothing to save');
         return;
     }
 
-    console.log(tmdbid);
+    console.log(omdbid);
 
     const data = {
-        tmdbid,
+        omdbid, 
         date,
         month,
         language: lang,
@@ -107,7 +107,7 @@ save.addEventListener('click', async () => {
     }
 })
 
-const seatKey = `${tmdbid}|${date}|${month}|${time}|${theatre}|${lang}|${format}`;
+const seatKey = `${omdbid}|${date}|${month}|${time}|${theatre}|${lang}|${format}`;
 
 async function checkExistingLayout() {
     try {
@@ -156,4 +156,3 @@ async function checkExistingLayout() {
     }
 }
 checkExistingLayout();
-

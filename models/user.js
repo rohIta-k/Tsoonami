@@ -24,7 +24,7 @@ const BookingSchema = new mongoose.Schema({
     cost: {
         type: Number, required: true
     },
-    tmdbid: { type: String, required: true },
+    omdbid: { type: String, required: true },
     isAdmin: {
         type: Boolean,
         default: false

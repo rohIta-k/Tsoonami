@@ -1,122 +1,107 @@
-body {
+
+:root {
+  --primary-red: #ff5b5c;
+  --hover-red: #d03a3a;
+  --bg-light: #e4fafc;
+  --text-dark: #333;
+  --text-gray: #888;
+  --border-color: #ddd;
+  --transition: all 0.3s ease;
+}
+
+body, html {
   margin: 0;
   padding: 0;
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+}
+
+.bg-image {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover; 
+  z-index: -1;
 }
 
 .message {
-  font-size: 1.8vw;
-  margin: 50px auto;
-  text-align: center;
-  color: #ff5b5c;
-  height: 20px;
-  font-weight: 600;
-  z-index: 100;
   position: absolute;
   top: 6%;
   left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-img {
-  width: 100vw;
-  height: 100vh;
-  position: relative;
-  z-index: 1;
-}
-
-.left-div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.title {
-  font-size: 2.7vw;
+  transform: translateX(-50%);
+  font-size: clamp(1rem, 2vw, 1.8rem);
+  color: var(--primary-red);
   font-weight: 600;
-  font-family: 'Kirang Haerang', sans-serif;
-  margin-bottom: 30px;
-}
-
-.left-img {
-  width: 220px;
-  height: 250px;
-  border-radius: 20px;
+  z-index: 100;
+  text-align: center;
 }
 
 .login-popup {
   position: absolute;
-  top: 55%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #ffffff;
+  background: #fff;
   border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   display: flex;
+  width: 90%;
+  max-width: 900px; 
+  min-height: 500px;
   overflow: hidden;
-  width: 60%;
-  max-height: 550px;
   z-index: 10;
 }
 
-
 .left-div {
-  flex: 1 1 50%;
-  background-color: #e4fafc;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  min-width: 20px;
-  box-sizing: border-box;
-}
-
-@media(max-width:1000px) {
-  .login-popup {
-    width: 80%;
-  }
-}
-
-@media(max-width:770px) {
-  .left-img {
-    display: none;
-  }
-
-  .title {
-    font-size: 5vw;
-    font-weight: 600;
-    display: inline-block;
-    writing-mode: vertical-rl;
-    text-orientation: upright;
-  }
-}
-
-.right-content {
-  flex: 1 0 50%;
-  padding: 40px;
+  flex: 1;
+  background-color: var(--bg-light);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-width: 300px;
+  align-items: center;
+  padding: 20px;
 }
 
+.title {
+  font-size: clamp(2rem, 3vw, 3rem);
+  font-family: 'Kirang Haerang', sans-serif;
+  margin-bottom: 20px;
+  color: var(--text-dark);
+}
 
+.left-img {
+  width: 80%;
+  max-width: 220px;
+  height: auto;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.right-content {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+}
 
 .tabs {
   display: flex;
-  margin-bottom: 10px;
+  margin-bottom: 25px;
   border-bottom: 1px solid #eee;
 }
 
 .tab-button {
-  font-family: "Poppins", sans-serif;
   background: none;
   border: none;
   padding: 10px 20px;
   font-size: 1rem;
   cursor: pointer;
-  color: #888;
+  color: var(--text-gray);
   position: relative;
-  transition: color 0.3s ease;
+  transition: var(--transition);
 }
 
 .tab-button.active {
@@ -134,72 +119,23 @@ img {
   background-color: #000;
 }
 
-#login {
-  display: flex;
-  flex-direction: column;
-}
-
 h2 {
   font-size: 1.8rem;
-  margin-bottom: 25px;
-  color: #333;
-  text-align: left;
-  font-weight: 700;
-}
-
-.social-login {
-  display: flex;
-  gap: 30px;
-  margin-bottom: 5px;
-  align-items: center;
-  justify-content: center;
-  border-color: #a1a1a1;
-  border-style: groove;
-  border-width: 0.5px;
-  height: 44px;
-  background-color: #f9f9f9;
-  align-self: center;
-  width: 100%;
-}
-
-.social-login span {
-  font-family: "Poppins", sans-serif;
-  font-weight: 400;
-}
-
-.contain {
-  display: flex;
-  text-align: center;
-  margin: 25px 0;
-  color: #999;
-  font-size: 0.9rem;
-  align-items: center;
-}
-
-.line {
-  flex: 1 1 20%;
-  height: 1px;
-  background-color: #eee;
-
-}
-
-.or-separator {
-  flex: 1 0 40%;
-  font-size: 14px;
+  margin-bottom: 20px;
+  color: var(--text-dark);
 }
 
 .input-group {
-  margin-bottom: 20px;
-  position: relative;
+  margin-bottom: 15px;
 }
 
 .input-group input {
-  width: calc(100% - 24px);
+  width: 100%;
   padding: 12px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   font-size: 1rem;
-  color: #333;
+  box-sizing: border-box; 
   outline: none;
   transition: border-color 0.2s;
 }
@@ -208,85 +144,51 @@ h2 {
   border-color: #007bff;
 }
 
-.password-group {
-  position: relative;
-}
-
-.password-toggle {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: #888;
-  font-size: 1.1rem;
-}
-
-.forgot-password {
-  display: block;
-  text-align: right;
-  color: #007bff;
-  text-decoration: none;
-  font-size: 0.9rem;
-  margin-top: -10px;
-  margin-bottom: 25px;
-  transition: color 0.2s;
-}
-
-.social-login:hover {
-  cursor: pointer;
-}
-
-.forgot-password:hover {
-  color: #0056b3;
-}
-
 .login-button {
   width: 100%;
-  padding: 15px;
-  background-color: #ff5b5c;
+  padding: 14px;
+  background-color: var(--primary-red);
   color: #fff;
   border: none;
   border-radius: 8px;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
+  margin-top: 10px;
   transition: background-color 0.2s;
 }
 
 .login-button:hover {
-  background-color: #d03a3a;
+  background-color: var(--hover-red);
 }
 
-@media(max-width:480px) {
-  .message {
-    font-size: 20px;
+@media (max-width: 770px) {
+  .login-popup {
+    flex-direction: column; 
+    width: 85%;
+    max-height: none;
   }
 
+  .left-div {
+    padding: 15px;
+  }
+
+  .left-img {
+    display: none;
+  }
+
+  .title {
+    writing-mode: horizontal-tb;
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 480px) {
   .right-content {
-    padding: 14px;
-    min-width: 0px;
-    width: 90%;
+    padding: 20px;
   }
-
+  
   h2 {
-    display: flex;
-    font-size: 6.5vw;
-    flex-wrap: wrap;
-  }
-
-  #login {
-    width: 96%;
-  }
-
-  form {
-    width: 90%;
-  }
-  .left-div{
-    flex:1 1 0px;
-  }
-  .tab-button{
-    font-size:14px;
-    padding:10px 10px;
+    font-size: 1.4rem;
   }
 }

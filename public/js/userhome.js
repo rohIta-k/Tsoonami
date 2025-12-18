@@ -2,7 +2,6 @@ document.querySelector('.profile-icon').addEventListener('click', function () {
     this.classList.toggle('active');
 });
 
-
 document.getElementById("personal").addEventListener("click", () => {
     window.location.href = "/userprofile#personal";
 });
@@ -31,9 +30,7 @@ document.querySelector('#logg').addEventListener('click', async () => {
     }
 });
 
-
 document.addEventListener('DOMContentLoaded', async () => {
-
     try {
         const res = await axios.get('/location/info', {
             withCredentials: true
@@ -52,14 +49,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error(err);
 
         if (err.response && (err.response.status === 401 || err.response.status === 403)) {
-            // Token invalid or expired
-            localStorage.removeItem('token');
             window.location.href = '/';
         } else {
             alert('Something went wrong. Please try again later.');
         }
     }
 });
+
 function setDefaultLocation(location) {
     localStorage.setItem('userLocation', location);
     document.getElementById('locname').innerText = location;
@@ -70,10 +66,11 @@ function showLocationPopup() {
     document.querySelector('.FullPopup').style.display = 'block';
     document.querySelector('#backdrop').style.display = 'block';
 }
+
 document.querySelector('#locname').addEventListener('click', () => {
     document.querySelector('.FullPopup').style.display = 'block';
     document.querySelector('#backdrop').style.display = 'block';
-})
+});
 
 document.querySelectorAll('.Imgbox').forEach(box => {
     box.addEventListener('click', async () => {
@@ -99,12 +96,9 @@ document.querySelectorAll('.Imgbox').forEach(box => {
             alert('Your session expired. Please sign in again.');
             localStorage.removeItem('token');
             window.location.href = '/';
-
         }
     });
 });
-
-
 
 function renderMovies(allmovies) {
     document.querySelector('#nowshowing').innerHTML = '';
@@ -114,7 +108,7 @@ function renderMovies(allmovies) {
             const card = document.createElement('div');
             card.classList.add('card');
             card.addEventListener('click', () => {
-                window.location.href = `/user/movie/${movie.tmdbid}?q=${document.querySelector('#locname').innerHTML}`;
+                window.location.href = `/user/movie/${movie.omdbid}?q=${document.querySelector('#locname').innerHTML}`;
             });
             const mimg = document.createElement('img');
             mimg.src = movie.poster;
@@ -141,6 +135,7 @@ function renderMovies(allmovies) {
         }
     }
 }
+
 async function getshowingmovies(location) {
     let allmovies = await axios.get(`/api/theatres/user/movies?q=${location}`);
     allmovies = allmovies.data;
@@ -149,8 +144,6 @@ async function getshowingmovies(location) {
         renderMovies(allmovies);
     });
 }
-
-
 
 const leftscroll = document.querySelector('#leftscroll');
 const rightscroll = document.querySelector('#rightscroll');
@@ -162,13 +155,13 @@ async function displaybanners() {
     try {
         const res = await axios.get('/api/banners');
         banners = res.data.map(b => b.image);
-        imagedisplay.src = banners[index];
+        if (banners.length > 0) imagedisplay.src = banners[index];
     }
     catch (err) {
         console.log(err);
     }
-
 }
+
 leftscroll.addEventListener('click', () => {
     if (banners.length === 0) return;
     index = (index - 1 + banners.length) % banners.length;
@@ -183,13 +176,10 @@ rightscroll.addEventListener('click', () => {
 
 displaybanners();
 
-
-
 const searchfield = document.querySelector('#searchfield');
-const searchinput = document.querySelector('#searchfield input')
+const searchinput = document.querySelector('#searchfield input');
 const results = document.querySelector('#results');
 const ulelement = document.querySelector('#results-ul');
-
 
 function makeelements(all) {
     ulelement.innerHTML = '';
@@ -201,9 +191,9 @@ function makeelements(all) {
         newli.addEventListener('click', () => {
             results.style.display = 'none';
             console.log('clicked');
-            window.location.href = `/user/movie/${movie.tmdbid}?q=${document.querySelector('#locname').innerHTML}`;
+            window.location.href = `/user/movie/${movie.omdbid}?q=${document.querySelector('#locname').innerHTML}`;
             console.log('clicked');
-        })
+        });
         ulelement.appendChild(newli);
         ulelement.appendChild(hr);
     }
@@ -216,7 +206,7 @@ function debounce(func, delay) {
         timeout = setTimeout(() => {
             func.apply(this, args);
         }, delay);
-    }
+    };
 }
 
 async function handlesearch(e) {
@@ -237,7 +227,7 @@ async function handlesearch(e) {
         console.log('failed to load movies');
         console.log(err);
     }
-};
+}
 searchinput.addEventListener('input', debounce(handlesearch, 300));
 
 document.addEventListener('click', (event) => {
@@ -245,7 +235,6 @@ document.addEventListener('click', (event) => {
         results.style.display = 'none';
     }
 });
-
 
 const genredropdown = document.querySelector('#genree');
 const genredetails = document.querySelector('#genredetail');
@@ -258,14 +247,17 @@ const languagedetails = document.querySelector('#languagedetail');
 languagedropdown.addEventListener('click', () => {
     languagedetails.classList.toggle('hidden');
 });
+
 function getSelectedGenreNames() {
     const selected = Array.from(document.querySelectorAll('#genredetail li.selected'));
     return selected.map(item => item.textContent.trim());
 }
+
 function getSelectedLanguageNames() {
     const selected = Array.from(document.querySelectorAll('#languagedetail li.selected'));
     return selected.map(item => item.textContent.trim());
 }
+
 async function fetchMoviesByGenres() {
     const selectedGenres = getSelectedGenreNames();
     const selectedLanguages = getSelectedLanguageNames();
@@ -294,24 +286,10 @@ document.querySelectorAll('#genredetail li').forEach(one => {
         await fetchMoviesByGenres();
     });
 });
+
 document.querySelectorAll('#languagedetail li').forEach(one => {
     one.addEventListener('click', async () => {
         one.classList.toggle('selected');
         await fetchMoviesByGenres();
     });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

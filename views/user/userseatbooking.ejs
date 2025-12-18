@@ -145,6 +145,7 @@
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
         const soldSeats = <%- JSON.stringify(newobject.sold.map(s => s.trim())) %>;
+        console.log(soldSeats);
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

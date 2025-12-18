@@ -1,5 +1,3 @@
-
-
 document.querySelector('.profile-icon').addEventListener('click', function () {
     this.classList.toggle('active');
 });
@@ -19,12 +17,12 @@ document.querySelector(".menu-item:nth-child(3)").addEventListener("click", () =
 document.querySelector(".menu-item:nth-child(4)").addEventListener("click", () => {
     window.location.href = "/userprofile#query";
 });
-
+const id = window.location.pathname.split('/').pop();
 document.querySelector('#logg').addEventListener('click', async () => {
     try {
         const res = await axios.post('/auth/logout');
         if (res.status === 200) {
-            window.location.href = '/tsoonami';
+            window.location.href = '/';
         }
     } catch (err) {
         console.error('Logout failed:', err);
@@ -182,7 +180,8 @@ function makeelements(all) {
         newli.innerHTML = movie.title;
         newli.addEventListener('click', () => {
             results.style.display = 'none';
-            window.location.href = `/user/movie/${movie.tmdbid}`;
+            // Changed from tmdbid to omdbid
+            window.location.href = `/user/movie/${movie.omdbid}`;
         })
         ulelement.appendChild(newli);
         ulelement.appendChild(hr);
@@ -291,7 +290,6 @@ function sortshowtimes(container) {
         return timeA.localeCompare(timeB);
     });
     showtimes.forEach(st => container.appendChild(st));
-    savetolocalstorage();
 
 }
 
@@ -434,33 +432,6 @@ function rendertheatreblocks(data = []) {
 
 }
 
-function setTrailer(videoid) {
-    frame.src = `https://www.youtube.com/embed/${videoid}`;
-}
-const firstbutton = trailerlangs[0];
-if (firstbutton) {
-    setTrailer(firstbutton.dataset.videoid);
-}
-
-trailerlangs.forEach(btn => {
-    btn.addEventListener('click', () => {
-        trailerlangs.forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-
-        const videoid = btn.dataset.videoid;
-        setTrailer(videoid);
-    });
-});
-
-closebtn.addEventListener('click', () => {
-    document.querySelector('#backdrop').style.display = 'none';
-    document.querySelector('#trailerspopup').style.display = 'none';
-})
-
-seetrailer.addEventListener('click', () => {
-    document.querySelector('#backdrop').style.display = 'block';
-    document.querySelector('#trailerspopup').style.display = 'flex';
-})
 
 async function loadFromDatabase() {
     if (selecteddate && selectedmonth && selectedlanguage && selectedcity && selectedformat) {
@@ -470,7 +441,8 @@ async function loadFromDatabase() {
         try {
             const response = await axios.get('/api/theatres', {
                 params: {
-                    tmdbid: id,
+                    // Changed from tmdbid to omdbid
+                    omdbid: id,
                     date: dateString,
                     language: selectedlanguage,
                     format: selectedformat,
@@ -521,4 +493,3 @@ window.addEventListener('load', () => {
     selectedlanguage = null;
 
 });
-

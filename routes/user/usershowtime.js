@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const tmdb=require('../../routes/admin/tmdb');
+const omdb = require('../../routes/admin/omdb'); 
 const Showtime = require('../../models/showtime');
+
 const makeUTCDate = (date, month, year) => {
     const monthIndex = new Date(`${month} 1, ${year}`).getMonth();
     return new Date(Date.UTC(year, monthIndex, parseInt(date), 0, 0, 0, 0));
@@ -12,49 +13,47 @@ const getUTCDateRange = (date, month, year) => {
     const end = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate(), 23, 59, 59, 999));
     return { start, end };
 };
+
 router.get('/:id', async (req, res) => {
-    const { id } = req.params;
-    const movie = await tmdb.getmoviebyid(id);
+    const { id } = req.params; 
     const { date, month, day, time, lang, format, theatre } = req.query;
-    const { start, end } = getUTCDateRange(date, month, new Date().getUTCFullYear());
-    console.log(start, end);
-    console.log({
-        tmdbid: parseInt(id),
-        language: lang.trim(),
-        format: format.trim(),
-        dateRange: { start, end },
-        time,
-        theatre: theatre.trim()
-    });
-    const existing = await Showtime.findOne({
-        tmdbid: id,
-        language: lang,
-        format: format,
-        date:{ $gte: start, $lte: end },
-        time: time,
-        theatre: theatre
-    });
-    const newobject = {
-        title: movie.title,
-        language: lang,
-        format: format,
-        day: day,
-        date: date,
-        month: month,
-        time: time,
-        theatre: theatre,
-        recliner: null,
-        prime: null,
-        classic: null,
-        sold: []
+
+    try {
+        const movie = await omdb.getmoviebyid(id);
+        
+        const currentYear = new Date().getUTCFullYear();
+        const { start, end } = getUTCDateRange(date, month, currentYear);
+        const existing = await Showtime.findOne({
+            omdbid: id, 
+            language: lang,
+            format: format,
+            date: { $gte: start, $lte: end },
+            time: time,
+            theatre: theatre
+        });
+
+        const newobject = {
+            omdbid: id,
+            title: movie.Title, 
+            language: lang,
+            format: format,
+            day: day,
+            date: date,
+            month: month,
+            time: time,
+            theatre: theatre,
+            recliner: existing?.recliner || null,
+            prime: existing?.prime || null,
+            classic: existing?.classic || null,
+            sold: existing?.sold || []
+        };
+
+        res.render('user/userseatbooking', { newobject });
+
+    } catch (err) {
+        console.error('Seat booking fetch error:', err.message);
+        res.status(500).send('Error loading seat selection. Please try again.');
     }
-    if (existing) {
-        newobject.recliner = existing.recliner || null;
-        newobject.prime = existing.prime || null;
-        newobject.classic = existing.classic || null;
-        newobject.sold=existing.sold||[];
-    }
-    console.log(newobject);
-    res.render('user/userseatbooking', { newobject });
-})
-module.exports=router;
+});
+
+module.exports = router;

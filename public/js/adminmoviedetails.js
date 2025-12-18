@@ -2,11 +2,9 @@ document.querySelector('.homee').addEventListener('click', () => {
     window.location.href = '/admin'
 })
 
-
 document.querySelector('.profile-icon').addEventListener('click', function () {
     this.classList.toggle('active');
 });
-
 
 document.getElementById("personal").addEventListener("click", () => {
     window.location.href = "/profile#personal";
@@ -18,6 +16,7 @@ document.querySelector(".menu-item:nth-child(2)").addEventListener("click", () =
 document.querySelector('#adminlogg').addEventListener('click', () => {
     window.location.href = '/';
 })
+const id = window.location.pathname.split('/').pop();
 document.addEventListener('DOMContentLoaded', () => {
     localStorage.removeItem('selectedcity');
     localStorage.removeItem('selecteddate');
@@ -34,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
         card.classList.remove('selected');
     });
 
-    // If you haven't declared these variables above, declare them to avoid ReferenceError
     let selectedcity = null;
     let selecteddate = null;
     let selectedmonth = null;
@@ -204,7 +202,8 @@ function makeelements(all) {
 }
 
 async function getpopularmovies() {
-    const res = await axios.get('/api/tmdb/popular');
+    // Changed endpoint to omdb
+    const res = await axios.get('/api/omdb/popular');
     popularmovies = res.data;
 }
 await getpopularmovies();
@@ -235,7 +234,8 @@ async function handlesearch(e) {
         return;
     }
     try {
-        const res = await axios.get(`/api/tmdb/search?q=${encodeURIComponent(searched)}`);
+        // Changed endpoint to omdb
+        const res = await axios.get(`/api/omdb/search?q=${encodeURIComponent(searched)}`);
         const searchedmovies = res.data;
         makeelements(searchedmovies);
     }
@@ -251,9 +251,6 @@ document.addEventListener('click', (event) => {
         results.style.display = 'none';
     }
 });
-
-
-
 
 
 langbutton.addEventListener('click', () => {
@@ -467,7 +464,6 @@ function createtheatrecard(theatre) {
         const oneshowtime = document.createElement('div');
         oneshowtime.classList.add('each-showtime');
 
-        // Create time input and subtract inside this scope
         const timeinput = document.createElement('input');
         timeinput.type = 'time';
         timeinput.addEventListener('click', (e) => {
@@ -500,30 +496,24 @@ function createtheatrecard(theatre) {
             savetolocalstorage();
         });
 
-        // Subtract button
         const subtract = document.createElement('span');
         subtract.classList.add('subtract');
         subtract.innerHTML = '-';
         subtract.addEventListener('click', (e) => {
             e.stopPropagation();
             e.preventDefault();
-            // Don't redirect, just remove the block
             oneshowtime.remove();
             savetolocalstorage();
         });
 
-        // Back button / label (optional UI element)
         const back = document.createElement('div');
         back.innerHTML = 'm';
 
-        // Append all
         oneshowtime.appendChild(back);
         oneshowtime.appendChild(timeinput);
         oneshowtime.appendChild(subtract);
 
-        // Main click for redirect
         oneshowtime.addEventListener('click', (e) => {
-            // Protect from accidental redirect
             if (
                 e.target.closest('.subtract') ||
                 e.target.closest('input[type="time"]')
@@ -702,7 +692,7 @@ async function rendertheatreblocks(data = []) {
             oneshowtime.appendChild(timeinput);
 
             const data = {
-                id: id?.toString().trim(),
+                omdbid: id?.toString().trim(), // Changed from tmdbid to omdbid
                 date: selecteddate?.toString().trim(),
                 month: selectedmonth?.toString().trim(),
                 lang: selectedlanguage?.toString().trim(),
@@ -767,44 +757,16 @@ async function rendertheatreblocks(data = []) {
 
 }
 
-function setTrailer(videoid) {
-    frame.src = `https://www.youtube.com/embed/${videoid}`;
-}
-const firstbutton = trailerlangs[0];
-if (firstbutton) {
-    setTrailer(firstbutton.dataset.videoid);
-}
-
-trailerlangs.forEach(btn => {
-    btn.addEventListener('click', () => {
-        trailerlangs.forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-
-        const videoid = btn.dataset.videoid;
-        setTrailer(videoid);
-    });
-});
-
-closebtn.addEventListener('click', () => {
-    document.querySelector('#backdrop').style.display = 'none';
-    document.querySelector('#trailerspopup').style.display = 'none';
-})
-
-seetrailer.addEventListener('click', () => {
-    document.querySelector('#backdrop').style.display = 'block';
-    document.querySelector('#trailerspopup').style.display = 'flex';
-})
-
 addupdatebtn.addEventListener('click', async () => {
     try {
         const alldrafts = JSON.parse(localStorage.getItem('moviedetailspagedraft') || '{}');
         if (!alldrafts || Object.keys(alldrafts).length === 0) {
             alert("Nothing to update!");
-            return; // stop execution
+            return;
         }
-
         const res = await axios.post(`/api/theatres/${id}`, {
-            data: alldrafts
+            data: alldrafts,
+            omdbid:id
         });
 
         alert(res.data.message);
@@ -832,7 +794,7 @@ async function loadFromDatabase() {
         try {
             const response = await axios.get('/api/theatres', {
                 params: {
-                    tmdbid: id,
+                    omdbid: id, // Changed from tmdbid to omdbid
                     date: dateString,
                     language: selectedlanguage,
                     format: selectedformat,
@@ -862,4 +824,3 @@ document.addEventListener('click', (event) => {
         langdropdown.style.display = 'none';
     }
 });
-

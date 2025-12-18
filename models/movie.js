@@ -38,8 +38,8 @@ const trailerschema = new mongoose.Schema({
 
 
 const movieschema = new mongoose.Schema({
-    tmdbid: {
-        type: Number,
+    omdbid: {
+        type: String,
         required: true,
         unique: true
     },

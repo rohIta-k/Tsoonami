@@ -1,9 +1,6 @@
-
-
 document.querySelector('.profile-icon').addEventListener('click', function () {
     this.classList.toggle('active');
 });
-
 
 document.getElementById("personal").addEventListener("click", () => {
     window.location.href = "/profile#personal";
@@ -12,16 +9,19 @@ document.getElementById("personal").addEventListener("click", () => {
 document.querySelector(".menu-item:nth-child(2)").addEventListener("click", () => {
     window.location.href = "/profile#query";
 });
-document.querySelector('#adminlogg').addEventListener('click',()=>{
-    window.location.href='/';
-})
+
+document.querySelector('#adminlogg').addEventListener('click', () => {
+    window.location.href = '/';
+});
+
 function renderMovies(allmovies) {
     if (allmovies.length != 0) {
         for (let movie of allmovies) {
             const card = document.createElement('div');
             card.classList.add('card');
             card.addEventListener('click', () => {
-                window.location.href = `/admin/movie/${movie.tmdbid}`;
+                // Changed from tmdbid to omdbid
+                window.location.href = `/admin/movie/${movie.omdbid}`;
             });
             const mimg = document.createElement('img');
             mimg.src = movie.poster;
@@ -43,7 +43,8 @@ function renderMovies(allmovies) {
             rembutton.addEventListener('click', async (e) => {
                 e.stopPropagation();
                 try {
-                    const res = await axios.delete(`/api/theatres/${movie.tmdbid}`);
+                    // Changed from tmdbid to omdbid
+                    const res = await axios.delete(`/api/theatres/${movie.omdbid}`);
                     alert(res.data.message);
                     card.remove();
                 } catch (err) {
@@ -63,6 +64,7 @@ function renderMovies(allmovies) {
         }
     }
 }
+
 async function getshowingmovies() {
     let allmovies = await axios.get(`/api/theatres/movies`);
     allmovies = allmovies.data;
@@ -72,6 +74,7 @@ async function getshowingmovies() {
     });
 }
 await getshowingmovies();
+
 document.getElementById("bannerimage").addEventListener("change", function () {
     const fileInput = this;
     const fileNameDisplay = document.getElementById("file-name-display");
@@ -83,8 +86,6 @@ document.getElementById("bannerimage").addEventListener("change", function () {
     }
 });
 
-
-
 const leftscroll = document.querySelector('#leftscroll');
 const rightscroll = document.querySelector('#rightscroll');
 const imagedisplay = document.querySelector('#showimage');
@@ -95,13 +96,13 @@ async function displaybanners() {
     try {
         const res = await axios.get('/api/banners');
         banners = res.data.map(b => b.image);
-        imagedisplay.src = banners[index];
+        if (banners.length > 0) imagedisplay.src = banners[index];
     }
     catch (err) {
         console.log(err);
     }
-
 }
+
 leftscroll.addEventListener('click', () => {
     if (banners.length === 0) return;
     index = (index - 1 + banners.length) % banners.length;
@@ -116,8 +117,6 @@ rightscroll.addEventListener('click', () => {
 
 displaybanners();
 
-
-
 const searchfield = document.querySelector('#searchfield');
 const searchinput = document.querySelector('#searchfield input')
 const results = document.querySelector('#results');
@@ -131,12 +130,10 @@ function makeelements(all) {
         const newli = document.createElement('li');
         const hr = document.createElement('hr');
         newli.innerHTML = movie.title;
-        console.log(movie.title);
         newli.addEventListener('click', () => {
             results.style.display = 'none';
-            console.log('clicked');
+            // OMDB search results usually return 'id' or 'imdbID'
             window.location.href = `/admin/movie/${movie.id}`;
-            console.log('clicked');
         })
         ulelement.appendChild(newli);
         ulelement.appendChild(hr);
@@ -144,7 +141,8 @@ function makeelements(all) {
 }
 
 async function getpopularmovies() {
-    const res = await axios.get('/api/tmdb/popular');
+    // Changed endpoint from tmdb to omdb
+    const res = await axios.get('/api/omdb/popular');
     popularmovies = res.data;
 }
 await getpopularmovies();
@@ -175,9 +173,9 @@ async function handlesearch(e) {
         return;
     }
     try {
-        const res = await axios.get(`/api/tmdb/search?q=${encodeURIComponent(searched)}`);
+        // Changed endpoint from tmdb to omdb
+        const res = await axios.get(`/api/omdb/search?q=${encodeURIComponent(searched)}`);
         const searchedmovies = res.data;
-        console.log(searchedmovies);
         makeelements(searchedmovies);
     }
     catch (err) {
@@ -220,9 +218,8 @@ removebutton.addEventListener('click', () => {
 
 const citycontainer = document.querySelector('#addcity');
 const citydropdown = document.querySelector('#citydropdown');
-const citybutton = document.querySelector('#cityimg');
 
-citybutton.addEventListener('click', () => {
+citycontainer.addEventListener('click', () => {
     if (citydropdown.style.display == "block")
         citydropdown.style.display = 'none';
     else
@@ -236,12 +233,10 @@ document.querySelectorAll('#cityid li').forEach(li => {
     })
 })
 
-
 document.querySelector('#addtheatre').addEventListener('click', async () => {
     const selectedcity = document.querySelector('#addcity button').innerText.trim();
     const theatrename = document.querySelector('#filltheatre').value.trim();
     const theatrelocation = document.querySelector('#filllocation').value.trim()
-    console.log(selectedcity,theatrename,theatrelocation);
 
     if (!theatrename || !theatrelocation || selectedcity === 'Select City') {
         alert('Please fill all details.');
@@ -262,31 +257,29 @@ document.querySelector('#addtheatre').addEventListener('click', async () => {
     }
     catch (err) {
         console.error(err.message);
-        alert('Cannot add movie');
+        alert('Cannot add theatre');
     }
 })
+
 const citytwocontainer = document.querySelector('#removecity');
 const citytwodropdown = document.querySelector('#remcitydropdown');
-const citytwobutton = document.querySelector('#remcityimg');
 const theatredropdown = document.querySelector('#remtheatredropdown');
 const managetheatresbutton = document.querySelector('#managetheatres');
 const closebtn = document.querySelector('#close');
 
 let response;
 
-citytwobutton.addEventListener('click', () => {
+citytwocontainer.addEventListener('click', () => {
     if (citytwodropdown.style.display == "block")
         citytwodropdown.style.display = 'none';
     else {
         citytwodropdown.style.display = "block";
     }
-
 });
 
 document.querySelectorAll('#remcityid li').forEach(li => {
     li.addEventListener('click', async () => {
         document.querySelector('#removecity button').innerHTML = li.innerHTML;
-        console.log(li.innerHTML);
         const res = await axios.get(`/api/cities/${li.innerHTML}/theatres`);
         response = res.data;
         citytwodropdown.style.display = 'none';
@@ -303,8 +296,8 @@ function maketheatres(theatres) {
             const hr = document.createElement('hr');
             newli.innerHTML = theatre.name;
             newli.addEventListener('click', () => {
-                results.style.display = 'none';
                 document.querySelector('#removetheatre button').innerHTML = newli.innerHTML;
+                theatredropdown.style.display = 'none';
             })
             document.querySelector('#remtheatreid').appendChild(newli);
             document.querySelector('#remtheatreid').appendChild(hr);
@@ -312,7 +305,7 @@ function maketheatres(theatres) {
     }
 }
 
-document.querySelector('#remtheatreimg').addEventListener('click', () => {
+document.querySelector('#removetheatre').addEventListener('click', () => {
     if (document.querySelector('#removecity button').innerHTML == 'Select City') {
         alert('Select City first');
     }
@@ -328,17 +321,7 @@ document.querySelector('#remtheatreimg').addEventListener('click', () => {
                 alert(response.message);
         }
     }
-
 });
-
-document.querySelector('#remtheatreid').addEventListener('click', (e) => {
-    const clickedli = e.target.closest('li');
-    if (!clickedli) return;
-
-    document.querySelector('#removetheatre button').innerHTML = clickedli.innerHTML;
-    theatredropdown.style.display = 'none';
-});
-
 
 document.querySelector('#removetheatree').addEventListener('click', async () => {
     const selectedcity = document.querySelector('#removecity button').innerText.trim();
@@ -359,7 +342,7 @@ document.querySelector('#removetheatree').addEventListener('click', async () => 
     }
     catch (err) {
         console.error(err.message);
-        alert('Cannot remove movie');
+        alert('Cannot remove theatre');
     }
 })
 
@@ -409,9 +392,7 @@ addbannerbtn.addEventListener('click', async () => {
 
 async function loadBanners() {
     const bannerdisplay = document.querySelector('#bannerdisplay');
-
     bannerdisplay.innerHTML = '';
-
     try {
         const res = await axios.get('/api/banners');
         const banners = res.data;
@@ -441,18 +422,17 @@ async function loadBanners() {
             newdiv.appendChild(delicon);
             bannerdisplay.appendChild(newdiv);
         });
-
     } catch (error) {
         alert('Failed to load banners.');
         console.error(error);
     }
 }
 await loadBanners();
+
 closebannerbtn.addEventListener('click', () => {
     document.querySelector('#bannerspopup').style.display = 'none';
     document.querySelector('#backdrop').style.display = 'none';
 })
-
 
 document.addEventListener('click', (event) => {
     if (!citycontainer.contains(event.target)) {
@@ -465,11 +445,3 @@ document.addEventListener('click', (event) => {
         theatredropdown.style.display = 'none';
     }
 });
-
-
-
-
-
-
-
-

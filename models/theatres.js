@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const theatreschema = new mongoose.Schema({
-    tmdbid: {
-        type: Number,
+    omdbid: {
+        type: String,
         required: true
     },
     date: {
