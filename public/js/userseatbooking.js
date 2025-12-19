@@ -122,7 +122,7 @@ book.addEventListener('click', function (e) {
                 const res = await axios.post('/user/confirmation', bookingData);
                 const data = res.data;
 
-                window.location.href = `/user/confirmation/pdf/${encodeURIComponent(data.ticketCode)}`;
+                window.location.href = `/user/confirmation/${encodeURIComponent(data.ticketCode)}`;
             } catch (err) {
                 if (err.response && err.response.data && err.response.data.error) {
                     alert('Booking failed: ' + err.response.data.error);

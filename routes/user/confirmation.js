@@ -18,9 +18,10 @@ router.get('/pdf/:ticketCode', verifyToken, async (req, res) => {
     const booking = user?.bookings.find(b => b.ticketCode === ticketCode);
 
     if (!booking) return res.status(404).json({ error: 'Booking not found' });
+    
     const cleanSeats = booking.seats
-      .flatMap(s => s.split('\n'))     
-      .map(s => s.trim())              
+      .flatMap(s => s.split('\n'))
+      .map(s => s.trim())
       .filter(s => s !== "");
 
     const qrBuffer = await QRCode.toBuffer(JSON.stringify({ ticketCode }));
@@ -32,7 +33,7 @@ router.get('/pdf/:ticketCode', verifyToken, async (req, res) => {
     doc.pipe(res);
 
     doc.rect(0, 0, doc.page.width, doc.page.height).fill('#ECECEC');
-    doc.rect(0, 0, 595, 50).fill('#E94B48'); 
+    doc.rect(0, 0, 595, 50).fill('#E94B48');
 
     doc.font('Helvetica-Bold').fontSize(22).fill('#fff').text('TSOONAMI', 20, 15);
     doc.fontSize(14).text('BOOKING CONFIRMATION', 380, 18);
@@ -53,7 +54,6 @@ router.get('/pdf/:ticketCode', verifyToken, async (req, res) => {
     doc.text(`Time: ${booking.time}`, 155, 180);
     doc.text(`Date: ${booking.day}, ${booking.date} ${booking.month}`, 155, 200);
 
-
     doc.image(qrBuffer, 460, 90, { width: 90, height: 90 });
 
     doc.roundedRect(20, 310, 555, 40, 8).fill('#fff');
@@ -72,7 +72,7 @@ router.post('/', verifyToken, async (req, res) => {
     const { payment_id, omdbid, date, month, day, lang, format, time, cost, theatre, seats } = req.body;
 
     const cleanedSeats = seats
-      .split(/[\n,]+/) 
+      .split(/[\n,]+/)
       .map(s => s.trim())
       .filter(s => s !== "");
 
@@ -82,7 +82,7 @@ router.post('/', verifyToken, async (req, res) => {
     const user = await User.findById(req.user.id);
     const isDuplicate = user.bookings.some(b => b.payment_id === payment_id);
     if (isDuplicate) {
-        return res.status(400).json({ error: 'Booking already exists for this payment' });
+      return res.status(400).json({ error: 'Booking already exists for this payment' });
     }
 
     const ticketCode = crypto.randomBytes(4).toString('hex').toUpperCase();
@@ -98,7 +98,7 @@ router.post('/', verifyToken, async (req, res) => {
       title: movie.title,
       poster: movie.poster,
       time,
-      omdbid,
+      omdbid, 
       ticketCode,
       cost: Number(cost),
       used: false,
@@ -114,7 +114,7 @@ router.post('/', verifyToken, async (req, res) => {
     await Showtime.findOneAndUpdate(
       { omdbid, language: lang, format, date: fullDate, time, theatre },
       { $push: { sold: { $each: cleanedSeats } } },
-      { upsert: true } 
+      { upsert: true }
     );
 
     res.json({ message: 'Booking created', ticketCode, payment_id });
@@ -122,6 +122,44 @@ router.post('/', verifyToken, async (req, res) => {
   } catch (error) {
     console.error("Booking Error:", error);
     res.status(500).json({ error: 'Server error' });
+  }
+});
+
+router.get('/:ticketCode', verifyToken, async (req, res) => {
+  try {
+    const { ticketCode } = req.params;
+    const user = await User.findById(req.user.id).lean();
+    if (!user) {
+        return res.status(404).send('User not found');
+    }
+
+    const booking = user.bookings.find(b => b.ticketCode === ticketCode);
+    if (!booking) {
+        return res.status(404).send('Booking not found');
+    }
+
+    const data = {
+      payment_id: booking.payment_id,
+      omdbid: booking.omdbid, 
+      date: booking.date,
+      month: booking.month,
+      day: booking.day,
+      lang: booking.language,
+      format: booking.format,
+      time: booking.time,
+      theatre: booking.theatre,
+      seats: booking.seats.join(', '),
+      poster: booking.poster,
+      title: booking.title,
+      cost: booking.cost
+    };
+
+    const qrData = JSON.stringify({ ticketCode });
+    const qrImage = await QRCode.toDataURL(qrData);
+    res.render('user/userbookingconfirmation', { data, qrImage });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server error');
   }
 });
 
